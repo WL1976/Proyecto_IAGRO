@@ -27,6 +27,29 @@ import javax.swing.border.BevelBorder;
 public class MenuPrincipal extends JFrame {
 
 	private JPanel contentPane;
+	private JPanel panelAdministrador;
+	private JPanel panelInvestigador;
+	private JPanel panelAficionado;
+	private JButton btnRegistro;
+	private JButton btnFormularioInv;
+	private JButton btnFormularioAdm;
+	private Image form;
+	private JButton btnRegistroInv;
+	private JButton btnRegistroAdm;
+	private JButton btnRegistroAfi;
+	private Image reg;
+	private JButton btnCasillasAdm;
+	private JButton btnCasillasInv;
+	private Image casilla;
+	private JButton btnEstacionesAdm;
+	private JButton btnEstacionesInv;
+	private Image estaciones;
+	private JButton btnUsuariosAdm;
+	private Image usuarios;
+	private JLabel Icon_menu;
+	private Image menu;
+	private JPanel panel_Superior;
+	private JLabel logOut;
 
 	/**
 	 * Launch the application.
@@ -61,13 +84,38 @@ public class MenuPrincipal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
-		
-		
+
+
 		//Panel Principal
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(0, 0, 782, 400);
+		panel.setBounds(0, 0, 806, 426);
 		contentPane.add(panel);
+
+		//panel lateral Admin
+		panelAdministrador = new JPanel();
+		panelAdministrador.setToolTipText("Registros");
+		panelAdministrador.setBounds(0, 59, 158, 356);
+		panelAdministrador.setBackground(azul);
+		panel.add(panelAdministrador);
+		panelAdministrador.setLayout(null);
+
+		//panel blanco lateral Investigador
+		panelInvestigador = new JPanel();
+		panelInvestigador.setBounds(547, 72, 158, 356);
+		panelInvestigador.setBackground(azul);
+		panel.add(panelInvestigador);
+		panelInvestigador.setVisible(false);
+		panelInvestigador.setLayout(null);
+
+
+		//panel Aficionado
+		panelAficionado = new JPanel();
+		panelAficionado.setBounds(200, 59,158, 369);
+		panelAficionado.setBackground(azul);
+		panel.add(panelAficionado);
+		panelAficionado.setLayout(null);
+		panelAficionado.setVisible(false);
 
 
 		//logo iagro
@@ -80,121 +128,138 @@ public class MenuPrincipal extends JFrame {
 		panel.add(Icon_Container);
 
 
-		//panel Aficionado
-		JPanel panelAficionado = new JPanel();
-		panelAficionado.setBounds(198, 101, 130, 104);
-		panelAficionado.setBackground(Color.WHITE);
-		panel.add(panelAficionado);
-		panelAficionado.setLayout(null);
-		panelAficionado.setVisible(false);
-
 		//Botón Aficionado Registro 
-		JButton btnRegistrosAfi = new JButton("Registros");
-		btnRegistrosAfi.setBounds(0, 40, 130, 40);
-		btnRegistrosAfi.setForeground(Color.WHITE);
-		btnRegistrosAfi.setFont(new Font("Verdana", Font.BOLD, 12));
-		btnRegistrosAfi.setBackground(new Color(192, 192, 192));
-		panelAficionado.add(btnRegistrosAfi);
-
-		//panel blanco lateral Admin
-		JPanel panelAdministrador = new JPanel();
-		panelAdministrador.setBounds(10, 71, 148, 329);
-		panelAdministrador.setBackground(azul);
-		panel.add(panelAdministrador);
-		panelAdministrador.setLayout(null);
+		btnRegistroAfi = new JButton("Registros");
+		btnRegistroAfi.setToolTipText("Registros");
+		btnRegistroAfi.setFont(new Font("Voces", Font.BOLD, 14));
+		btnRegistroAfi.setForeground(new Color(255, 255, 255));
+		btnRegistroAfi.setBounds(0, 40, 148, 40);
+		reg= new ImageIcon(this.getClass().getResource("Registros.png")).getImage();
+		btnRegistroAfi.setIcon(new ImageIcon(reg));
+		btnRegistroAfi.setBackground(Color.WHITE);
+		btnRegistroAfi.setBorder(null);
+		btnRegistroAfi.setOpaque(false);
+		panelAficionado.add(btnRegistroAfi);
 
 
 		//botones Admin
-	/*	JButton btnCasillasAdm = new JButton("Casillas");
+
+		btnFormularioAdm = new JButton("Formularios");
+		btnFormularioAdm.setToolTipText("Formularios");
+		btnFormularioAdm.setFont(new Font("Voces", Font.BOLD, 14));
+		btnFormularioAdm.setForeground(new Color(255, 255, 255));
+		btnFormularioAdm.setBounds(2, 39, 156, 40);
+		Image form = new ImageIcon(this.getClass().getResource("formulario.png")).getImage();
+		btnFormularioAdm.setIcon(new ImageIcon(form));
+		btnFormularioAdm.setBackground(Color.WHITE);
+		btnFormularioAdm.setBorder(null);
+		btnFormularioAdm.setOpaque(false);
+		panelAdministrador.add(btnFormularioAdm);
+
+		btnCasillasAdm = new JButton("Casillas");
+		btnCasillasAdm.setToolTipText("Casillas");
+		btnCasillasAdm.setFont(new Font("Voces", Font.BOLD, 14));
+		btnCasillasAdm.setForeground(new Color(255, 255, 255));
+		btnCasillasAdm.setBounds(2, 90, 146, 40);
+		casilla= new ImageIcon(this.getClass().getResource("casilla.png")).getImage();
+		btnCasillasAdm.setIcon(new ImageIcon(casilla));
 		btnCasillasAdm.setBackground(Color.WHITE);
-		btnCasillasAdm.setForeground(UIManager.getColor("Button.darkShadow"));
-		btnCasillasAdm.setFont(new Font("Candara Light", Font.BOLD, 14));
-		btnCasillasAdm.setBounds(10, 103, 130, 40);
-		btnCasillasAdm.setBorder(new LineBorder(azul, 3, true));
-		panelAdministrador.add(btnCasillasAdm);*/
+		btnCasillasAdm.setBorder(null);
+		btnCasillasAdm.setOpaque(false);
+		panelAdministrador.add(btnCasillasAdm);
 
-		JButton btnFormularios = new JButton("Formularios");
-		btnFormularios.setBackground(azul);
-		btnFormularios.setForeground(Color.WHITE);
-		btnFormularios.setFont(new Font("Voces", Font.BOLD, 15));
-		btnFormularios.setBounds(10, 52, 130, 40);
-		btnFormularios.setBorder(null);
-		panelAdministrador.add(btnFormularios);
+		btnRegistroAdm= new JButton("Registros");
+		btnRegistroAdm.setToolTipText("Registros");
+		btnRegistroAdm.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
+		btnRegistroAdm.setForeground(new Color(255, 255, 255));
+		btnRegistroAdm.setBounds(-8, 141, 156, 40);
+		btnRegistroAdm.setIcon(new ImageIcon(reg));
+		btnRegistroAdm.setBackground(Color.WHITE);
+		btnRegistroAdm.setBorder(null);
+		btnRegistroAdm.setOpaque(false);
+		panelAdministrador.add(btnRegistroAdm);
 
+		btnEstacionesAdm = new JButton("Estaciones");
+		btnEstacionesAdm.setToolTipText("Estaciones");
+		btnEstacionesAdm.setFont(new Font("Voces", Font.BOLD, 14));
+		btnEstacionesAdm.setForeground(new Color(255, 255, 255));
+		btnEstacionesAdm.setBounds(2, 200, 146, 40);
+		estaciones= new ImageIcon(this.getClass().getResource("estaciones.png")).getImage();
+		btnEstacionesAdm.setIcon(new ImageIcon(estaciones));
+		btnEstacionesAdm.setBackground(Color.WHITE);
+		btnEstacionesAdm.setBorder(null);
+		btnEstacionesAdm.setOpaque(false);
+		panelAdministrador.add(btnEstacionesAdm);
 
-		JButton btnRegistros = new JButton("Registros");
-		btnRegistros.setBackground(Color.WHITE);
-		btnRegistros.setForeground(new Color(119, 136, 153));
-		btnRegistros.setFont(new Font("Candara Light", Font.BOLD, 12));
-		btnRegistros.setBounds(10, 154, 130, 40);
-		btnRegistros.setBorder(new LineBorder(azul, 3, true));
-		panelAdministrador.add(btnRegistros);
-
-		JButton btnUsuariosAdmin = new JButton("Usuarios");
-		btnUsuariosAdmin.setBackground(Color.WHITE);
-		btnUsuariosAdmin.setForeground(UIManager.getColor("Button.darkShadow"));
-		btnUsuariosAdmin.setFont(new Font("Candara Light", Font.BOLD, 12));
-		btnUsuariosAdmin.setBounds(10, 256, 130, 40);
-		btnUsuariosAdmin.setBorder(new LineBorder(azul, 3, true));
-		panelAdministrador.add(btnUsuariosAdmin);
-
-		
-		JButton btnEstacionesAdmin = new JButton("Estaciones");
-		btnEstacionesAdmin.setBackground(Color.WHITE);
-		btnEstacionesAdmin.setForeground(new Color(128, 128, 128));
-		btnEstacionesAdmin.setFont(new Font("Candara Light", Font.BOLD, 12));
-		btnEstacionesAdmin.setBounds(10, 205, 130, 40);
-		btnEstacionesAdmin.setBorder(new LineBorder(azul, 3, true));
-		panelAdministrador.add(btnEstacionesAdmin);
-		
-
-		//panel blanco lateral Investigador
-		JPanel panelInvestigador = new JPanel();
-		panelInvestigador.setBounds(547, 101, 130, 226);
-		panelInvestigador.setBackground(Color.WHITE);
-		panel.add(panelInvestigador);
-		panelInvestigador.setVisible(false);
-		panelInvestigador.setLayout(null);
-
-		JButton btnRegistrosInv = new JButton("Registros");
-		btnRegistrosInv.setBounds(0, 119, 130, 40);
-		btnRegistrosInv.setForeground(Color.WHITE);
-		btnRegistrosInv.setFont(new Font("Verdana", Font.BOLD, 12));
-		btnRegistrosInv.setBackground(new Color(192, 192, 192));
-		panelInvestigador.add(btnRegistrosInv);
-
-		JButton btnEstacionesInv = new JButton("Estaciones");
-		btnEstacionesInv.setBounds(0, 172, 130, 40);
-		btnEstacionesInv.setForeground(Color.WHITE);
-		btnEstacionesInv.setBackground(new Color(192, 192, 192));
-		panelInvestigador.add(btnEstacionesInv);
-		btnEstacionesInv.setFont(new Font("Verdana", Font.BOLD, 12));
-
-		JButton btnFormulariosInv = new JButton("Formularios");
-		btnFormulariosInv.setBounds(0, 13, 130, 40);
-		panelInvestigador.add(btnFormulariosInv);
-		btnFormulariosInv.setForeground(Color.WHITE);
-		btnFormulariosInv.setFont(new Font("Verdana", Font.BOLD, 12));
-		btnFormulariosInv.setBackground(new Color(192, 192, 192));
+		btnUsuariosAdm = new JButton("Usuarios");
+		btnUsuariosAdm.setToolTipText("Estaciones");
+		btnUsuariosAdm.setFont(new Font("Voces", Font.BOLD, 14));
+		btnUsuariosAdm.setForeground(new Color(255, 255, 255));
+		btnUsuariosAdm.setBounds(2, 251, 146, 40);
+		usuarios= new ImageIcon(this.getClass().getResource("usuarios.png")).getImage();
+		btnUsuariosAdm.setIcon(new ImageIcon(usuarios));
+		btnUsuariosAdm.setBackground(Color.WHITE);
+		btnUsuariosAdm.setBorder(null);
+		btnUsuariosAdm.setOpaque(false);
+		panelAdministrador.add(btnUsuariosAdm);
 
 
-		//botones Investigador
-		/*JButton btnCasillasInv = new JButton("Casillas");
-		btnCasillasInv.setBounds(0, 66, 130, 40);
+		//Botones Investigador
+
+		btnFormularioInv = new JButton("Formularios");
+		btnFormularioInv.setToolTipText("Formularios");
+		btnFormularioInv.setFont(new Font("Voces", Font.BOLD, 14));
+		btnFormularioInv.setForeground(new Color(255, 255, 255));
+		btnFormularioInv.setBounds(18, 35, 130, 40);
+		btnFormularioInv.setIcon(new ImageIcon(form));
+		btnFormularioInv.setBackground(Color.WHITE);
+		btnFormularioInv.setBorder(null);
+		btnFormularioInv.setOpaque(false);
+		panelInvestigador.add(btnFormularioInv);
+
+		btnRegistroInv = new JButton("Registros");
+		btnRegistroInv.setToolTipText("Registros");
+		btnRegistroInv.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
+		btnRegistroInv.setForeground(new Color(255, 255, 255));
+		btnRegistroInv.setBounds(-8, 154, 156, 40);
+		btnRegistroInv.setIcon(new ImageIcon(reg));
+		btnRegistroInv.setBackground(Color.WHITE);
+		btnRegistroInv.setBorder(null);
+		btnRegistroInv.setOpaque(false);
+		panelInvestigador.add(btnRegistroInv);
+
+		btnCasillasInv = new JButton("Casillas");
+		btnCasillasInv.setToolTipText("Casillas");
+		btnCasillasInv.setFont(new Font("Voces", Font.BOLD, 14));
+		btnCasillasInv.setForeground(new Color(255, 255, 255));
+		btnCasillasInv.setBounds(2, 100, 130, 40);
+		btnCasillasInv.setIcon(new ImageIcon(casilla));
+		btnCasillasInv.setBackground(Color.WHITE);
+		btnCasillasInv.setBorder(null);
+		btnCasillasInv.setOpaque(false);
 		panelInvestigador.add(btnCasillasInv);
-		btnCasillasInv.setForeground(Color.WHITE);
-		btnCasillasInv.setFont(new Font("Verdana", Font.BOLD, 12));
-		btnCasillasInv.setBackground(new Color(192, 192, 192));*/
 
-		//panel superior verde
-		JPanel panel_Superior = new JPanel();
-		panel_Superior.setBounds(10, 11, 701, 60);
+		btnEstacionesInv = new JButton("Estaciones");
+		btnEstacionesInv.setToolTipText("Estaciones");
+		btnEstacionesInv.setFont(new Font("Voces", Font.BOLD, 14));
+		btnEstacionesInv.setForeground(new Color(255, 255, 255));
+		btnEstacionesInv.setBounds(0, 222, 156, 40);
+		btnEstacionesInv.setIcon(new ImageIcon(estaciones));
+		btnEstacionesInv.setBackground(Color.WHITE);
+		btnEstacionesInv.setBorder(null);
+		btnEstacionesInv.setOpaque(false);
+		panelInvestigador.add(btnEstacionesInv);
+
+
+		//panel superior azul
+		panel_Superior = new JPanel();
+		panel_Superior.setBounds(0, 0, 796, 71);
 		panel_Superior.setBackground(azul);
 		panel.add(panel_Superior);
 
 		//icono HOME
-		JLabel Icon_home = new JLabel("");	
-		Icon_home.addMouseListener(new MouseAdapter() {
+		Icon_menu = new JLabel("");	
+		Icon_menu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				panelAdministrador.setVisible(true);
@@ -202,50 +267,32 @@ public class MenuPrincipal extends JFrame {
 				panelInvestigador.setVisible(false);
 			}
 		});
-		Icon_home.setBounds(10, 0, 60, 60);
-		Image home = new ImageIcon(this.getClass().getResource("home_blanco.png")).getImage();
+		Icon_menu.setBounds(10, 0, 90, 71);
+		menu = new ImageIcon(this.getClass().getResource("menu.png")).getImage();
 		panel.setLayout(null);
 		panel_Superior.setLayout(null);
-		Icon_home.setIcon(new ImageIcon(home));
-		panel_Superior.add(Icon_home);
+		Icon_menu.setIcon(new ImageIcon(menu));
+		panel_Superior.add(Icon_menu);
 
 		//icono Log Out
-		JLabel logOut = new JLabel("");	
-		logOut.setBounds(654, 11, 37, 49);
-		Image log_out = new ImageIcon(this.getClass().getResource("log_out_bl.png")).getImage();
+		logOut = new JLabel("");	
+		logOut.setBounds(725, 11, 47, 49);
+		Image log_out = new ImageIcon(this.getClass().getResource("exit.png")).getImage();
 		panel.setLayout(null);
 		panel_Superior.setLayout(null);
 		logOut.setIcon(new ImageIcon(log_out));
 		panel_Superior.add(logOut);
-		
-		/*JLabel casillas = new JLabel("");	
-		logOut.setBounds(0, 66, 32,32 );
-		Image casillas1 = new ImageIcon(this.getClass().getResource("lista.png")).getImage();
-		casillas.setIcon(new ImageIcon(casillas1));
-		panelAdministrador.add(casillas);*/
-	
-		Image casillas = new ImageIcon(this.getClass().getResource("lista.png")).getImage();
-		JButton btncasillas = new JButton("Casillas");
-		btncasillas.setBackground(Color.WHITE);
-		panelAdministrador.add(btncasillas);
-		btncasillas.setBounds(0, 66, 32,32 );
-		btncasillas.setIcon(new ImageIcon(casillas));
-		btncasillas.setHorizontalTextPosition(SwingConstants.RIGHT);
-		btncasillas.setForeground(new Color(255, 255, 255,255));
-		btncasillas.setBorder(null);
-		btncasillas.setOpaque(true);	
-		
-	
+
 
 		JButton btnPrueba = new JButton("prueba");
 		btnPrueba.setBounds(595, 349, 92, 40);
 		btnPrueba.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelAdministrador.setVisible(false);
-				//panelInvestigador.setVisible(true);
-				//panelInvestigador.setBounds(10, 106, 148, 255);
-				panelAficionado.setVisible(true);
-				panelAficionado.setBounds(10, 144, 130, 104);
+				panelInvestigador.setVisible(true);
+				panelInvestigador.setBounds(0, 59, 158, 356);
+				//panelAficionado.setVisible(true);
+				//panelAficionado.setBounds(0, 59, 158, 356);
 			}
 		});
 		btnPrueba.setForeground(Color.WHITE);
@@ -257,9 +304,9 @@ public class MenuPrincipal extends JFrame {
 		Image monitoreo= new ImageIcon(this.getClass().getResource("Monitoreo.png")).getImage();
 		panel_Superior.setLayout(null);
 		JLabel monitoreo1 = new JLabel("");
-		monitoreo1.setBounds(149, -12, 460, 104);
+		monitoreo1.setBounds(208, -13, 460, 104);
 		panel_Superior.add(monitoreo1);
 		monitoreo1.setIcon(new ImageIcon(monitoreo));
-		
+
 	}
 }
