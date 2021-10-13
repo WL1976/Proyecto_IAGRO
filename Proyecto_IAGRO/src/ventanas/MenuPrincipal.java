@@ -1,28 +1,25 @@
-package login;
+package ventanas;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.SystemColor;
-import javax.swing.UIManager;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
-import javax.swing.border.BevelBorder;
 
 public class MenuPrincipal extends JFrame {
 
@@ -30,6 +27,7 @@ public class MenuPrincipal extends JFrame {
 	private JPanel panelAdministrador;
 	private JPanel panelInvestigador;
 	private JPanel panelAficionado;
+	private JButton btnsalir;
 	private JButton btnRegistro;
 	private JButton btnFormularioInv;
 	private JButton btnFormularioAdm;
@@ -49,7 +47,10 @@ public class MenuPrincipal extends JFrame {
 	private JLabel Icon_menu;
 	private Image menu;
 	private JPanel panel_Superior;
+	private JPanel panel_inferior;
 	private JLabel logOut;
+	private Color verde;
+	private Color azul;
 
 	/**
 	 * Launch the application.
@@ -70,9 +71,12 @@ public class MenuPrincipal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MenuPrincipal() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MenuPrincipal.class.getResource("/login/IaGRO_original.png")));
 
+
+	public MenuPrincipal() {
+
+
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MenuPrincipal.class.getResource("iagro_Menu.png")));
 		Color azul=new Color (104,171,196); //color azul 104,171,196 / 68abc4
 		Color verde=new Color (166,187,95); //color verde 166,187,95 / a6bb5f 
 		setResizable(false);
@@ -84,7 +88,6 @@ public class MenuPrincipal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
-
 
 		//Panel Principal
 		JPanel panel = new JPanel();
@@ -120,7 +123,7 @@ public class MenuPrincipal extends JFrame {
 
 		//logo iagro
 		JLabel Icon_Container = new JLabel("");
-		Icon_Container.setBounds(354, 128, 160, 148);
+		Icon_Container.setBounds(377, 140, 160, 148);
 		Image icon = new ImageIcon(this.getClass().getResource("iagro_Menu.png")).getImage();
 		panel.setLayout(null);
 		panel.setLayout(null);
@@ -133,7 +136,7 @@ public class MenuPrincipal extends JFrame {
 		btnRegistroAfi.setToolTipText("Registros");
 		btnRegistroAfi.setFont(new Font("Voces", Font.BOLD, 14));
 		btnRegistroAfi.setForeground(new Color(255, 255, 255));
-		btnRegistroAfi.setBounds(0, 40, 148, 40);
+		btnRegistroAfi.setBounds(0, 126, 148, 40);
 		reg= new ImageIcon(this.getClass().getResource("Registros.png")).getImage();
 		btnRegistroAfi.setIcon(new ImageIcon(reg));
 		btnRegistroAfi.setBackground(Color.WHITE);
@@ -257,16 +260,14 @@ public class MenuPrincipal extends JFrame {
 		panel_Superior.setBackground(azul);
 		panel.add(panel_Superior);
 
+		//panel inferios azul
+		panel_inferior = new JPanel();
+		panel_inferior.setBounds(0, 395, 796, 20);
+		panel_inferior.setBackground(azul);
+		panel.add(panel_inferior);
+
 		//icono HOME
 		Icon_menu = new JLabel("");	
-		Icon_menu.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				panelAdministrador.setVisible(true);
-				panelAficionado.setVisible(false);
-				panelInvestigador.setVisible(false);
-			}
-		});
 		Icon_menu.setBounds(10, 0, 90, 71);
 		menu = new ImageIcon(this.getClass().getResource("menu.png")).getImage();
 		panel.setLayout(null);
@@ -275,30 +276,25 @@ public class MenuPrincipal extends JFrame {
 		panel_Superior.add(Icon_menu);
 
 		//icono Log Out
-		logOut = new JLabel("");	
-		logOut.setBounds(725, 11, 47, 49);
-		Image log_out = new ImageIcon(this.getClass().getResource("exit.png")).getImage();
-		panel.setLayout(null);
-		panel_Superior.setLayout(null);
-		logOut.setIcon(new ImageIcon(log_out));
-		panel_Superior.add(logOut);
+		btnsalir = new JButton("");
+		btnsalir.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 
-
-		JButton btnPrueba = new JButton("prueba");
-		btnPrueba.setBounds(595, 349, 92, 40);
-		btnPrueba.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				panelAdministrador.setVisible(false);
-				panelInvestigador.setVisible(true);
-				panelInvestigador.setBounds(0, 59, 158, 356);
-				//panelAficionado.setVisible(true);
-				//panelAficionado.setBounds(0, 59, 158, 356);
+				System.exit(0);
 			}
 		});
-		btnPrueba.setForeground(Color.WHITE);
-		btnPrueba.setFont(new Font("Verdana", Font.BOLD, 12));
-		btnPrueba.setBackground(Color.GRAY);
-		panel.add(btnPrueba);
+		btnsalir.setToolTipText("");
+		btnsalir.setFont(new Font("Voces", Font.BOLD, 14));
+		btnsalir.setForeground(new Color(255, 255, 255));
+		btnsalir.setBounds(724, 11, 62, 49);
+		Image log_out = new ImageIcon(this.getClass().getResource("exit.png")).getImage();
+		btnsalir.setIcon(new ImageIcon(log_out));
+		btnsalir.setBackground(Color.WHITE);
+		btnsalir.setBorder(null);
+		btnsalir.setOpaque(false);
+		panel_Superior.add(btnsalir);
+
 
 		//panel de Monitoreo
 		Image monitoreo= new ImageIcon(this.getClass().getResource("Monitoreo.png")).getImage();
@@ -308,5 +304,25 @@ public class MenuPrincipal extends JFrame {
 		panel_Superior.add(monitoreo1);
 		monitoreo1.setIcon(new ImageIcon(monitoreo));
 
+	}
+
+	public void perfil (String tipo) {
+
+		if (tipo.equals("ADMINISTRADOR")) {
+			panelAdministrador.setVisible(true);
+			panelInvestigador.setVisible(false);
+			panelAficionado.setVisible(false);
+		}if (tipo.equals("INVESTIGADOR")) {
+			panelAdministrador.setVisible(false);
+			panelInvestigador.setVisible(true);
+			panelInvestigador.setBounds(0, 59, 158, 356);
+			panelAficionado.setVisible(false);
+
+		}if (tipo.equals("AFICIONADO")) {
+			panelAdministrador.setVisible(false);
+			panelInvestigador.setVisible(false);
+			panelAficionado.setVisible(true);
+			panelAficionado.setBounds(0, 59, 158, 356);
+		}
 	}
 }
