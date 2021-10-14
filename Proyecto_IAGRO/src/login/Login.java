@@ -64,7 +64,7 @@ public class Login {
 
 		frameLogin = new JFrame();
 		frameLogin.setResizable(false);
-		frameLogin.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/login/IaGRO_original.png")));
+		//frameLogin.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/login/IaGRO_original.png")));
 		frameLogin.setBounds(100, 100, 501, 442);
 		frameLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frameLogin.getContentPane().setLayout(null);

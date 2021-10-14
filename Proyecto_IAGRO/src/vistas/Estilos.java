@@ -5,20 +5,50 @@ import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
 public class Estilos extends JFrame {
 	
-	public static void Frame(JFrame frame) {
-		frame.setVisible(true);
-		frame.setMinimumSize(new Dimension(806, 450));
+	final static Color azul =new Color (104,171,196); //color azul 104,171,196 / 68abc4
+	final static Color verde =new Color (166,187,95); //color verde 166,187,95 / a6bb5f 
+	
+	
+	private static final long serialVersionUID = 8492273242509941831L;
+
+	public static void Ventana(JFrame frame, JPanel contentPane, JPanel panel ) {
+		
+		frame.setResizable(false);
+		frame.setTitle("Menu Principal");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 806, 450);
+		
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		frame.setContentPane(contentPane);
+		contentPane.setLayout(null);
 		frame.setLocationRelativeTo(null);
+
+
+		//Panel Principal
+		panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(0, 0, 806, 426);
+		contentPane.add(panel);
 	}
 
 	public static void Panel(JPanel panel) {
-		panel.setForeground(new Color(154, 205, 50));
-		panel.setBackground(Color.WHITE);
-		panel.setLayout(null);
+		
+		
+	}
+	
+	
+	public static void PanelSuperior(JPanel banner, JPanel panel ) {
+				banner = new JPanel();
+				banner.setBounds(0, 0, 806, 84);
+				panel.setMinimumSize(new Dimension(806, 84));
+				banner.setBackground(azul);
+				panel.add(banner);
+				banner.setVisible(true);
 	}
 	
 	public static void Titulo(JLabel label) {

@@ -5,7 +5,7 @@ import javax.swing.border.MatteBorder;
 
 import java.awt.*;
 import java.util.*;
-import org.jdatepicker.impl.DateComponentFormatter;
+//import org.jdatepicker.impl.DateComponentFormatter;
 import com.toedter.calendar.JDateChooser;
 
 public class Alta_Formulario extends JFrame {
