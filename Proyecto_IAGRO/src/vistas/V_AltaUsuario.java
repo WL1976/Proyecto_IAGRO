@@ -14,32 +14,21 @@ import javax.swing.JButton;
 
 public class V_AltaUsuario {
 
-	private JFrame frame;
-	public JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
+	public JFrame frame;
+	public JTextField nombre;
+	public JTextField apellido;
+	public JTextField email;
+	public JTextField nombreUsu;
+	public JTextField contrasena;
+	public JTextField cedula;
+	public JTextField domicilio;
+	public JTextField ciudad;
+	public JTextField telefono;
+	public JSpinner rol;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					V_AltaUsuario window = new V_AltaUsuario();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -112,91 +101,91 @@ public class V_AltaUsuario {
 		lblTelfono.setBounds(538, 232, 84, 23);
 		frame.getContentPane().add(lblTelfono);
 		
-		textField = new JTextField();
-		textField.setOpaque(false);
-		textField.setForeground(Color.LIGHT_GRAY);
-		textField.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		textField.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
-		textField.setBackground(Color.LIGHT_GRAY);
-		textField.setBounds(76, 92, 117, 23);
-		frame.getContentPane().add(textField);
+		nombre = new JTextField();
+		nombre.setOpaque(false);
+		nombre.setForeground(Color.LIGHT_GRAY);
+		nombre.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		nombre.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
+		nombre.setBackground(Color.LIGHT_GRAY);
+		nombre.setBounds(76, 92, 117, 23);
+		frame.getContentPane().add(nombre);
 		
-		textField_1 = new JTextField();
-		textField_1.setOpaque(false);
-		textField_1.setForeground(Color.LIGHT_GRAY);
-		textField_1.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		textField_1.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
-		textField_1.setBackground(Color.LIGHT_GRAY);
-		textField_1.setBounds(269, 94, 117, 21);
-		frame.getContentPane().add(textField_1);
+		apellido = new JTextField();
+		apellido.setOpaque(false);
+		apellido.setForeground(Color.LIGHT_GRAY);
+		apellido.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		apellido.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
+		apellido.setBackground(Color.LIGHT_GRAY);
+		apellido.setBounds(269, 94, 117, 21);
+		frame.getContentPane().add(apellido);
 		
-		textField_2 = new JTextField();
-		textField_2.setOpaque(false);
-		textField_2.setForeground(Color.LIGHT_GRAY);
-		textField_2.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		textField_2.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
-		textField_2.setBackground(Color.LIGHT_GRAY);
-		textField_2.setBounds(475, 94, 190, 21);
-		frame.getContentPane().add(textField_2);
+		email = new JTextField();
+		email.setOpaque(false);
+		email.setForeground(Color.LIGHT_GRAY);
+		email.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		email.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
+		email.setBackground(Color.LIGHT_GRAY);
+		email.setBounds(475, 94, 190, 21);
+		frame.getContentPane().add(email);
 		
-		textField_3 = new JTextField();
-		textField_3.setOpaque(false);
-		textField_3.setForeground(Color.LIGHT_GRAY);
-		textField_3.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		textField_3.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
-		textField_3.setBackground(Color.LIGHT_GRAY);
-		textField_3.setBounds(146, 162, 94, 21);
-		frame.getContentPane().add(textField_3);
+		nombreUsu = new JTextField();
+		nombreUsu.setOpaque(false);
+		nombreUsu.setForeground(Color.LIGHT_GRAY);
+		nombreUsu.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		nombreUsu.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
+		nombreUsu.setBackground(Color.LIGHT_GRAY);
+		nombreUsu.setBounds(146, 162, 94, 21);
+		frame.getContentPane().add(nombreUsu);
 		
-		textField_4 = new JTextField();
-		textField_4.setOpaque(false);
-		textField_4.setForeground(Color.LIGHT_GRAY);
-		textField_4.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		textField_4.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
-		textField_4.setBackground(Color.LIGHT_GRAY);
-		textField_4.setBounds(339, 162, 107, 21);
-		frame.getContentPane().add(textField_4);
+		contrasena = new JTextField();
+		contrasena.setOpaque(false);
+		contrasena.setForeground(Color.LIGHT_GRAY);
+		contrasena.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		contrasena.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
+		contrasena.setBackground(Color.LIGHT_GRAY);
+		contrasena.setBounds(339, 162, 107, 21);
+		frame.getContentPane().add(contrasena);
 		
-		textField_5 = new JTextField();
-		textField_5.setOpaque(false);
-		textField_5.setForeground(Color.LIGHT_GRAY);
-		textField_5.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		textField_5.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
-		textField_5.setBackground(Color.LIGHT_GRAY);
-		textField_5.setBounds(64, 236, 107, 21);
-		frame.getContentPane().add(textField_5);
+		cedula = new JTextField();
+		cedula.setOpaque(false);
+		cedula.setForeground(Color.LIGHT_GRAY);
+		cedula.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		cedula.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
+		cedula.setBackground(Color.LIGHT_GRAY);
+		cedula.setBounds(64, 236, 107, 21);
+		frame.getContentPane().add(cedula);
 		
-		textField_6 = new JTextField();
-		textField_6.setOpaque(false);
-		textField_6.setForeground(Color.LIGHT_GRAY);
-		textField_6.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		textField_6.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
-		textField_6.setBackground(Color.LIGHT_GRAY);
-		textField_6.setBounds(247, 235, 120, 21);
-		frame.getContentPane().add(textField_6);
+		domicilio = new JTextField();
+		domicilio.setOpaque(false);
+		domicilio.setForeground(Color.LIGHT_GRAY);
+		domicilio.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		domicilio.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
+		domicilio.setBackground(Color.LIGHT_GRAY);
+		domicilio.setBounds(247, 235, 120, 21);
+		frame.getContentPane().add(domicilio);
 		
-		textField_7 = new JTextField();
-		textField_7.setOpaque(false);
-		textField_7.setForeground(Color.LIGHT_GRAY);
-		textField_7.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		textField_7.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
-		textField_7.setBackground(Color.LIGHT_GRAY);
-		textField_7.setBounds(427, 236, 101, 21);
-		frame.getContentPane().add(textField_7);
+		ciudad = new JTextField();
+		ciudad.setOpaque(false);
+		ciudad.setForeground(Color.LIGHT_GRAY);
+		ciudad.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		ciudad.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
+		ciudad.setBackground(Color.LIGHT_GRAY);
+		ciudad.setBounds(427, 236, 101, 21);
+		frame.getContentPane().add(ciudad);
 		
-		textField_8 = new JTextField();
-		textField_8.setOpaque(false);
-		textField_8.setForeground(Color.LIGHT_GRAY);
-		textField_8.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		textField_8.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
-		textField_8.setBackground(Color.LIGHT_GRAY);
-		textField_8.setBounds(598, 235, 94, 21);
-		frame.getContentPane().add(textField_8);
+		telefono = new JTextField();
+		telefono.setOpaque(false);
+		telefono.setForeground(Color.LIGHT_GRAY);
+		telefono.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		telefono.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
+		telefono.setBackground(Color.LIGHT_GRAY);
+		telefono.setBounds(598, 235, 94, 21);
+		frame.getContentPane().add(telefono);
 		
-		JSpinner spinner = new JSpinner();
-		spinner.setModel(new SpinnerListModel(new String[] {"Administrador", "Investigador", "Aficionado"}));
-		spinner.setBounds(498, 162, 165, 20);
-		frame.getContentPane().add(spinner);
+		rol = new JSpinner();
+		rol.setModel(new SpinnerListModel(new String[] {"Administrador", "Investigador", "Aficionado"}));
+		rol.setBounds(498, 162, 165, 20);
+		frame.getContentPane().add(rol);
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setBounds(10, 315, 89, 23);

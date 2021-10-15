@@ -23,7 +23,7 @@ import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class AltaUsuario extends JFrame {
+public class ListadoUsuarios extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -50,7 +50,7 @@ public class AltaUsuario extends JFrame {
 	public HashMap<Long,Usuario> map;
 	 
 	
-	public AltaUsuario() throws NamingException {
+	public ListadoUsuarios() throws NamingException {
 		
 		//Frame
 		//Estilos.Ventana(this, contentPane, panel);
@@ -94,7 +94,7 @@ public class AltaUsuario extends JFrame {
 		
 		
 		// creamos el modelo de Tabla
-		DefaultTableModel modelo= new DefaultTableModel() {
+		modelo= new DefaultTableModel() {
 			 @Override
 			    public boolean isCellEditable(int row, int column) {
 			       //all cells false
@@ -191,7 +191,7 @@ public class AltaUsuario extends JFrame {
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnEliminar.setBorderPainted(false);
-		btnEliminar.setBackground(new Color(255, 51, 51));
+		btnEliminar.setBackground(verde);
 		btnEliminar.setBounds(456, 370, 90, 27);
 		panel.add(btnEliminar);
 		
@@ -211,12 +211,12 @@ public class AltaUsuario extends JFrame {
 			
 			UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext.doLookup("Proyecto/UsuarioBean!com.servicios.UsuarioBeanRemote");
 			
-			//map = new HashMap<>();
+			map = new HashMap<>();
 			
 			List<Usuario> usuarios = usuarioBean.obtenerTodos();
 	     	   for (Usuario u: usuarios) {
 	     		   
-	     		  // map.put(u.getIdUsuario(), u);
+	     		  map.put(u.getIdUsuario(), u);
 	     		   
 	     		   fila[0]=u.getNombre();
 	     		   fila[1]=u.getApellido();
@@ -224,7 +224,6 @@ public class AltaUsuario extends JFrame {
 	     		   fila[3]=u.getNombreUsuario();
 	     		   fila[4]=u.getIdUsuario();
 	     		   modelo.addRow(fila);
-	     		   System.out.println(u);
 	     	   }
 			
 			
