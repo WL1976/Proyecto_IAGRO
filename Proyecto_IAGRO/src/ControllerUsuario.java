@@ -16,6 +16,7 @@ import com.servicios.UsuarioBeanRemote;
 import model.Usuario;
 import vistas.ListadoUsuarios;
 import vistas.V_AltaUsuario;
+import vistas.V_Alta_Usuario;
 
 public class ControllerUsuario {
 	
@@ -99,7 +100,12 @@ public class ControllerUsuario {
 			     	   
 			     	   
 					Usuario user = map.get(id);
-					V_AltaUsuario alta = new V_AltaUsuario();
+					V_Alta_Usuario alta = new V_Alta_Usuario();
+					alta.lblAltaDeUsuarios.setText("MODIFICAR USUARIO");
+					alta.btnRegistrar.setVisible(false);
+					alta.btnGuardar.setVisible(true);
+					
+				
 					
 					
 					//Cargar datos de usuario
@@ -110,10 +116,47 @@ public class ControllerUsuario {
 					alta.contrasena.setText(user.getContraseña());
 					//alta.rol.setValue(a);
 					
-					a.setVisible(false);
-					alta.main(args);
 					
 					
+					//Volver al listado
+					
+					alta.btnVolver.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							a.setVisible(true);
+							alta.setVisible(false);
+						}
+					});
+					
+					//Guardar Cambios
+					alta.btnGuardar.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							
+							int row = a.table.getSelectedRow();
+							long id = (long) a.table.getValueAt(row, 4);
+							
+							String ap = alta.apellido.getText();
+							String nom = alta.nombre.getText();
+							String mail = alta.email.getText();
+							String user = alta.nombreUsu.getText();
+							String pass = alta.contrasena.getText();
+							
+							try {
+								ControllerUsuario.actualizar(id, ap, nom, mail, user, pass);
+								JOptionPane.showMessageDialog(null,"Usuario actualizado correctamente");
+								actualizarListado(a.modelo);
+							} catch (NamingException | ServiciosException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+					});
+					
+					
+					
+					
+			
 					
 					
 				}
@@ -125,6 +168,54 @@ public class ControllerUsuario {
 				
 			}
 		});
+		
+		//Nuevo Usuario
+				a.btnNuevo.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						
+					
+							V_Alta_Usuario alta = new V_Alta_Usuario();
+							alta.btnRegistrar.setVisible(true);
+							alta.btnGuardar.setVisible(false);
+							
+							
+							
+							//Volver al listado
+							
+							alta.btnVolver.addMouseListener(new MouseAdapter() {
+								@Override
+								public void mouseClicked(MouseEvent e) {
+									a.setVisible(true);
+									alta.setVisible(false);
+								}
+							});
+							
+							//Guardar Cambios
+							alta.btnRegistrar.addMouseListener(new MouseAdapter() {
+								@Override
+								public void mouseClicked(MouseEvent e) {
+									
+									String ap = alta.apellido.getText();
+									String nom = alta.nombre.getText();
+									String mail = alta.email.getText();
+									String user = alta.nombreUsu.getText();
+									String pass = alta.contrasena.getText();
+									
+									try {
+										ControllerUsuario.crear(ap, nom, mail, user, pass);
+										JOptionPane.showMessageDialog(null,"Usuario creado correctamente");
+										actualizarListado(a.modelo);
+									} catch (NamingException | ServiciosException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+								}
+							});
+				
+						
+					}
+				});
 		
 		
 		
