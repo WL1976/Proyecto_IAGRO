@@ -43,7 +43,7 @@ public class MenuPrincipal extends JFrame {
 	public JButton btnEstacionesAdm;
 	public JButton btnEstacionesInv;
 	private Image estaciones;
-	public JButton btnUsuariosAdm;
+	public static JButton btnUsuariosAdm;
 	private Image usuarios;
 	private JLabel Icon_menu;
 	private Image menu;

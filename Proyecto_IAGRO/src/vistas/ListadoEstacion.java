@@ -9,9 +9,13 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.entities.Estacion;
 import com.entities.Usuario;
+import com.exception.ServiciosException;
+import com.servicios.EstacionBeanRemote;
 import com.servicios.UsuarioBeanRemote;
 
+import controladores.ControllerEstacion;
 
 import java.awt.Font;
 import java.awt.Rectangle;
@@ -21,8 +25,9 @@ import javax.swing.border.MatteBorder;
 import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
-public class ListadoUsuarios extends JFrame {
+public class ListadoEstacion extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -39,17 +44,16 @@ public class ListadoUsuarios extends JFrame {
 	private JScrollPane scrollPane;
 	private JLabel lblNewLabel_1;
 	private JTextField textField;
-	private JTextField textField_1;
-	private JLabel lblNewLabel_1_1_1;
-	private JTextField textField_2;
+	public JComboBox comboDpto;
 	public JButton btnNuevo;
 	public JButton btnModificar;
 	public JButton btnEliminar;
 	
-	public HashMap<Long,Usuario> map;
+	public HashMap<Long,Estacion> map;
 	 
 	
-	public ListadoUsuarios() throws NamingException {
+	public ListadoEstacion() throws ServiciosException  {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListadoEstacion.class.getResource("/vistas/Logo_original.png")));
 		
 		//Frame
 		//Estilos.Ventana(this, contentPane, panel);
@@ -83,7 +87,7 @@ public class ListadoUsuarios extends JFrame {
 		banner.setBackground(verde);
 		banner.setLayout(null);
 		
-		lblNewLabel = new JLabel("LISTADO DE USUARIOS");
+		lblNewLabel = new JLabel("LISTADO DE ESTACIONES");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setBounds(231, 20, 328, 27);
@@ -119,33 +123,14 @@ public class ListadoUsuarios extends JFrame {
 		panel.add(lblNewLabel_1);
 		
 		textField = new JTextField();
-		textField.setBounds(64, 98, 123, 20);
+		textField.setBounds(74, 98, 123, 20);
 		panel.add(textField);
 		textField.setColumns(10);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Apellido");
+		JLabel lblNewLabel_1_1 = new JLabel("Departamento");
 		lblNewLabel_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-		lblNewLabel_1_1.setBounds(197, 96, 63, 20);
+		lblNewLabel_1_1.setBounds(219, 96, 104, 20);
 		panel.add(lblNewLabel_1_1);
-		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(252, 98, 135, 20);
-		panel.add(textField_1);
-		
-		lblNewLabel_1_1_1 = new JLabel("Usuario");
-		lblNewLabel_1_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-		lblNewLabel_1_1_1.setBounds(397, 96, 63, 20);
-		panel.add(lblNewLabel_1_1_1);
-		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(448, 98, 135, 20);
-		panel.add(textField_2);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(604, 97, 135, 22);
-		panel.add(comboBox);
 		
 		JButton lupe = new JButton("");
 		lupe.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -157,7 +142,11 @@ public class ListadoUsuarios extends JFrame {
 		lupe.setOpaque(false);
 		panel.add(lupe);
 		
-		btnNuevo = new JButton("Nuevo Usuario");
+		btnNuevo = new JButton("Nueva Estaci\u00F3n");
+		btnNuevo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNuevo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNuevo.setBorderPainted(false);
 		btnNuevo.setVerticalAlignment(SwingConstants.TOP);
@@ -184,7 +173,6 @@ public class ListadoUsuarios extends JFrame {
 		panel.add(btnModificar);
 		
 		
-		
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEliminar.setForeground(Color.WHITE);
@@ -194,37 +182,47 @@ public class ListadoUsuarios extends JFrame {
 		btnEliminar.setBounds(456, 370, 90, 27);
 		panel.add(btnEliminar);
 		
+		comboDpto = new JComboBox();
+		comboDpto.setBounds(321, 98, 141, 20);
+		panel.add(comboDpto);
+		
 		//crea un array que contiene los nombre de las columnas
-		final String[] columnNames = {"Nombre","Apellido","Correo", "Usuario", "Identificador"};
+		final String[] columnNames = {"Nombre","Departamento","Latitud", "Longitud", "Identificador"};
 		// insertamos las columnas
 		for(int column = 0; column < columnNames.length; column++){
 			//agrega las columnas a la tabla
 			modelo.addColumn(columnNames[column]);
 		}
 
-
-		
 			// Se crea un array que será una de las filas de la tabla. 
 			Object [] fila = new Object[columnNames.length]; 
 			// Se carga cada posición del array con una de las columnas de la tabla en base de datos.
 			
-			UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
-					InitialContext.doLookup("IagroEJB/UsuarioBean!com.servicios.UsuarioBeanRemote");
+			EstacionBeanRemote estacionBean;
+			try {
+				estacionBean = (EstacionBeanRemote)
+						InitialContext.doLookup("IagroEJB/EstacionBean!com.servicios.EstacionBeanRemote");
+				map = new HashMap<>();
+				//ControllerEstacion.CompletarCombo();
+				List<Estacion> estacion = estacionBean.obtenerTodos();
+				comboDpto.setModel(new DefaultComboBoxModel (ControllerEstacion.CompletarCombo()));
+		     	   for (Estacion u: estacion) {
+		     		 int dp=Math.toIntExact(u.getDepartamento());
+		     		  map.put(u.getIdEstacion(), u);
+		     		   
+		     		   fila[0]=u.getNombre();
+		     		   fila[1]=comboDpto.getItemAt(dp);
+		     		   fila[2]=u.getLatitud();
+		     		   fila[3]=u.getLongitud();
+		     		   fila[4]=u.getIdEstacion();
+		     		   modelo.addRow(fila);
+		     	   }
+				
+			} catch (NamingException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
-			map = new HashMap<>();
-			
-			List<Usuario> usuarios = usuarioBean.obtenerTodos();
-	     	   for (Usuario u: usuarios) {
-	     		   
-	     		  map.put(u.getIdUsuario(), u);
-	     		   
-	     		   fila[0]=u.getNombre();
-	     		   fila[1]=u.getApellido();
-	     		   fila[2]=u.getMail();
-	     		   fila[3]=u.getNombreUsuario();
-	     		   fila[4]=u.getIdUsuario();
-	     		   modelo.addRow(fila);
-	     	   }
 			
 			
 	}

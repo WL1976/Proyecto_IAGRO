@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
 
-import model.Usuario;
+import com.entities.Usuario;
 import com.exception.ServiciosException;
 import com.servicios.UsuarioBeanRemote;
 

@@ -17,8 +17,9 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import java.awt.Toolkit;
 
-public class V_Alta_Usuario extends JFrame {
+public class AltaUsuario extends JFrame {
 
 	private JPanel contentPane;
 	public JLabel lblAltaDeUsuarios;
@@ -31,11 +32,11 @@ public class V_Alta_Usuario extends JFrame {
 	public JTextField domicilio;
 	public JTextField ciudad;
 	public JTextField telefono;
+	public JTextField ocupacion;
 	public JButton btnRegistrar;
 	public JButton btnVolver;
 	public JButton btnGuardar;
 	public JComboBox comboRol;
-
 	/**
 	 * Launch the application.
 	 
@@ -55,7 +56,8 @@ public class V_Alta_Usuario extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public V_Alta_Usuario() {
+	public AltaUsuario() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(AltaUsuario.class.getResource("/vistas/Logo_original.png")));
 		
 		Color verde=new Color (166,187,95); //color verde 166,187,95 / a6bb5f 
 		
@@ -149,7 +151,7 @@ public class V_Alta_Usuario extends JFrame {
 		panel.add(lblRol);
 		
 		comboRol = new JComboBox();
-		comboRol.setModel(new DefaultComboBoxModel(new String[] {"ADMINISTRADOR", "INVESTIGADOR", "AFICIONADO"}));
+		comboRol.setModel(new DefaultComboBoxModel(new String[] {"Administrador", "Investigador", "Aficionado"}));
 		comboRol.setBounds(585, 193, 137, 22);
 		panel.add(comboRol);
 		
@@ -187,13 +189,27 @@ public class V_Alta_Usuario extends JFrame {
 		ciudad.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		ciudad.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		ciudad.setBackground(Color.LIGHT_GRAY);
-		ciudad.setBounds(426, 265, 110, 23);
+		ciudad.setBounds(433, 265, 110, 23);
 		panel.add(ciudad);
 		
 		JLabel lblCiudad = new JLabel("Ciudad");
 		lblCiudad.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblCiudad.setBounds(377, 263, 141, 23);
+		lblCiudad.setBounds(377, 263, 65, 23);
 		panel.add(lblCiudad);
+		
+		ocupacion = new JTextField();
+		ocupacion.setOpaque(false);
+		ocupacion.setForeground(Color.LIGHT_GRAY);
+		ocupacion.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		ocupacion.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
+		ocupacion.setBackground(Color.LIGHT_GRAY);
+		ocupacion.setBounds(137, 322, 110, 23);
+		panel.add(ocupacion);
+		
+		JLabel lblOcupacion = new JLabel("Ocupación");
+		lblOcupacion.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
+		lblOcupacion.setBounds(49, 320, 95, 23);
+		panel.add(lblOcupacion);
 		
 		JLabel lblTelfono = new JLabel("Tel\u00E9fono");
 		lblTelfono.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
@@ -210,15 +226,15 @@ public class V_Alta_Usuario extends JFrame {
 		panel.add(telefono);
 		
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(49, 351, 89, 23);
+		btnVolver.setBounds(23, 370, 89, 23);
 		panel.add(btnVolver);
 		
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(650, 351, 89, 23);
+		btnGuardar.setBounds(691, 370, 89, 23);
 		panel.add(btnGuardar);
 		
 		btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBounds(650, 351, 89, 23);
+		btnRegistrar.setBounds(691, 370, 89, 23);
 		panel.add(btnRegistrar);
 		
 		JPanel banner = new JPanel();

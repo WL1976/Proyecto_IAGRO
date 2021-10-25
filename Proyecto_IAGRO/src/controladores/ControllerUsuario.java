@@ -5,35 +5,41 @@ import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.naming.InitialContext;
+import javax.naming.Name;
 import javax.naming.NamingException;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import model.Usuario;
+import com.entities.Administrador;
+import com.entities.Aficionado;
+import com.entities.Investigador;
+import com.entities.Usuario;
 import com.exception.ServiciosException;
+
 import com.servicios.UsuarioBeanRemote;
 
-import vistas.Login;
-import vistas.MenuPrincipal;
+import vistas.AltaUsuario;
+
 import vistas.ListadoUsuarios;
-import vistas.V_Alta_Usuario;
 
 public class ControllerUsuario implements Constantes{
 
 
 	//static AltaEstacion altaE;
 	static ListadoUsuarios listU;
-	static V_Alta_Usuario altaU;
+	static AltaUsuario altaU;
 
 
 	//Ventana Alta Usuario
 	public static void V_AltaUsuario() {
 
-		altaU=new V_Alta_Usuario();
+		altaU=new AltaUsuario();
 		altaU.setVisible(true);
 		altaU.btnRegistrar.setVisible(true);
 		altaU.btnGuardar.setVisible(false);
@@ -42,18 +48,17 @@ public class ControllerUsuario implements Constantes{
 
 	//Ventana Modificar Usuario	
 	public static void V_ModUsuario() {
-		
-		altaU=new V_Alta_Usuario();
+
+		altaU=new AltaUsuario();
 		altaU.lblAltaDeUsuarios.setText("MODIFICAR USUARIO");
 		altaU.btnRegistrar.setVisible(false);
 		altaU.btnGuardar.setVisible(true);
-		
+
 	}
 	//CREAR USUARIO
-	public static void crear(String ap, String nom, String mail, String user, String pass) throws NamingException {
+	/*public static void crear(String ap, String nom, String mail, String user, String pass, String tipo) throws NamingException {
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
 				InitialContext.doLookup(RUTA_UsuarioBean);
-
 
 		Usuario usuario = new Usuario();
 		usuario.setApellido(ap);
@@ -61,6 +66,7 @@ public class ControllerUsuario implements Constantes{
 		usuario.setMail(mail);
 		usuario.setNombreUsuario(user);
 		usuario.setContraseña(pass);
+		usuario.setTipo(tipo);
 
 		try {
 			usuarioBean.crear(usuario);
@@ -71,13 +77,12 @@ public class ControllerUsuario implements Constantes{
 			System.out.println(p.getMessage());
 		}
 
-	}
+	}*/
 
 	//ACTUALIZAR USUARIO
-	public static void actualizar(Long id, String ap, String nom, String mail, String user, String pass) throws NamingException {
+/*	public static void actualizar(Long id, String ap, String nom, String mail, String user, String pass, String tipo) throws NamingException {
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
 				InitialContext.doLookup(RUTA_UsuarioBean);
-
 		Usuario usuario = new Usuario();
 		usuario.setIdUsuario(id);
 		usuario.setApellido(ap);
@@ -85,6 +90,7 @@ public class ControllerUsuario implements Constantes{
 		usuario.setMail(mail);
 		usuario.setNombreUsuario(user);
 		usuario.setContraseña(pass);
+		usuario.setTipo(tipo);
 
 		try {
 			usuarioBean.actualizar(usuario);
@@ -94,7 +100,7 @@ public class ControllerUsuario implements Constantes{
 			System.out.println(e.getMessage());
 		}
 
-	}
+	}*/
 
 	//BORRAR USUARIO
 	public static void borrar() throws NamingException {
@@ -193,9 +199,8 @@ public class ControllerUsuario implements Constantes{
 			public void mouseClicked(MouseEvent e){
 
 				//Guardar Cambios
-			
-					V_AltaUsuario();
-				
+				V_AltaUsuario();
+
 				altaU.btnRegistrar.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
@@ -205,10 +210,17 @@ public class ControllerUsuario implements Constantes{
 						String mail = altaU.email.getText();
 						String user = altaU.nombreUsu.getText();
 						String pass = altaU.contrasena.getText();
+						String tipo = (String) altaU.comboRol.getSelectedItem();
+						String cedula = altaU.cedula.getText();
+						String ciudad = altaU.ciudad.getText();
+						String domicilio = altaU.domicilio.getText();
+						String telefono = altaU.telefono.getText();
+						String ocupacion = altaU.ocupacion.getText();
 
+						//hacer para los otros atributos
 						try {
-							crear(ap, nom, mail, user, pass);
-							JOptionPane.showMessageDialog(null,"Usuario actualizado correctamente");
+							crear(ap, nom, mail, user, pass, tipo, cedula, ciudad, domicilio, telefono, ocupacion); 
+							JOptionPane.showMessageDialog(null,"Usuario creado correctamente");
 							actualizarListado(listU.modelo);
 						} catch (NamingException | ServiciosException e1) {
 							// TODO Auto-generated catch block
@@ -259,23 +271,31 @@ public class ControllerUsuario implements Constantes{
 					altaU.apellido.setText(user.getApellido());
 					altaU.nombre.setText(user.getNombre());
 					altaU.email.setText(user.getMail());
-					altaU.nombreUsu.setText(user.getNombreUsuario());
+					altaU.nombreUsu.setText(user.getNombre());
 					altaU.contrasena.setText(user.getContraseña());
-					
+					altaU.comboRol.setName(user.getTipo());
+					//ojo aca
+					altaU.cedula.setText(null);
+					altaU.ciudad.setText(null);
+					altaU.domicilio.setText(null);
+					altaU.telefono.setText(null);
+					altaU.ocupacion.setText(null);
+
+
 					switch(user.getTipo()) {
-					
+
 					case "ADMINISRADOR": altaU.comboRol.setSelectedIndex(0);
-										 break;
-					
+					break;
+
 					case "INVESTIGADOR": altaU.comboRol.setSelectedIndex(1);
-										 break;
-					
+					break;
+
 					case "AFICIONADO": altaU.comboRol.setSelectedIndex(2);
-									   break;
-									   
+					break;
+
 					}
 
-					
+
 					//Guardar Cambios
 					altaU.btnGuardar.addMouseListener(new MouseAdapter() {
 						@Override
@@ -289,9 +309,15 @@ public class ControllerUsuario implements Constantes{
 							String mail = altaU.email.getText();
 							String user = altaU.nombreUsu.getText();
 							String pass = altaU.contrasena.getText();
+							String tipo = (String) altaU.comboRol.getSelectedItem();
+							String cedula = altaU.cedula.getText();
+							String ciudad = altaU.ciudad.getText();
+							String domicilio = altaU.domicilio.getText();
+							String telefono = altaU.telefono.getText();
+							String ocupacion = altaU.ocupacion.getText();
 
 							try {
-								ControllerUsuario.actualizar(id, ap, nom, mail, user, pass);
+								ControllerUsuario.actualizar(ap, nom, mail, user, pass, tipo, cedula, ciudad, domicilio,telefono, ocupacion); 
 								JOptionPane.showMessageDialog(null,"Usuario actualizado correctamente");
 								actualizarListado(listU.modelo);
 							} catch (NamingException | ServiciosException e1) {
@@ -305,7 +331,7 @@ public class ControllerUsuario implements Constantes{
 				else {
 					JOptionPane.showMessageDialog(null, "Debe seleccionar un usuario", null, 1);
 				}
-				
+
 				//Volver al listado
 				altaU.btnVolver.addMouseListener(new MouseAdapter() {
 					@Override
@@ -317,7 +343,174 @@ public class ControllerUsuario implements Constantes{
 
 			}
 		});
-		
+
 
 	}
+
+	//CREAR USUARIOS 
+	public static void crear(String ap, String nom, String mail, String user, String pass, String tipo,
+			String ciudad, String documento, String domicilio, String telefono,String ocupacion) throws NamingException {
+		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
+				InitialContext.doLookup(RUTA_UsuarioBean);
+
+		Usuario usuario = new Usuario();
+		usuario.setApellido(ap);
+		usuario.setNombre(nom);
+		usuario.setMail(mail);
+		usuario.setNombreUsuario(user);
+		usuario.setContraseña(pass);
+		usuario.setTipo(tipo);
+	
+		
+		switch(tipo) {
+
+		case "Administrador":
+			
+		Administrador admin= new Administrador();
+		admin.setApellido(ap);
+		admin.setNombre(nom);
+		admin.setMail(mail);
+		admin.setNombreUsuario(user);
+		admin.setContraseña(pass);
+		admin.setTipo(tipo);
+
+		admin.setCiudad(ciudad);
+		admin.setDocumento(documento);
+		admin.setDomicilio(domicilio);
+		admin.setTelefono(telefono);
+		
+
+
+		try {
+			
+			usuarioBean.crearAd(admin);
+			System.out.println("Se creó exitosamente el usuario Administrador");
+		} catch (ServiciosException e) {
+
+			System.out.println(e.getMessage());
+		}
+		break;
+
+		case "Investigador":
+		Investigador invest= new Investigador();
+		invest.setApellido(ap);
+		invest.setNombre(nom);
+		invest.setMail(mail);
+		invest.setNombreUsuario(user);
+		invest.setContraseña(pass);
+		invest.setTipo(tipo);
+
+		invest.setCiudad(ciudad);
+		invest.setDocumento(documento);
+		invest.setDomicilio(domicilio);
+		invest.setTelefono(telefono);
+
+		try {
+			usuarioBean.crearIn(invest);
+			System.out.println("Se creó exitosamente el usuario Investigador");
+		} catch (ServiciosException e) {
+
+			System.out.println(e.getMessage());
+		}
+		break;
+
+		case "Aficionado":
+		Aficionado aficionado= new Aficionado();
+		aficionado.setApellido(ap);
+		aficionado.setNombre(nom);
+		aficionado.setMail(mail);
+		aficionado.setNombreUsuario(user);
+		aficionado.setContraseña(pass);
+		aficionado.setTipo(tipo);
+		aficionado.setOcupacion(ocupacion);
+
+		try {
+			usuarioBean.crearAf(aficionado);
+			System.out.println("Se creó exitosamente el usuario");
+		} catch (ServiciosException e) {
+
+			System.out.println(e.getMessage());
+		}
+		break;			   
+		}
+
+	}
+
+	public static void actualizar(String ap, String nom, String mail, String user, String pass, String tipo,
+			String ciudad, String documento, String domicilio, String telefono, String ocupacion) throws NamingException {
+	
+		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
+				InitialContext.doLookup(RUTA_UsuarioBean);
+
+		switch(tipo) {
+
+		case "Administrador":
+		Administrador admin= new Administrador();
+		admin.setApellido(ap);
+		admin.setNombre(nom);
+		admin.setMail(mail);
+		admin.setNombreUsuario(user);
+		admin.setContraseña(pass);
+		admin.setTipo(tipo);
+
+		admin.setCiudad(ciudad);
+		admin.setDocumento(documento);
+		admin.setDomicilio(domicilio);
+		admin.setTelefono(telefono);
+
+
+
+		try {
+			usuarioBean.actualizarAd(admin);
+			System.out.println("Usuario Actualizado con exito");
+		} catch (ServiciosException e) {
+
+			System.out.println(e.getMessage());
+		}
+		break;
+
+		case "Investigador":
+		Investigador invest=new Investigador();
+		invest.setApellido(ap);
+		invest.setNombre(nom);
+		invest.setMail(mail);
+		invest.setNombreUsuario(user);
+		invest.setContraseña(pass);
+		invest.setTipo(tipo);
+
+		invest.setCiudad(ciudad);
+		invest.setDocumento(documento);
+		invest.setDomicilio(domicilio);
+		invest.setTelefono(telefono);
+
+		try {
+			usuarioBean.actualizarIn(invest);
+			System.out.println("Usuario Actualizado con exito");
+		} catch (ServiciosException e) {
+
+			System.out.println(e.getMessage());
+		}
+		break;
+
+		case "Aficionado":
+		Aficionado aficionado = new Aficionado();
+		aficionado.setApellido(ap);
+		aficionado.setNombre(nom);
+		aficionado.setMail(mail);
+		aficionado.setNombreUsuario(user);
+		aficionado.setContraseña(pass);
+		aficionado.setTipo(tipo);
+		aficionado.setOcupacion(ocupacion);
+
+		try {
+			usuarioBean.actualizarAf(aficionado);
+			System.out.println("Usuario Actualizado con exito");
+		} catch (ServiciosException e) {
+
+			System.out.println(e.getMessage());
+		}
+		break;			   
+		}
+	}
+
 }
