@@ -317,7 +317,7 @@ public class ControllerUsuario implements Constantes{
 							String ocupacion = altaU.ocupacion.getText();
 
 							try {
-								ControllerUsuario.actualizar(ap, nom, mail, user, pass, tipo, cedula, ciudad, domicilio,telefono, ocupacion); 
+								ControllerUsuario.actualizar(id,ap, nom, mail, user, pass, tipo, cedula, ciudad, domicilio,telefono, ocupacion); 
 								JOptionPane.showMessageDialog(null,"Usuario actualizado correctamente");
 								actualizarListado(listU.modelo);
 							} catch (NamingException | ServiciosException e1) {
@@ -350,6 +350,9 @@ public class ControllerUsuario implements Constantes{
 	//CREAR USUARIOS 
 	public static void crear(String ap, String nom, String mail, String user, String pass, String tipo,
 			String ciudad, String documento, String domicilio, String telefono,String ocupacion) throws NamingException {
+		
+		System.out.println("entré a CREAR");
+		
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
 				InitialContext.doLookup(RUTA_UsuarioBean);
 
@@ -360,6 +363,8 @@ public class ControllerUsuario implements Constantes{
 		usuario.setNombreUsuario(user);
 		usuario.setContraseña(pass);
 		usuario.setTipo(tipo);
+		
+		System.out.println(usuario);
 	
 		
 		switch(tipo) {
@@ -436,8 +441,10 @@ public class ControllerUsuario implements Constantes{
 
 	}
 
-	public static void actualizar(String ap, String nom, String mail, String user, String pass, String tipo,
+	public static void actualizar(Long id, String ap, String nom, String mail, String user, String pass, String tipo,
 			String ciudad, String documento, String domicilio, String telefono, String ocupacion) throws NamingException {
+		
+		System.out.println("entré a ACTUALIZAR");
 	
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
 				InitialContext.doLookup(RUTA_UsuarioBean);
@@ -446,6 +453,7 @@ public class ControllerUsuario implements Constantes{
 
 		case "Administrador":
 		Administrador admin= new Administrador();
+		admin.setIdUsuario(id);
 		admin.setApellido(ap);
 		admin.setNombre(nom);
 		admin.setMail(mail);
@@ -461,8 +469,9 @@ public class ControllerUsuario implements Constantes{
 
 
 		try {
-			usuarioBean.actualizarAd(admin);
-			System.out.println("Usuario Actualizado con exito");
+			usuarioBean.actualizar(admin);
+			System.out.println(admin);
+			System.out.println("Usuario ADMINISTRADOR Actualizado con exito");
 		} catch (ServiciosException e) {
 
 			System.out.println(e.getMessage());
@@ -471,6 +480,7 @@ public class ControllerUsuario implements Constantes{
 
 		case "Investigador":
 		Investigador invest=new Investigador();
+		invest.setIdUsuario(id);
 		invest.setApellido(ap);
 		invest.setNombre(nom);
 		invest.setMail(mail);
@@ -484,8 +494,9 @@ public class ControllerUsuario implements Constantes{
 		invest.setTelefono(telefono);
 
 		try {
-			usuarioBean.actualizarIn(invest);
-			System.out.println("Usuario Actualizado con exito");
+			usuarioBean.actualizar(invest);
+			System.out.println(invest);
+			System.out.println("Usuario INVESTIGADOR con exito");
 		} catch (ServiciosException e) {
 
 			System.out.println(e.getMessage());
@@ -494,6 +505,7 @@ public class ControllerUsuario implements Constantes{
 
 		case "Aficionado":
 		Aficionado aficionado = new Aficionado();
+		aficionado.setIdUsuario(id);
 		aficionado.setApellido(ap);
 		aficionado.setNombre(nom);
 		aficionado.setMail(mail);
@@ -503,8 +515,8 @@ public class ControllerUsuario implements Constantes{
 		aficionado.setOcupacion(ocupacion);
 
 		try {
-			usuarioBean.actualizarAf(aficionado);
-			System.out.println("Usuario Actualizado con exito");
+			usuarioBean.actualizar(aficionado);
+			System.out.println("Usuario AFICIONADO Actualizado con exito");
 		} catch (ServiciosException e) {
 
 			System.out.println(e.getMessage());

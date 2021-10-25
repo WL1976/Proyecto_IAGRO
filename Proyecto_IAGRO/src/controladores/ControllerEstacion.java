@@ -27,7 +27,7 @@ import vistas.AltaUsuario;
 import vistas.ListadoEstacion;
 import vistas.ListadoUsuarios;
 
-public class ControllerEstacion {
+public class ControllerEstacion implements Constantes {
 
 	public static AltaEstacion altaE;
 	public static ListadoEstacion listE;
@@ -233,7 +233,7 @@ public class ControllerEstacion {
 	//CREAR ESTACION
 	public static void crear(String nombre, Long dpto,float latitud, float longitud, float humedadRelativa, float calidadAgua, Long usuarioCreador) throws NamingException {
 		EstacionBeanRemote estacionBean = (EstacionBeanRemote)
-				InitialContext.doLookup("IagroEJB/EstacionBean!com.servicios.EstacionBeanRemote");
+				InitialContext.doLookup(RUTA_EstacionBean);
 
 		Estacion estacion = new Estacion();
 		estacion.setNombre(nombre);
@@ -256,7 +256,7 @@ public class ControllerEstacion {
 	//LISTADO DE DEPARTAMENTOS
 	public static  List<Departamento> obtenerDptos() throws NamingException, ServiciosException{
 		DepartamentoBeanRemote dptoBean = (DepartamentoBeanRemote)
-				InitialContext.doLookup("IagroEJB/DepartamentoBean!com.servicios.DepartamentoBeanRemote");
+				InitialContext.doLookup(RUTA_EstacionBean);
 
 		List<Departamento> list = dptoBean.obtenerTodos();
 		return list;
@@ -295,7 +295,7 @@ public class ControllerEstacion {
 	//LISTADO DE ESTACIONES
 	public static  List<Estacion> obtenerTodos() throws NamingException, ServiciosException{
 		EstacionBeanRemote estacionBean = (EstacionBeanRemote)
-				InitialContext.doLookup("IagroEJB/EstacionBean!com.servicios.EstacionBeanRemote");
+				InitialContext.doLookup(RUTA_EstacionBean);
 
 		List<Estacion> list = estacionBean.obtenerTodos();
 		return list;
@@ -304,7 +304,7 @@ public class ControllerEstacion {
 	//ACTUALIZAR ESTACIÓN
 	public static void actualizar(String nombre, Long departamento,float latitud, float longitud, float humedadRelativa, float calidadAgua) throws NamingException {
 		EstacionBeanRemote estacionBean = (EstacionBeanRemote)
-				InitialContext.doLookup("IagroEJB/EstacionBean!com.servicios.EstacionBeanRemote");
+				InitialContext.doLookup(RUTA_EstacionBean);
 
 
 		Estacion estacion = new Estacion();

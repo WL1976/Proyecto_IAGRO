@@ -15,6 +15,7 @@ import com.exception.ServiciosException;
 import com.servicios.EstacionBeanRemote;
 import com.servicios.UsuarioBeanRemote;
 
+import controladores.Constantes;
 import controladores.ControllerEstacion;
 
 import java.awt.Font;
@@ -27,7 +28,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
-public class ListadoEstacion extends JFrame {
+public class ListadoEstacion extends JFrame implements Constantes {
 	
 	private static final long serialVersionUID = 1L;
 	

@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import com.entities.Usuario;
 import com.servicios.UsuarioBeanRemote;
 
+import controladores.Constantes;
 
 import java.awt.Font;
 import java.awt.Rectangle;
@@ -22,7 +23,7 @@ import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ListadoUsuarios extends JFrame {
+public class ListadoUsuarios extends JFrame implements Constantes {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -209,7 +210,7 @@ public class ListadoUsuarios extends JFrame {
 			// Se carga cada posición del array con una de las columnas de la tabla en base de datos.
 			
 			UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
-					InitialContext.doLookup("IagroEJB/UsuarioBean!com.servicios.UsuarioBeanRemote");
+					InitialContext.doLookup(RUTA_UsuarioBean);
 			
 			map = new HashMap<>();
 			

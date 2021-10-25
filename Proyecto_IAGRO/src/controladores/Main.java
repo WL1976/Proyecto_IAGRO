@@ -94,7 +94,7 @@ public class Main implements Constantes	{
 	public static String PerfilIngreso (String nombreUsuario, String contraseña) throws NamingException {
 
 		UsuarioBeanRemote user = (UsuarioBeanRemote)
-				InitialContext.doLookup("IagroEJB/UsuarioBean!com.servicios.UsuarioBeanRemote");
+				InitialContext.doLookup(RUTA_UsuarioBean);
 
 		Usuario u2=user.login1(nombreUsuario, contraseña);
 		String tipo=u2.getTipo();
