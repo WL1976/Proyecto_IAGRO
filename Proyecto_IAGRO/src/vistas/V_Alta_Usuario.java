@@ -34,6 +34,7 @@ public class V_Alta_Usuario extends JFrame {
 	public JButton btnRegistrar;
 	public JButton btnVolver;
 	public JButton btnGuardar;
+	public JComboBox comboRol;
 
 	/**
 	 * Launch the application.
@@ -147,8 +148,8 @@ public class V_Alta_Usuario extends JFrame {
 		lblRol.setBounds(546, 190, 84, 23);
 		panel.add(lblRol);
 		
-		JComboBox comboRol = new JComboBox();
-		comboRol.setModel(new DefaultComboBoxModel(new String[] {"Administrador", "Investigador", "Aficionado"}));
+		comboRol = new JComboBox();
+		comboRol.setModel(new DefaultComboBoxModel(new String[] {"ADMINISTRADOR", "INVESTIGADOR", "AFICIONADO"}));
 		comboRol.setBounds(585, 193, 137, 22);
 		panel.add(comboRol);
 		

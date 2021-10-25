@@ -6,7 +6,6 @@ import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.util.*;
 //import org.jdatepicker.impl.DateComponentFormatter;
-import com.toedter.calendar.JDateChooser;
 
 public class Alta_Formulario extends JFrame {
 	
@@ -113,9 +112,9 @@ public class Alta_Formulario extends JFrame {
 		textArea.setBounds(48, 228, 279, 92);
 		panel.add(textArea);
 		
-		JDateChooser dateChooser = new JDateChooser();
+		/*JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setBounds(117, 157, 210, 20);
-		panel.add(dateChooser);
+		panel.add(dateChooser);*/
 		
 		JLabel lblFecha = new JLabel("Fecha");
 		lblFecha.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));

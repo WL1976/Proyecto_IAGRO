@@ -9,10 +9,11 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-
+import model.Usuario;
 import com.servicios.UsuarioBeanRemote;
 
-import model.Usuario;
+import controladores.Constantes;
+import controladores.ControllerUsuario;
 
 import java.awt.Font;
 import java.awt.Rectangle;
@@ -23,7 +24,7 @@ import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ListadoUsuarios extends JFrame {
+public class ListadoUsuarios extends JFrame implements Constantes {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -54,6 +55,8 @@ public class ListadoUsuarios extends JFrame {
 		
 		//Frame
 		//Estilos.Ventana(this, contentPane, panel);
+		
+		
 		
 		Color azul=new Color (104,171,196); //color azul 104,171,196 / 68abc4
 		Color verde=new Color (166,187,95); //color verde 166,187,95 / a6bb5f 
@@ -209,7 +212,8 @@ public class ListadoUsuarios extends JFrame {
 			Object [] fila = new Object[columnNames.length]; 
 			// Se carga cada posición del array con una de las columnas de la tabla en base de datos.
 			
-			UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext.doLookup("Proyecto/UsuarioBean!com.servicios.UsuarioBeanRemote");
+			UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
+					InitialContext.doLookup(RUTA_UsuarioBean);
 			
 			map = new HashMap<>();
 			
@@ -225,7 +229,6 @@ public class ListadoUsuarios extends JFrame {
 	     		   fila[4]=u.getIdUsuario();
 	     		   modelo.addRow(fila);
 	     	   }
-			
 			
 	}
 }

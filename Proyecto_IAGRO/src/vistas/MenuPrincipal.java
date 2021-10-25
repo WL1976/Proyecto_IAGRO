@@ -1,78 +1,64 @@
-package login;
+package vistas;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.naming.NamingException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.SystemColor;
-import javax.swing.UIManager;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
-import javax.swing.border.BevelBorder;
 
 public class MenuPrincipal extends JFrame {
 
-	private JPanel contentPane;
-	private JPanel panelAdministrador;
-	private JPanel panelInvestigador;
-	private JPanel panelAficionado;
-	private JButton btnRegistro;
-	private JButton btnFormularioInv;
-	private JButton btnFormularioAdm;
+	public JPanel contentPane;
+	public JPanel panelAdministrador;
+	public JPanel panelInvestigador;
+	public JPanel panelAficionado;
+	public JButton btnsalir;
+	public JButton btnRegistro;
+	public JButton btnFormularioInv;
+	public JButton btnFormularioAdm;
 	private Image form;
-	private JButton btnRegistroInv;
-	private JButton btnRegistroAdm;
-	private JButton btnRegistroAfi;
+	public JButton btnRegistroInv;
+	public JButton btnRegistroAdm;
+	public JButton btnRegistroAfi;
 	private Image reg;
-	private JButton btnCasillasAdm;
-	private JButton btnCasillasInv;
-	private Image casilla;
-	private JButton btnEstacionesAdm;
-	private JButton btnEstacionesInv;
+	public JButton btnCasillasAdm;
+	public JButton btnCasillasInv;
+	public Image casilla;
+	public JButton btnEstacionesAdm;
+	public JButton btnEstacionesInv;
 	private Image estaciones;
-	private JButton btnUsuariosAdm;
+	public JButton btnUsuariosAdm;
 	private Image usuarios;
 	private JLabel Icon_menu;
 	private Image menu;
 	private JPanel panel_Superior;
-	private JLabel logOut;
+	private JPanel panel_inferior;
+	public JLabel logOut;
+	private Color verde;
+	private Color azul;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MenuPrincipal frame = new MenuPrincipal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
-	public MenuPrincipal() {
-		//setIconImage(Toolkit.getDefaultToolkit().getImage(MenuPrincipal.class.getResource("/login/IaGRO_original.png")));
 
+	public MenuPrincipal() throws NamingException {
+
+
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MenuPrincipal.class.getResource("Logo_original.png")));
 		Color azul=new Color (104,171,196); //color azul 104,171,196 / 68abc4
 		Color verde=new Color (166,187,95); //color verde 166,187,95 / a6bb5f 
 		setResizable(false);
@@ -85,7 +71,6 @@ public class MenuPrincipal extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 
-
 		//Panel Principal
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
@@ -95,7 +80,7 @@ public class MenuPrincipal extends JFrame {
 		//panel lateral Admin
 		panelAdministrador = new JPanel();
 		panelAdministrador.setToolTipText("Registros");
-		panelAdministrador.setBounds(0, 59, 190, 356);
+		panelAdministrador.setBounds(0, 59, 158, 356);
 		panelAdministrador.setBackground(azul);
 		panel.add(panelAdministrador);
 		panelAdministrador.setLayout(null);
@@ -120,7 +105,7 @@ public class MenuPrincipal extends JFrame {
 
 		//logo iagro
 		JLabel Icon_Container = new JLabel("");
-		Icon_Container.setBounds(383, 144, 145, 148);
+		Icon_Container.setBounds(377, 140, 160, 148);
 		Image icon = new ImageIcon(this.getClass().getResource("iagro_Menu.png")).getImage();
 		panel.setLayout(null);
 		panel.setLayout(null);
@@ -133,7 +118,7 @@ public class MenuPrincipal extends JFrame {
 		btnRegistroAfi.setToolTipText("Registros");
 		btnRegistroAfi.setFont(new Font("Voces", Font.BOLD, 14));
 		btnRegistroAfi.setForeground(new Color(255, 255, 255));
-		btnRegistroAfi.setBounds(0, 40, 148, 40);
+		btnRegistroAfi.setBounds(0, 126, 148, 40);
 		reg= new ImageIcon(this.getClass().getResource("Registros.png")).getImage();
 		btnRegistroAfi.setIcon(new ImageIcon(reg));
 		btnRegistroAfi.setBackground(Color.WHITE);
@@ -145,64 +130,59 @@ public class MenuPrincipal extends JFrame {
 		//botones Admin
 
 		btnFormularioAdm = new JButton("Formularios");
-		btnFormularioAdm.setHorizontalAlignment(SwingConstants.LEADING);
 		btnFormularioAdm.setToolTipText("Formularios");
 		btnFormularioAdm.setFont(new Font("Voces", Font.BOLD, 14));
 		btnFormularioAdm.setForeground(new Color(255, 255, 255));
-		btnFormularioAdm.setBounds(22, 46, 146, 40);
+		btnFormularioAdm.setBounds(2, 39, 156, 40);
 		Image form = new ImageIcon(this.getClass().getResource("formulario.png")).getImage();
-		btnFormularioAdm.setIcon(new ImageIcon("C:\\Users\\Estudio\\Desktop\\Imprimir\\Agosto\\iloveimg-resized\\formularios.png"));
+		btnFormularioAdm.setIcon(new ImageIcon(form));
 		btnFormularioAdm.setBackground(Color.WHITE);
 		btnFormularioAdm.setBorder(null);
 		btnFormularioAdm.setOpaque(false);
 		panelAdministrador.add(btnFormularioAdm);
 
 		btnCasillasAdm = new JButton("Casillas");
-		btnCasillasAdm.setHorizontalAlignment(SwingConstants.LEADING);
 		btnCasillasAdm.setToolTipText("Casillas");
 		btnCasillasAdm.setFont(new Font("Voces", Font.BOLD, 14));
 		btnCasillasAdm.setForeground(new Color(255, 255, 255));
-		btnCasillasAdm.setBounds(22, 97, 146, 40);
+		btnCasillasAdm.setBounds(2, 90, 127, 40);
 		casilla= new ImageIcon(this.getClass().getResource("casilla.png")).getImage();
-		btnCasillasAdm.setIcon(new ImageIcon("C:\\Users\\Estudio\\Desktop\\Imprimir\\Agosto\\iloveimg-resized\\casillas.png"));
+		btnCasillasAdm.setIcon(new ImageIcon(casilla));
 		btnCasillasAdm.setBackground(Color.WHITE);
 		btnCasillasAdm.setBorder(null);
 		btnCasillasAdm.setOpaque(false);
 		panelAdministrador.add(btnCasillasAdm);
 
 		btnRegistroAdm= new JButton("Registros");
-		btnRegistroAdm.setHorizontalAlignment(SwingConstants.LEADING);
 		btnRegistroAdm.setToolTipText("Registros");
 		btnRegistroAdm.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
 		btnRegistroAdm.setForeground(new Color(255, 255, 255));
-		btnRegistroAdm.setBounds(22, 148, 146, 40);
-		btnRegistroAdm.setIcon(new ImageIcon("C:\\Users\\Estudio\\Desktop\\Imprimir\\Agosto\\iloveimg-resized\\registros.png"));
+		btnRegistroAdm.setBounds(-8, 141, 156, 40);
+		btnRegistroAdm.setIcon(new ImageIcon(reg));
 		btnRegistroAdm.setBackground(Color.WHITE);
 		btnRegistroAdm.setBorder(null);
 		btnRegistroAdm.setOpaque(false);
 		panelAdministrador.add(btnRegistroAdm);
 
 		btnEstacionesAdm = new JButton("Estaciones");
-		btnEstacionesAdm.setHorizontalAlignment(SwingConstants.LEADING);
 		btnEstacionesAdm.setToolTipText("Estaciones");
 		btnEstacionesAdm.setFont(new Font("Voces", Font.BOLD, 14));
 		btnEstacionesAdm.setForeground(new Color(255, 255, 255));
-		btnEstacionesAdm.setBounds(22, 207, 146, 40);
+		btnEstacionesAdm.setBounds(2, 200, 146, 40);
 		estaciones= new ImageIcon(this.getClass().getResource("estaciones.png")).getImage();
-		btnEstacionesAdm.setIcon(new ImageIcon("C:\\Users\\Estudio\\Desktop\\Imprimir\\Agosto\\iloveimg-resized\\estaciones.png"));
+		btnEstacionesAdm.setIcon(new ImageIcon(estaciones));
 		btnEstacionesAdm.setBackground(Color.WHITE);
 		btnEstacionesAdm.setBorder(null);
 		btnEstacionesAdm.setOpaque(false);
 		panelAdministrador.add(btnEstacionesAdm);
 
 		btnUsuariosAdm = new JButton("Usuarios");
-		btnUsuariosAdm.setHorizontalAlignment(SwingConstants.LEADING);
-		btnUsuariosAdm.setToolTipText("Estaciones");
+		btnUsuariosAdm.setToolTipText("Usuarios");
 		btnUsuariosAdm.setFont(new Font("Voces", Font.BOLD, 14));
 		btnUsuariosAdm.setForeground(new Color(255, 255, 255));
-		btnUsuariosAdm.setBounds(22, 258, 146, 40);
+		btnUsuariosAdm.setBounds(2, 251, 146, 40);
 		usuarios= new ImageIcon(this.getClass().getResource("usuarios.png")).getImage();
-		btnUsuariosAdm.setIcon(new ImageIcon("C:\\Users\\Estudio\\Desktop\\Imprimir\\Agosto\\iloveimg-resized\\usuarios.png"));
+		btnUsuariosAdm.setIcon(new ImageIcon(usuarios));
 		btnUsuariosAdm.setBackground(Color.WHITE);
 		btnUsuariosAdm.setBorder(null);
 		btnUsuariosAdm.setOpaque(false);
@@ -258,21 +238,19 @@ public class MenuPrincipal extends JFrame {
 
 		//panel superior azul
 		panel_Superior = new JPanel();
-		panel_Superior.setBounds(0, 0, 796, 84);
+		panel_Superior.setBounds(0, 0, 796, 71);
 		panel_Superior.setBackground(azul);
 		panel.add(panel_Superior);
 
+		//panel inferios azul
+		panel_inferior = new JPanel();
+		panel_inferior.setBounds(0, 395, 796, 20);
+		panel_inferior.setBackground(azul);
+		panel.add(panel_inferior);
+
 		//icono HOME
 		Icon_menu = new JLabel("");	
-		Icon_menu.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				panelAdministrador.setVisible(true);
-				panelAficionado.setVisible(false);
-				panelInvestigador.setVisible(false);
-			}
-		});
-		Icon_menu.setBounds(10, 0, 90, 71);
+		Icon_menu.setBounds(10, 0, 47, 71);
 		menu = new ImageIcon(this.getClass().getResource("menu.png")).getImage();
 		panel.setLayout(null);
 		panel_Superior.setLayout(null);
@@ -280,38 +258,53 @@ public class MenuPrincipal extends JFrame {
 		panel_Superior.add(Icon_menu);
 
 		//icono Log Out
-		logOut = new JLabel("");	
-		logOut.setBounds(725, 11, 47, 49);
-		Image log_out = new ImageIcon(this.getClass().getResource("exit.png")).getImage();
-		panel.setLayout(null);
-		panel_Superior.setLayout(null);
-		logOut.setIcon(new ImageIcon(log_out));
-		panel_Superior.add(logOut);
+		btnsalir = new JButton("");
+		btnsalir.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 
-
-		JButton btnPrueba = new JButton("prueba");
-		btnPrueba.setBounds(595, 349, 92, 40);
-		btnPrueba.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				panelAdministrador.setVisible(false);
-				panelInvestigador.setVisible(true);
-				panelInvestigador.setBounds(0, 59, 158, 356);
-				//panelAficionado.setVisible(true);
-				//panelAficionado.setBounds(0, 59, 158, 356);
+				System.exit(0);
 			}
 		});
-		btnPrueba.setForeground(Color.WHITE);
-		btnPrueba.setFont(new Font("Verdana", Font.BOLD, 12));
-		btnPrueba.setBackground(Color.GRAY);
-		panel.add(btnPrueba);
+		btnsalir.setToolTipText("");
+		btnsalir.setFont(new Font("Voces", Font.BOLD, 14));
+		btnsalir.setForeground(new Color(255, 255, 255));
+		btnsalir.setBounds(724, 11, 62, 49);
+		Image log_out = new ImageIcon(this.getClass().getResource("exit.png")).getImage();
+		btnsalir.setIcon(new ImageIcon(log_out));
+		btnsalir.setBackground(Color.WHITE);
+		btnsalir.setBorder(null);
+		btnsalir.setOpaque(false);
+		panel_Superior.add(btnsalir);
+
 
 		//panel de Monitoreo
 		Image monitoreo= new ImageIcon(this.getClass().getResource("Monitoreo.png")).getImage();
 		panel_Superior.setLayout(null);
 		JLabel monitoreo1 = new JLabel("");
-		monitoreo1.setBounds(208, -13, 460, 104);
+		monitoreo1.setBounds(221, -17, 460, 104);
 		panel_Superior.add(monitoreo1);
 		monitoreo1.setIcon(new ImageIcon(monitoreo));
 
+	}
+
+	public void perfil (String tipo) {
+
+		if (tipo.equals("ADMINISTRADOR")) {
+			panelAdministrador.setVisible(true);
+			panelInvestigador.setVisible(false);
+			panelAficionado.setVisible(false);
+		}if (tipo.equals("INVESTIGADOR")) {
+			panelAdministrador.setVisible(false);
+			panelInvestigador.setVisible(true);
+			panelInvestigador.setBounds(0, 59, 158, 356);
+			panelAficionado.setVisible(false);
+
+		}if (tipo.equals("AFICIONADO")) {
+			panelAdministrador.setVisible(false);
+			panelInvestigador.setVisible(false);
+			panelAficionado.setVisible(true);
+			panelAficionado.setBounds(0, 59, 158, 356);
+		}
 	}
 }
