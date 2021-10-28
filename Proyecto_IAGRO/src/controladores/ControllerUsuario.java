@@ -1,9 +1,12 @@
 package controladores;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,7 +31,7 @@ import vistas.AltaUsuario;
 
 import vistas.ListadoUsuarios;
 
-public class ControllerUsuario implements Constantes{
+public class ControllerUsuario implements Constantes {
 
 
 	//static AltaEstacion altaE;
@@ -47,6 +50,7 @@ public class ControllerUsuario implements Constantes{
 	}
 
 	//Ventana Modificar Usuario	
+	@SuppressWarnings("deprecation")
 	public static void V_ModUsuario() {
 
 		altaU=new AltaUsuario();
@@ -54,53 +58,11 @@ public class ControllerUsuario implements Constantes{
 		altaU.btnRegistrar.setVisible(false);
 		altaU.btnGuardar.setVisible(true);
 
+		/***** BLOQUEAR CAMPOS KAREN 28-10******/
+		altaU.nombreUsu.enable(false);
+		altaU.email.enable(false);
+
 	}
-	//CREAR USUARIO
-	/*public static void crear(String ap, String nom, String mail, String user, String pass, String tipo) throws NamingException {
-		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
-				InitialContext.doLookup(RUTA_UsuarioBean);
-
-		Usuario usuario = new Usuario();
-		usuario.setApellido(ap);
-		usuario.setNombre(nom);
-		usuario.setMail(mail);
-		usuario.setNombreUsuario(user);
-		usuario.setContraseña(pass);
-		usuario.setTipo(tipo);
-
-		try {
-			usuarioBean.crear(usuario);
-			System.out.println("Se creó exitosamente el usuario");
-			actualizarListado(listU.modelo);
-		} catch (ServiciosException | NamingException p) {
-
-			System.out.println(p.getMessage());
-		}
-
-	}*/
-
-	//ACTUALIZAR USUARIO
-/*	public static void actualizar(Long id, String ap, String nom, String mail, String user, String pass, String tipo) throws NamingException {
-		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
-				InitialContext.doLookup(RUTA_UsuarioBean);
-		Usuario usuario = new Usuario();
-		usuario.setIdUsuario(id);
-		usuario.setApellido(ap);
-		usuario.setNombre(nom);
-		usuario.setMail(mail);
-		usuario.setNombreUsuario(user);
-		usuario.setContraseña(pass);
-		usuario.setTipo(tipo);
-
-		try {
-			usuarioBean.actualizar(usuario);
-			System.out.println("Se actualizó exitosamente el usuario");
-		} catch (ServiciosException e) {
-
-			System.out.println(e.getMessage());
-		}
-
-	}*/
 
 	//BORRAR USUARIO
 	public static void borrar() throws NamingException {
@@ -217,15 +179,16 @@ public class ControllerUsuario implements Constantes{
 						String telefono = altaU.telefono.getText();
 						String ocupacion = altaU.ocupacion.getText();
 
-						//hacer para los otros atributos
+
 						try {
-							crear(ap, nom, mail, user, pass, tipo, cedula, ciudad, domicilio, telefono, ocupacion); 
-							JOptionPane.showMessageDialog(null,"Usuario creado correctamente");
-							actualizarListado(listU.modelo);
-						} catch (NamingException | ServiciosException e1) {
+							crear(ap, nom, mail, user, pass, tipo, ciudad, cedula, domicilio, telefono, ocupacion); 
+							//actualizarListado(listU.modelo);
+						} catch (NamingException  e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
+
+
 					}
 				});
 				//Volver al listado
@@ -241,9 +204,16 @@ public class ControllerUsuario implements Constantes{
 		});
 
 		//Modificar un usuario
-		listU.btnModificar.addMouseListener(new MouseAdapter() {
+
+		listU.btnModificar.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+
+			} 
+		} );
+
+		listU.btnModificar.addActionListener(new ActionListener() { 
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				V_ModUsuario();
 				int row = listU.table.getSelectedRow();
 
@@ -271,7 +241,7 @@ public class ControllerUsuario implements Constantes{
 					altaU.apellido.setText(user.getApellido());
 					altaU.nombre.setText(user.getNombre());
 					altaU.email.setText(user.getMail());
-					altaU.nombreUsu.setText(user.getNombre());
+					altaU.nombreUsu.setText(user.getNombreUsuario());
 					altaU.contrasena.setText(user.getContraseña());
 					altaU.comboRol.setName(user.getTipo());
 					//ojo aca
@@ -318,8 +288,7 @@ public class ControllerUsuario implements Constantes{
 
 							try {
 								ControllerUsuario.actualizar(id,ap, nom, mail, user, pass, tipo, cedula, ciudad, domicilio,telefono, ocupacion); 
-								JOptionPane.showMessageDialog(null,"Usuario actualizado correctamente");
-								actualizarListado(listU.modelo);
+								//actualizarListado(listU.modelo);
 							} catch (NamingException | ServiciosException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
@@ -342,6 +311,8 @@ public class ControllerUsuario implements Constantes{
 				});
 
 			}
+
+
 		});
 
 
@@ -350,179 +321,317 @@ public class ControllerUsuario implements Constantes{
 	//CREAR USUARIOS 
 	public static void crear(String ap, String nom, String mail, String user, String pass, String tipo,
 			String ciudad, String documento, String domicilio, String telefono,String ocupacion) throws NamingException {
+
+		/***** NUEVAS LLAMADAS A MÉTODO KAREN 28-10******/
+		boolean todoOK = camposVacios(ap, nom, mail, user, pass, tipo, ciudad, documento, domicilio, telefono, ocupacion);
 		
-		System.out.println("entré a CREAR");
-		
-		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
-				InitialContext.doLookup(RUTA_UsuarioBean);
-
-		Usuario usuario = new Usuario();
-		usuario.setApellido(ap);
-		usuario.setNombre(nom);
-		usuario.setMail(mail);
-		usuario.setNombreUsuario(user);
-		usuario.setContraseña(pass);
-		usuario.setTipo(tipo);
-		
-		System.out.println(usuario);
-	
-		
-		switch(tipo) {
-
-		case "Administrador":
-			
-		Administrador admin= new Administrador();
-		admin.setApellido(ap);
-		admin.setNombre(nom);
-		admin.setMail(mail);
-		admin.setNombreUsuario(user);
-		admin.setContraseña(pass);
-		admin.setTipo(tipo);
-
-		admin.setCiudad(ciudad);
-		admin.setDocumento(documento);
-		admin.setDomicilio(domicilio);
-		admin.setTelefono(telefono);
-		
+		todoOK = validarFormatos(mail, user);
+		todoOK = validarContraseña(pass);
 
 
-		try {
-			
-			usuarioBean.crearAd(admin);
-			System.out.println("Se creó exitosamente el usuario Administrador");
-		} catch (ServiciosException e) {
 
-			System.out.println(e.getMessage());
+		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)InitialContext.doLookup(RUTA_UsuarioBean);
+
+		/***** NUEVA CONDICIÓN KAREN 28-10******/
+		Usuario existeUser = usuarioBean.usuarioExistente(user);
+		if(existeUser != null) {
+			JOptionPane.showMessageDialog(null, "El nombre de usuario ingresado ya existe", null, 1);
+			todoOK = false;
 		}
-		break;
 
-		case "Investigador":
-		Investigador invest= new Investigador();
-		invest.setApellido(ap);
-		invest.setNombre(nom);
-		invest.setMail(mail);
-		invest.setNombreUsuario(user);
-		invest.setContraseña(pass);
-		invest.setTipo(tipo);
-
-		invest.setCiudad(ciudad);
-		invest.setDocumento(documento);
-		invest.setDomicilio(domicilio);
-		invest.setTelefono(telefono);
-
-		try {
-			usuarioBean.crearIn(invest);
-			System.out.println("Se creó exitosamente el usuario Investigador");
-		} catch (ServiciosException e) {
-
-			System.out.println(e.getMessage());
+		/***** NUEVA CONDICIÓN KAREN 28-10******/
+		Usuario existeMail = usuarioBean.correoExistente(mail);
+		if(existeMail != null) {
+			JOptionPane.showMessageDialog(null, "El correo ingresado ya existe", null, 1);
+			todoOK = false;
 		}
-		break;
 
-		case "Aficionado":
-		Aficionado aficionado= new Aficionado();
-		aficionado.setApellido(ap);
-		aficionado.setNombre(nom);
-		aficionado.setMail(mail);
-		aficionado.setNombreUsuario(user);
-		aficionado.setContraseña(pass);
-		aficionado.setTipo(tipo);
-		aficionado.setOcupacion(ocupacion);
+		/******TODO EL SWITCH VA DENTRO DEL IF KAREN 28-10******/
+		if(todoOK) {
+			switch(tipo) {
 
-		try {
-			usuarioBean.crearAf(aficionado);
-			System.out.println("Se creó exitosamente el usuario");
-		} catch (ServiciosException e) {
+			case "Administrador":
 
-			System.out.println(e.getMessage());
-		}
-		break;			   
+				Administrador admin= new Administrador();
+				admin.setApellido(ap);
+				admin.setNombre(nom);
+				admin.setMail(mail);
+				admin.setNombreUsuario(user);
+				admin.setContraseña(pass);
+				admin.setTipo(tipo);
+
+				admin.setCiudad(ciudad);
+				admin.setDocumento(documento);
+				admin.setDomicilio(domicilio);
+				admin.setTelefono(telefono);
+
+
+
+				try {
+
+					usuarioBean.crearAd(admin);
+					JOptionPane.showMessageDialog(null,"Se creó exitosamente el usuario Administrador");
+				} catch (ServiciosException e) {
+
+					System.out.println(e.getMessage());
+				}
+				break;
+
+			case "Investigador":
+				Investigador invest= new Investigador();
+				invest.setApellido(ap);
+				invest.setNombre(nom);
+				invest.setMail(mail);
+				invest.setNombreUsuario(user);
+				invest.setContraseña(pass);
+				invest.setTipo(tipo);
+
+				invest.setCiudad(ciudad);
+				invest.setDocumento(documento);
+				invest.setDomicilio(domicilio);
+				invest.setTelefono(telefono);
+
+				try {
+					usuarioBean.crearIn(invest);
+					JOptionPane.showMessageDialog(null,"Se creó exitosamente el usuario Investigador");
+				} catch (ServiciosException e) {
+
+					System.out.println(e.getMessage());
+				}
+				break;
+
+			case "Aficionado":
+				Aficionado aficionado= new Aficionado();
+				aficionado.setApellido(ap);
+				aficionado.setNombre(nom);
+				aficionado.setMail(mail);
+				aficionado.setNombreUsuario(user);
+				aficionado.setContraseña(pass);
+				aficionado.setTipo(tipo);
+				aficionado.setOcupacion(ocupacion);
+
+				try {
+					usuarioBean.crearAf(aficionado);
+					JOptionPane.showMessageDialog(null,"Se creó exitosamente el usuario Aficionado");
+				} catch (ServiciosException e) {
+
+					System.out.println(e.getMessage());
+				}
+				break;			   
+			}
+
 		}
 
 	}
 
 	public static void actualizar(Long id, String ap, String nom, String mail, String user, String pass, String tipo,
-			String ciudad, String documento, String domicilio, String telefono, String ocupacion) throws NamingException {
+			String ciudad, String documento, String domicilio, String telefono, String ocupacion) throws NamingException, ServiciosException {
+
+		boolean todoOK = camposVacios(ap, nom, mail, user, pass, tipo, ciudad, documento, domicilio, telefono, ocupacion);
+
+		todoOK = validarFormatos(mail, user);
 		
-		System.out.println("entré a ACTUALIZAR");
-	
+
+
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
 				InitialContext.doLookup(RUTA_UsuarioBean);
 
-		switch(tipo) {
 
-		case "Administrador":
-		Administrador admin= new Administrador();
-		admin.setIdUsuario(id);
-		admin.setApellido(ap);
-		admin.setNombre(nom);
-		admin.setMail(mail);
-		admin.setNombreUsuario(user);
-		admin.setContraseña(pass);
-		admin.setTipo(tipo);
+		if(todoOK) {
+			switch(tipo) {
 
-		admin.setCiudad(ciudad);
-		admin.setDocumento(documento);
-		admin.setDomicilio(domicilio);
-		admin.setTelefono(telefono);
+			case "Administrador":
+				Administrador admin= new Administrador();
+				admin.setIdUsuario(id);
+				admin.setApellido(ap);
+				admin.setNombre(nom);
+				admin.setMail(mail);
+				admin.setNombreUsuario(user);
+				admin.setContraseña(pass);
+				admin.setTipo(tipo);
+
+				admin.setCiudad(ciudad);
+				admin.setDocumento(documento);
+				admin.setDomicilio(domicilio);
+				admin.setTelefono(telefono);
 
 
 
-		try {
-			usuarioBean.actualizar(admin);
-			System.out.println(admin);
-			System.out.println("Usuario ADMINISTRADOR Actualizado con exito");
-		} catch (ServiciosException e) {
+				try {
+					usuarioBean.actualizar(admin);
+					System.out.println(admin);
+					System.out.println("Usuario ADMINISTRADOR Actualizado con exito");
+				} catch (ServiciosException e) {
 
-			System.out.println(e.getMessage());
+					System.out.println(e.getMessage());
+				}
+				break;
+
+			case "Investigador":
+				Investigador invest=new Investigador();
+				invest.setIdUsuario(id);
+				invest.setApellido(ap);
+				invest.setNombre(nom);
+				invest.setMail(mail);
+				invest.setNombreUsuario(user);
+				invest.setContraseña(pass);
+				invest.setTipo(tipo);
+
+				invest.setCiudad(ciudad);
+				invest.setDocumento(documento);
+				invest.setDomicilio(domicilio);
+				invest.setTelefono(telefono);
+
+				try {
+					usuarioBean.actualizar(invest);
+					System.out.println(invest);
+					System.out.println("Usuario INVESTIGADOR con exito");
+				} catch (ServiciosException e) {
+
+					System.out.println(e.getMessage());
+				}
+				break;
+
+			case "Aficionado":
+				Aficionado aficionado = new Aficionado();
+				aficionado.setIdUsuario(id);
+				aficionado.setApellido(ap);
+				aficionado.setNombre(nom);
+				aficionado.setMail(mail);
+				aficionado.setNombreUsuario(user);
+				aficionado.setContraseña(pass);
+				aficionado.setTipo(tipo);
+				aficionado.setOcupacion(ocupacion);
+
+				try {
+					usuarioBean.actualizar(aficionado);
+					System.out.println("Usuario AFICIONADO Actualizado con exito");
+				} catch (ServiciosException e) {
+
+					System.out.println(e.getMessage());
+				}
+				break;
+
+			}
+
+			JOptionPane.showMessageDialog(null,"Usuario actualizado correctamente");
+			actualizarListado(listU.modelo);
 		}
-		break;
 
-		case "Investigador":
-		Investigador invest=new Investigador();
-		invest.setIdUsuario(id);
-		invest.setApellido(ap);
-		invest.setNombre(nom);
-		invest.setMail(mail);
-		invest.setNombreUsuario(user);
-		invest.setContraseña(pass);
-		invest.setTipo(tipo);
 
-		invest.setCiudad(ciudad);
-		invest.setDocumento(documento);
-		invest.setDomicilio(domicilio);
-		invest.setTelefono(telefono);
+	}
 
-		try {
-			usuarioBean.actualizar(invest);
-			System.out.println(invest);
-			System.out.println("Usuario INVESTIGADOR con exito");
-		} catch (ServiciosException e) {
+	/******METODO NUEVO KAREN 28-10******/
 
-			System.out.println(e.getMessage());
+	public static boolean camposVacios(String ap, String nom, String mail, String user, String pass, String tipo,
+			String ciudad, String documento, String domicilio, String telefono, String ocupacion) {
+
+		boolean bandera = true;
+
+		if(ap.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Debe completar el campo Apellido", null, 1);
+			bandera = false;
 		}
-		break;
-
-		case "Aficionado":
-		Aficionado aficionado = new Aficionado();
-		aficionado.setIdUsuario(id);
-		aficionado.setApellido(ap);
-		aficionado.setNombre(nom);
-		aficionado.setMail(mail);
-		aficionado.setNombreUsuario(user);
-		aficionado.setContraseña(pass);
-		aficionado.setTipo(tipo);
-		aficionado.setOcupacion(ocupacion);
-
-		try {
-			usuarioBean.actualizar(aficionado);
-			System.out.println("Usuario AFICIONADO Actualizado con exito");
-		} catch (ServiciosException e) {
-
-			System.out.println(e.getMessage());
+		if(nom.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Debe completar el campo Nombre", null, 1);
+			bandera = false;
 		}
-		break;			   
+		if(mail.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Debe completar el campo Correo", null, 1);
+			bandera = false;
 		}
+		if(user.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Debe completar el campo Nombre de Usuario", null, 1);
+			bandera = false;
+		}
+		if(pass.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Debe completar el campo Contraseña", null, 1);
+			bandera = false;
+		}
+
+		if(tipo != "Aficionado") {
+
+			if(ciudad.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Debe completar el campo Ciudad", null, 1);
+				bandera = false;
+			}
+
+			if(documento.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Debe completar el campo Documento", null, 1);
+				bandera = false;
+			}
+
+			if(telefono.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Debe completar el campo Telefono", null, 1);
+				bandera = false;
+			}
+
+		}else {
+			if(ocupacion.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Debe completar el campo Ocupacion", null, 1);
+				bandera = false;
+			}
+		}
+
+
+		return bandera;
+
+	}
+
+	/******METODO NUEVO KAREN 28-10******/
+
+	public static boolean validarFormatos(String mail, String user) {
+
+		boolean bandera = true;
+
+		//Minimo de caracteres
+		if(user.length() <8) {
+			JOptionPane.showMessageDialog(null, "El nombre de usuario debe tener al menos 8 caracteres", null, 1);
+			bandera = false;
+		}
+
+
+		//Usuario sin números
+		if(user.matches("[0-9]+")) {
+			JOptionPane.showMessageDialog(null, "El nombre de usuario no puede contener números", null, 1);
+			bandera = false;
+		}
+
+
+		//correo no valido
+		if(!mail.contains("@")) {
+			JOptionPane.showMessageDialog(null, "El correo ingresado no es válido", null, 1);
+			bandera = false;
+		}
+
+
+		return bandera;
+
+	}
+
+	public static boolean validarContraseña(String pass) {
+
+		boolean bandera = true;
+
+		//Minimo caracteres
+		if(pass.length() <8) {
+			JOptionPane.showMessageDialog(null, "La contraseña debe tener al menos 8 caracteres", null, 1);
+			bandera = false;
+		}
+
+		//Contraseña con números y letras
+
+		String letras = pass.replaceAll("[*0-9]", "");
+		String numeros = pass.replaceAll("[*a-zA-ZÀ-ÿ\u00f1\u00d1]", "");
+
+
+		if(!numeros.matches("[0-9]+") || !letras.matches("[a-zA-ZÀ-ÿ\u00f1\u00d1]+")) {
+			JOptionPane.showMessageDialog(null, "La contraseña debe contener números y letras", null, 1);
+			bandera = false;
+		}
+
+		return bandera;
 	}
 
 }
+
