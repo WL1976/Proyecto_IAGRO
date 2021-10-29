@@ -11,6 +11,7 @@ import javax.naming.NamingException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import com.entities.Aficionado;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
 import com.servicios.UsuarioBeanRemote;
@@ -71,6 +72,7 @@ public class Main implements Constantes	{
 
 		UsuarioBeanRemote user = (UsuarioBeanRemote)
 				InitialContext.doLookup(RUTA_UsuarioBean);
+		
 
 		User=user.login1(nombreUsuario,contraseña);
 
@@ -83,6 +85,7 @@ public class Main implements Constantes	{
 			V_menu();
 
 			menuP.setVisible(true);
+			menuP.perfil(tipo);
 
 		}else {
 

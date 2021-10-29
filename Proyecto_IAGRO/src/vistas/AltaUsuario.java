@@ -5,16 +5,20 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import java.awt.Cursor;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.Toolkit;
@@ -27,7 +31,9 @@ public class AltaUsuario extends JFrame {
 	public JTextField apellido;
 	public JTextField email;
 	public JTextField nombreUsu;
-	public JTextField contrasena;
+	public JPasswordField contrasena;
+	public JPasswordField confcontrasena;
+	//public JTextField contrasena;
 	public JTextField cedula;
 	public JTextField domicilio;
 	public JTextField ciudad;
@@ -35,8 +41,22 @@ public class AltaUsuario extends JFrame {
 	public JTextField ocupacion;
 	public JButton btnRegistrar;
 	public JButton btnVolver;
+	public JButton btnCambiarPass;
 	public JButton btnGuardar;
+	public JLabel lblRol;
+	public JLabel lblCedula;
+	public JLabel lblDomicilio;
 	public JComboBox comboRol;
+	public JLabel lblOcupacion;
+	public JLabel lblConfContrasea;
+	public JLabel lblContrasena;
+	public JLabel lblCiudad;
+	public JLabel lblTelefono;
+	public JLabel lblApellido;
+	public JLabel lblNombre;
+	public JLabel lblEmail;
+	public JLabel lblNombreDeUsuario;
+	
 	/**
 	 * Launch the application.
 	 
@@ -60,6 +80,7 @@ public class AltaUsuario extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AltaUsuario.class.getResource("/vistas/Logo_original.png")));
 		
 		Color verde=new Color (166,187,95); //color verde 166,187,95 / a6bb5f 
+		Color azul=new Color (104,171,196); //color azul 104,171,196 / 68abc4
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 806, 450);
@@ -75,7 +96,7 @@ public class AltaUsuario extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNombre = new JLabel("Nombre");
+		lblNombre = new JLabel("Nombre");
 		lblNombre.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
 		lblNombre.setBounds(49, 116, 84, 23);
 		panel.add(lblNombre);
@@ -89,7 +110,7 @@ public class AltaUsuario extends JFrame {
 		nombre.setBounds(113, 116, 118, 23);
 		panel.add(nombre);
 		
-		JLabel lblApellido = new JLabel("Apellido");
+		lblApellido = new JLabel("Apellido");
 		lblApellido.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
 		lblApellido.setBounds(257, 116, 84, 23);
 		panel.add(lblApellido);
@@ -103,7 +124,7 @@ public class AltaUsuario extends JFrame {
 		apellido.setBounds(321, 118, 118, 23);
 		panel.add(apellido);
 		
-		JLabel lblEmail = new JLabel("Email");
+		lblEmail = new JLabel("Email");
 		lblEmail.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
 		lblEmail.setBounds(471, 116, 84, 23);
 		panel.add(lblEmail);
@@ -117,9 +138,9 @@ public class AltaUsuario extends JFrame {
 		email.setBounds(522, 118, 200, 23);
 		panel.add(email);
 		
-		JLabel lblNombreDeUsuario = new JLabel("Nombre de usuario");
+		lblNombreDeUsuario = new JLabel("Nombre de usuario");
 		lblNombreDeUsuario.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblNombreDeUsuario.setBounds(49, 190, 141, 23);
+		lblNombreDeUsuario.setBounds(10, 192, 141, 23);
 		panel.add(lblNombreDeUsuario);
 		
 		nombreUsu = new JTextField();
@@ -128,36 +149,50 @@ public class AltaUsuario extends JFrame {
 		nombreUsu.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		nombreUsu.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		nombreUsu.setBackground(Color.LIGHT_GRAY);
-		nombreUsu.setBounds(189, 190, 118, 23);
+		nombreUsu.setBounds(151, 194, 118, 23);
 		panel.add(nombreUsu);
 		
-		JLabel lblContrasea = new JLabel("Contrase\u00F1a");
-		lblContrasea.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblContrasea.setBounds(321, 190, 84, 23);
-		panel.add(lblContrasea);
+		lblContrasena = new JLabel("Contrase\u00F1a");
+		lblContrasena.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
+		lblContrasena.setBounds(279, 192, 84, 23);
+		panel.add(lblContrasena);
 		
-		contrasena = new JTextField();
+		contrasena = new JPasswordField();
 		contrasena.setOpaque(false);
 		contrasena.setForeground(Color.LIGHT_GRAY);
 		contrasena.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		contrasena.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		contrasena.setBackground(Color.LIGHT_GRAY);
-		contrasena.setBounds(402, 192, 118, 23);
+		contrasena.setBounds(373, 194, 95, 23);
 		panel.add(contrasena);
 		
-		JLabel lblRol = new JLabel("Rol");
+		lblConfContrasea = new JLabel("Confirmar Contraseña");
+		lblConfContrasea.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
+		lblConfContrasea.setBounds(478, 192, 161, 23);
+		panel.add(lblConfContrasea);
+		
+		confcontrasena = new JPasswordField();
+		confcontrasena.setOpaque(false);
+		confcontrasena.setForeground(Color.LIGHT_GRAY);
+		confcontrasena.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		confcontrasena.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
+		confcontrasena.setBackground(Color.LIGHT_GRAY);
+		confcontrasena.setBounds(636, 194, 95, 23);
+		panel.add(confcontrasena);
+		
+		lblRol = new JLabel("Rol");
 		lblRol.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblRol.setBounds(546, 190, 84, 23);
+		lblRol.setBounds(30, 265, 84, 23);
 		panel.add(lblRol);
 		
 		comboRol = new JComboBox();
 		comboRol.setModel(new DefaultComboBoxModel(new String[] {"Administrador", "Investigador", "Aficionado"}));
-		comboRol.setBounds(585, 193, 137, 22);
+		comboRol.setBounds(94, 265, 137, 22);
 		panel.add(comboRol);
 		
-		JLabel lblCedula = new JLabel("Cedula");
+		lblCedula = new JLabel("Cedula");
 		lblCedula.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblCedula.setBounds(49, 263, 141, 23);
+		lblCedula.setBounds(305, 265, 72, 23);
 		panel.add(lblCedula);
 		
 		cedula = new JTextField();
@@ -166,12 +201,12 @@ public class AltaUsuario extends JFrame {
 		cedula.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		cedula.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		cedula.setBackground(Color.LIGHT_GRAY);
-		cedula.setBounds(99, 265, 83, 23);
+		cedula.setBounds(373, 265, 83, 23);
 		panel.add(cedula);
 		
-		JLabel lblDomicilio = new JLabel("Domicilio");
+		lblDomicilio = new JLabel("Domicilio");
 		lblDomicilio.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblDomicilio.setBounds(189, 263, 141, 23);
+		lblDomicilio.setBounds(507, 263, 84, 23);
 		panel.add(lblDomicilio);
 		
 		domicilio = new JTextField();
@@ -180,7 +215,7 @@ public class AltaUsuario extends JFrame {
 		domicilio.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		domicilio.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		domicilio.setBackground(Color.LIGHT_GRAY);
-		domicilio.setBounds(257, 265, 110, 23);
+		domicilio.setBounds(590, 265, 110, 23);
 		panel.add(domicilio);
 		
 		ciudad = new JTextField();
@@ -189,12 +224,12 @@ public class AltaUsuario extends JFrame {
 		ciudad.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		ciudad.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		ciudad.setBackground(Color.LIGHT_GRAY);
-		ciudad.setBounds(433, 265, 110, 23);
+		ciudad.setBounds(106, 332, 110, 23);
 		panel.add(ciudad);
 		
-		JLabel lblCiudad = new JLabel("Ciudad");
+		lblCiudad = new JLabel("Ciudad");
 		lblCiudad.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblCiudad.setBounds(377, 263, 65, 23);
+		lblCiudad.setBounds(49, 330, 65, 23);
 		panel.add(lblCiudad);
 		
 		ocupacion = new JTextField();
@@ -203,18 +238,18 @@ public class AltaUsuario extends JFrame {
 		ocupacion.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		ocupacion.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		ocupacion.setBackground(Color.LIGHT_GRAY);
-		ocupacion.setBounds(137, 322, 110, 23);
+		ocupacion.setBounds(590, 332, 110, 23);
 		panel.add(ocupacion);
 		
-		JLabel lblOcupacion = new JLabel("Ocupación");
+		lblOcupacion = new JLabel("Ocupación");
 		lblOcupacion.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblOcupacion.setBounds(49, 320, 95, 23);
+		lblOcupacion.setBounds(496, 332, 95, 23);
 		panel.add(lblOcupacion);
 		
-		JLabel lblTelfono = new JLabel("Tel\u00E9fono");
-		lblTelfono.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblTelfono.setBounds(546, 263, 141, 23);
-		panel.add(lblTelfono);
+		lblTelefono = new JLabel("Tel\u00E9fono");
+		lblTelefono.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
+		lblTelefono.setBounds(257, 330, 110, 23);
+		panel.add(lblTelefono);
 		
 		telefono = new JTextField();
 		telefono.setOpaque(false);
@@ -222,20 +257,56 @@ public class AltaUsuario extends JFrame {
 		telefono.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		telefono.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		telefono.setBackground(Color.LIGHT_GRAY);
-		telefono.setBounds(612, 265, 110, 23);
+		telefono.setBounds(329, 332, 110, 23);
 		panel.add(telefono);
 		
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(23, 370, 89, 23);
+		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnVolver.setBorderPainted(false);
+		btnVolver.setVerticalAlignment(SwingConstants.TOP);
+		btnVolver.setForeground(Color.WHITE);
+		btnVolver.setBounds(10, 369, 52, 35);		
+		Image volver = new ImageIcon(this.getClass().getResource("volver1.png")).getImage();
+		btnVolver.setIcon(new ImageIcon(volver));
+		btnVolver.setBackground(Color.WHITE);
+		btnVolver.setBorder(null);
+		btnVolver.setOpaque(false);
 		panel.add(btnVolver);
 		
-		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(691, 370, 89, 23);
-		panel.add(btnGuardar);
-		
+	
 		btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBounds(691, 370, 89, 23);
+		btnRegistrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnRegistrar.setBorderPainted(false);
+		btnRegistrar.setVerticalAlignment(SwingConstants.TOP);
+		btnRegistrar.setForeground(Color.WHITE);
+		btnRegistrar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) azul));
+		btnRegistrar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		btnRegistrar.setBackground(azul);
+		btnRegistrar.setBounds(332, 373, 125, 27);
 		panel.add(btnRegistrar);
+		
+		btnCambiarPass = new JButton("Cambiar Contraseña");
+		btnCambiarPass.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCambiarPass.setBorderPainted(false);
+		btnCambiarPass.setVerticalAlignment(SwingConstants.TOP);
+		btnCambiarPass.setForeground(Color.WHITE);
+		btnCambiarPass.setBorder(new MatteBorder(2, 2, 2, 2, (Color) azul));
+		btnCambiarPass.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		btnCambiarPass.setBackground(azul);
+		btnCambiarPass.setBounds(478, 373, 142, 27);
+		panel.add(btnCambiarPass);
+		
+		
+		btnGuardar = new JButton("Guardar");
+		btnGuardar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnGuardar.setBorderPainted(false);
+		btnGuardar.setVerticalAlignment(SwingConstants.TOP);
+		btnGuardar.setForeground(Color.WHITE);
+		btnGuardar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) azul));
+		btnGuardar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		btnGuardar.setBackground(azul);
+		btnGuardar.setBounds(343, 373, 125, 27);
+		panel.add(btnGuardar);
 		
 		JPanel banner = new JPanel();
 		banner.setBackground(verde);

@@ -15,6 +15,7 @@ import com.servicios.UsuarioBeanRemote;
 import controladores.Constantes;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.List;
@@ -22,8 +23,9 @@ import javax.swing.border.MatteBorder;
 import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
-public class ListadoUsuarios extends JFrame implements Constantes {
+public class ListadoUsuarios extends JFrame implements Constantes{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -43,6 +45,7 @@ public class ListadoUsuarios extends JFrame implements Constantes {
 	private JTextField textField_1;
 	private JLabel lblNewLabel_1_1_1;
 	private JTextField textField_2;
+	public JButton btnVolver;
 	public JButton btnNuevo;
 	public JButton btnModificar;
 	public JButton btnEliminar;
@@ -51,6 +54,7 @@ public class ListadoUsuarios extends JFrame implements Constantes {
 	 
 	
 	public ListadoUsuarios() throws NamingException {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListadoUsuarios.class.getResource("/vistas/Logo_original.png")));
 		
 		//Frame
 		//Estilos.Ventana(this, contentPane, panel);
@@ -169,6 +173,19 @@ public class ListadoUsuarios extends JFrame implements Constantes {
 		btnNuevo.setBounds(221, 370, 125, 27);
 		panel.add(btnNuevo);
 		
+		btnVolver = new JButton("Volver");
+		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnVolver.setBorderPainted(false);
+		btnVolver.setVerticalAlignment(SwingConstants.TOP);
+		btnVolver.setForeground(Color.WHITE);
+		btnVolver.setBounds(10, 369, 52, 35);		
+		Image volver = new ImageIcon(this.getClass().getResource("volver1.png")).getImage();
+		btnVolver.setIcon(new ImageIcon(volver));
+		btnVolver.setBackground(Color.WHITE);
+		btnVolver.setBorder(null);
+		btnVolver.setOpaque(false);
+		panel.add(btnVolver);
+		
 		btnModificar = new JButton("Modificar");
 		btnModificar.setBorderPainted(false);
 		btnModificar.addActionListener(new ActionListener() {
@@ -196,7 +213,7 @@ public class ListadoUsuarios extends JFrame implements Constantes {
 		panel.add(btnEliminar);
 		
 		//crea un array que contiene los nombre de las columnas
-		final String[] columnNames = {"Nombre","Apellido","Correo", "Usuario", "Identificador"};
+		final String[] columnNames = {"Nombre","Apellido","Correo", "Usuario", "Identificador","Rol"};
 		// insertamos las columnas
 		for(int column = 0; column < columnNames.length; column++){
 			//agrega las columnas a la tabla
@@ -224,6 +241,7 @@ public class ListadoUsuarios extends JFrame implements Constantes {
 	     		   fila[2]=u.getMail();
 	     		   fila[3]=u.getNombreUsuario();
 	     		   fila[4]=u.getIdUsuario();
+	     		   fila[5]=u.getTipo();
 	     		   modelo.addRow(fila);
 	     	   }
 			

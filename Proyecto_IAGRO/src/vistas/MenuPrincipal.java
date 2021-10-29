@@ -290,17 +290,18 @@ public class MenuPrincipal extends JFrame {
 
 	public void perfil (String tipo) {
 
-		if (tipo.equals("ADMINISTRADOR")) {
+		if (tipo.equalsIgnoreCase("ADMINISTRADOR")) {
 			panelAdministrador.setVisible(true);
 			panelInvestigador.setVisible(false);
 			panelAficionado.setVisible(false);
-		}if (tipo.equals("INVESTIGADOR")) {
+			
+		}if (tipo.equalsIgnoreCase("INVESTIGADOR")) {
 			panelAdministrador.setVisible(false);
 			panelInvestigador.setVisible(true);
 			panelInvestigador.setBounds(0, 59, 158, 356);
 			panelAficionado.setVisible(false);
 
-		}if (tipo.equals("AFICIONADO")) {
+		}if (tipo.equalsIgnoreCase("AFICIONADO")) {
 			panelAdministrador.setVisible(false);
 			panelInvestigador.setVisible(false);
 			panelAficionado.setVisible(true);
