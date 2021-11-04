@@ -1,29 +1,40 @@
 package vistas;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 
+import com.entities.Casilla;
+import com.servicios.CasillasBeanRemote;
+
+import controladores.Constantes;
+import controladores.ControllerFormulario;
+
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.*;
 //import org.jdatepicker.impl.DateComponentFormatter;
 
-public class Alta_Formulario extends JFrame {
+public class Alta_Formulario extends JFrame implements Constantes {
 	
 	public JPanel panel;
 	public JLabel lblTitle;
 	public JTextField buscador;
 	public JTextField nombre;
 	private JScrollPane scrollPane;
-	private JPanel panel_1;
-	private JCheckBox chckbxNewCheckBox;
+	public JPanel panel_1;
+	public JCheckBox chckbxNewCheckBox;
 	private JCheckBox chckbxNewCheckBox_1;
-	private JButton lupe;
-	private JButton btnRegistrar;
+	public JButton lupe;
+	public JButton btnRegistrar;
 	private JButton btnVolver;
 	private JLabel lblNewLabel;
 	private JLabel lblResumen;
+	public HashMap<Long, Casilla> map = new HashMap<>();
 	
-	public Alta_Formulario() {
+	public Alta_Formulario() throws NamingException {
 		
 		
 		
@@ -122,23 +133,48 @@ public class Alta_Formulario extends JFrame {
 		panel.add(lblFecha);
 		
 		
+		////////////////////////////***************CASILLAS*****************/////////////////////////////////////
+		
+		
 		ArrayList<JCheckBox> casillas = new ArrayList<>();
+		
+		CasillasBeanRemote casillaBean = (CasillasBeanRemote)
+				InitialContext.doLookup(RUTA_CasillaBean);
+	
+		ArrayList<Casilla> allCasillas = (ArrayList<Casilla>) casillaBean.obtenerTodos();
+		
 		
 		int y = 0;
 		
-		for(int i=0; i<=15; i++){
-			chckbxNewCheckBox = new JCheckBox("Casilla");
+		for(Casilla c: allCasillas){
+			chckbxNewCheckBox = new JCheckBox(c.getNombre());
 			chckbxNewCheckBox.setBounds(0, y, 160, 23);
-			//chckbxNewCheckBox.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15))
 			chckbxNewCheckBox.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 13));
-			casillas.add(chckbxNewCheckBox);
+			//Insertar casillas en panel
+			panel_1.add(chckbxNewCheckBox);
+			
+			//Generar evento de chequear/deschequear por casilla
+			chckbxNewCheckBox.addItemListener(new ItemListener() {
+				
+				@Override
+				public void itemStateChanged(ItemEvent e) {
+					
+					if(e.getStateChange() == ItemEvent.SELECTED) {//agrega la casilla si se selecciona
+			            map.put(c.getIdCasilla(), c);
+			        } else {//quita la casilla si se deselecciona
+			            map.remove(c.getIdCasilla());
+			        };
+			        
+			        System.out.println("Cambio");
+					
+				}
+	        });
+			
+			
 			
 			y += 30;
 		}
 		
-		for(int i=0; i<casillas.size(); i++) {
-			panel_1.add(casillas.get(i));
-		}
 		
 		
 		//chckbxNewCheckBox = new JCheckBox("New check box");

@@ -27,7 +27,7 @@ import vistas.AltaUsuario;
 import vistas.ListadoEstacion;
 import vistas.ListadoUsuarios;
 
-public class ControllerEstacion implements Constantes {
+public class ControllerEstacion implements Constantes{
 
 	public static AltaEstacion altaE;
 	public static ListadoEstacion listE;
@@ -40,6 +40,14 @@ public class ControllerEstacion implements Constantes {
 		listE.setVisible(true);
 		obtenerTodos();
 		
+		//Volver al Menú desde listado
+				listE.btnVolver.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						listE.setVisible(false);
+						Main.menuP.setVisible(true);
+					}
+				});
 		//Nueva Estación
 		listE.btnNuevo.addMouseListener(new MouseAdapter() {
 			@Override
@@ -158,7 +166,7 @@ public class ControllerEstacion implements Constantes {
 
 
 							try {
-								ControllerEstacion.actualizar(nom, dpto, latitud, longitud, humedad, id);
+								ControllerEstacion.actualizar(id,nom, dpto, latitud, longitud, humedad, id);
 								JOptionPane.showMessageDialog(null,"Estación actualizada correctamente");
 								actualizarListado(listE.modelo);
 							} catch (NamingException | ServiciosException e1) {
@@ -246,6 +254,7 @@ public class ControllerEstacion implements Constantes {
 
 		try {
 			estacionBean.crear(estacion);
+			System.out.println(estacion.getIdEstacion());
 			System.out.println("Se creó exitosamente la Estación");
 		} catch (ServiciosException e) {
 
@@ -256,7 +265,7 @@ public class ControllerEstacion implements Constantes {
 	//LISTADO DE DEPARTAMENTOS
 	public static  List<Departamento> obtenerDptos() throws NamingException, ServiciosException{
 		DepartamentoBeanRemote dptoBean = (DepartamentoBeanRemote)
-				InitialContext.doLookup(RUTA_EstacionBean);
+				InitialContext.doLookup(RUTA_DepartamentoBean);
 
 		List<Departamento> list = dptoBean.obtenerTodos();
 		return list;
@@ -302,12 +311,13 @@ public class ControllerEstacion implements Constantes {
 	}
 
 	//ACTUALIZAR ESTACIÓN
-	public static void actualizar(String nombre, Long departamento,float latitud, float longitud, float humedadRelativa, float calidadAgua) throws NamingException {
+	public static void actualizar(Long id,String nombre, Long departamento,float latitud, float longitud, float humedadRelativa, float calidadAgua) throws NamingException {
 		EstacionBeanRemote estacionBean = (EstacionBeanRemote)
 				InitialContext.doLookup(RUTA_EstacionBean);
 
 
 		Estacion estacion = new Estacion();
+		estacion.setIdEstacion(id);
 		estacion.setNombre(nombre);
 		estacion.setDepartamento(departamento);
 		estacion.setLatitud(latitud);
@@ -317,7 +327,10 @@ public class ControllerEstacion implements Constantes {
 
 
 		try {
+			
 			estacionBean.actualizar(estacion);
+			estacion=estacionBean.buscarEst(nombre);
+			System.out.println(estacion.getIdEstacion() + " " +estacion.getNombre());
 			System.out.println("Se actualizó exitosamente la estación");
 		} catch (ServiciosException e) {
 
@@ -327,4 +340,3 @@ public class ControllerEstacion implements Constantes {
 	}
 
 }
-

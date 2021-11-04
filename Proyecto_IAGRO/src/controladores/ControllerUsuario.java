@@ -22,10 +22,11 @@ import javax.swing.table.DefaultTableModel;
 
 import com.entities.Administrador;
 import com.entities.Aficionado;
+import com.entities.Departamento;
 import com.entities.Investigador;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
-
+import com.servicios.DepartamentoBeanRemote;
 import com.servicios.UsuarioBeanRemote;
 
 import vistas.AltaUsuario;
@@ -322,7 +323,34 @@ public class ControllerUsuario implements Constantes{
 				altaU.btnGuardar.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						try {enviarDatos();} catch (ServiciosException | NamingException e1) {}
+						
+						String ap = altaU.apellido.getText();
+						String nom = altaU.nombre.getText();
+						String mail = altaU.email.getText();
+						String user = altaU.nombreUsu.getText();
+						String tipo = (String) altaU.comboRol.getSelectedItem();
+						String cedula = altaU.cedula.getText();
+						String ciudad = altaU.ciudad.getText();
+						String domicilio = altaU.domicilio.getText();
+						String telefono = altaU.telefono.getText();
+						String ocupacion = altaU.ocupacion.getText();
+						
+						int confirm = JOptionPane.showOptionDialog(null,
+								"¿Desea modificar el usuario?",
+								"Exit Confirmation", JOptionPane.YES_NO_OPTION,
+								JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige sí se borra la fila
+						if (JOptionPane.YES_OPTION== confirm) {
+						
+						
+						try {
+							actualizar(ap, mail, nom, user,tipo,ciudad,cedula, domicilio,telefono, ocupacion);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
+						}
+						
 					}
 				});
 
@@ -339,6 +367,10 @@ public class ControllerUsuario implements Constantes{
 		boolean todoOK = camposVacios(ap, nom, mail, user, tipo, ciudad, documento, domicilio, telefono, ocupacion);
 		if (todoOK) {
 			todoOK = validarFormatos(mail, user);
+			
+			if(todoOK) {
+				validarContraseña(pass);
+			}
 
 			if(todoOK && tipo.equalsIgnoreCase("ADMINISTRADOR") ) {
 				todoOK=ciValida(documento);
@@ -497,6 +529,8 @@ public static void enviarDatos() throws ServiciosException, NamingException {
 	
 	String rol = altaU.comboRol.getSelectedItem().toString();
 	
+
+	
 	switch(rol) {
 
 	case "Administrador": altaU.comboRol.setSelectedIndex(0);
@@ -546,6 +580,8 @@ public static void enviarDatos() throws ServiciosException, NamingException {
 	break;
 
 	}
+	
+	actualizarListado(listU.modelo);
 	
 }
 
@@ -611,107 +647,78 @@ public static void actualizar(String ap,String mail,String nom, String user, Str
 
 	if(todoOK) {
 		todoOK = validarFormatos(mail, user);
+		if(todoOK && !tipo.equalsIgnoreCase("Aficionado")) {
+			todoOK=ciValida(documento);
+		}
 	}
+
+	
 
 	if(todoOK) {
-		todoOK=ciValida(documento);
-	}
-
-
+		
+	
 	UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
 			InitialContext.doLookup(RUTA_UsuarioBean);
-	if(todoOK) {
+	switch(tipo) {
 
-		switch(tipo) {
+	case "Administrador": altaU.comboRol.setSelectedIndex(0);
+						Administrador adm = new Administrador();
+						
+						adm = usuarioBean.buscarAdm(altaU.nombreUsu.getText());
+						adm.setApellido(altaU.apellido.getText());
+						adm.setNombre(altaU.nombre.getText());
+						adm.setMail(altaU.email.getText());
+						adm.setDocumento(altaU.cedula.getText());
+						adm.setDomicilio(altaU.domicilio.getText());
+						adm.setCiudad(altaU.ciudad.getText());
+						adm.setTelefono(altaU.telefono.getText());
+						
+						usuarioBean.actualizarAd(adm);
+						
+						
+						
+	break;
 
-		case "Administrador":
-			Administrador admin= new Administrador();
-			admin=usuarioBean.buscarAdm(user);
-			//admin.setIdUsuario(id);
-			admin.setApellido(ap);
-			admin.setNombre(nom);
-			admin.setMail(mail);
-			admin.setNombreUsuario(user);
-			//admin.setContraseña(pass);
-			admin.setTipo(tipo);
-			admin.setCiudad(ciudad);
-			admin.setDocumento(documento);
-			admin.setDomicilio(domicilio);
-			admin.setTelefono(telefono);
+	case "Investigador": altaU.comboRol.setSelectedIndex(1);
+						Investigador inv = new Investigador();
+						inv = usuarioBean.buscarInv(altaU.nombreUsu.getText());
+						
+						inv.setApellido(altaU.apellido.getText());
+						inv.setNombre(altaU.nombre.getText());
+						inv.setMail(altaU.email.getText());
+						inv.setDocumento(altaU.cedula.getText());
+						inv.setDomicilio(altaU.domicilio.getText());
+						inv.setCiudad(altaU.ciudad.getText());
+						inv.setTelefono(altaU.telefono.getText());
+						
+						usuarioBean.actualizarIn(inv);
+	break;
 
+	case "Aficionado": altaU.comboRol.setSelectedIndex(2);
+						Aficionado afi = new Aficionado();
+						
+						afi = usuarioBean.buscarAfi(altaU.nombreUsu.getText());
+						
+						afi.setApellido(altaU.apellido.getText());
+						afi.setNombre(altaU.nombre.getText());
+						afi.setMail(altaU.email.getText());
+						afi.setOcupacion(altaU.ocupacion.getText());
+						
+						usuarioBean.actualizarAf(afi);
+	break;
 
-			try {	
-
-				usuarioBean.actualizarAd(admin);
-				System.out.println(admin.getIdUsuario()+ " " + admin.getNombreUsuario());
-
-				System.out.println(admin.getIdUsuario() + " " + admin.getNombreUsuario());
-
-				System.out.println("Usuario Actualizado con exito");
-			} catch (Throwable e) {
-
-				System.out.println(e.getMessage());
-			}
-
-
-
-
-			break;
-
-		case "Investigador":
-			Investigador invest=new Investigador();
-			invest=usuarioBean.buscarInv(user);
-			invest.setApellido(ap);
-			invest.setNombre(nom);
-			invest.setMail(mail);
-			invest.setNombreUsuario(user);
-			invest.setTipo(tipo);
-
-			invest.setCiudad(ciudad);
-			invest.setDocumento(documento);
-			invest.setDomicilio(domicilio);
-			invest.setTelefono(telefono);
-
-			try {
-
-				usuarioBean.actualizarIn(invest);
-				System.out.println(invest.getIdUsuario() + " " + invest.getNombreUsuario());
-				System.out.println("Usuario Actualizado con exito");
-			} catch (Exception e) {
-
-				System.out.println(e.getMessage());
-			}
-			break;
-
-		case "Aficionado":
-			Aficionado aficionado = new Aficionado();
-			aficionado=usuarioBean.buscarAfi(user);
-			aficionado.setApellido(ap);
-			aficionado.setNombre(nom);
-			aficionado.setMail(mail);
-			aficionado.setNombreUsuario(user);
-			//aficionado.setContraseña(pass);
-			aficionado.setTipo(tipo);
-			aficionado.setOcupacion(ocupacion);
-
-			try {
-				usuarioBean.actualizarAf(aficionado);
-				System.out.println(aficionado.getIdUsuario() + " " + aficionado.getNombreUsuario());
-				System.out.println("Usuario Actualizado con exito");
-			} catch (ServiciosException e) {
-
-				System.out.println(e.getMessage());
-			}
-			break;			   
-		}
+	}
+	
+	actualizarListado(listU.modelo);
 
 		JOptionPane.showMessageDialog(null,"Usuario actualizado correctamente");
+	}
 		//	actualizarListado(listU.modelo);
 		// TODO Auto-generated catch block
 
 	}
 
-}
+
 
 //metodo para actualizar PASSWORD
 public static void actualizarPass(String nombreUsuario, String contraseña) throws NamingException {
@@ -809,13 +816,18 @@ public static boolean camposVacios(String ap, String nom, String mail, String us
 
 	if(tipo != "Aficionado") {
 
+		if(domicilio.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Debe completar el campo Domicilio", null, 1);
+			return false;
+		}
+		
 		if(ciudad.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Ciudad", null, 1);
 			return false;
 		}
 
 		if(documento.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Debe completar el campo Documento", null, 1);
+			JOptionPane.showMessageDialog(null, "Debe completar el campo Cedula", null, 1);
 			return false;
 		}
 
@@ -895,5 +907,14 @@ public static boolean validarContraseña(String pass) {
 
 	return bandera;
 }
+
+//LISTADO DE DEPARTAMENTOS
+	public static  List<Departamento> obtenerDptos() throws NamingException, ServiciosException{
+		DepartamentoBeanRemote dptoBean = (DepartamentoBeanRemote)
+				InitialContext.doLookup(RUTA_DepartamentoBean);
+
+		List<Departamento> list = dptoBean.obtenerTodos();
+		return list;
+	}
 
 }

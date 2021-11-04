@@ -19,6 +19,7 @@ import controladores.Constantes;
 import controladores.ControllerEstacion;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +29,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
-public class ListadoEstacion extends JFrame implements Constantes {
+public class ListadoEstacion extends JFrame implements Constantes{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -46,6 +47,7 @@ public class ListadoEstacion extends JFrame implements Constantes {
 	private JLabel lblNewLabel_1;
 	private JTextField textField;
 	public JComboBox comboDpto;
+	public JButton btnVolver;
 	public JButton btnNuevo;
 	public JButton btnModificar;
 	public JButton btnEliminar;
@@ -144,10 +146,6 @@ public class ListadoEstacion extends JFrame implements Constantes {
 		panel.add(lupe);
 		
 		btnNuevo = new JButton("Nueva Estaci\u00F3n");
-		btnNuevo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnNuevo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNuevo.setBorderPainted(false);
 		btnNuevo.setVerticalAlignment(SwingConstants.TOP);
@@ -157,6 +155,19 @@ public class ListadoEstacion extends JFrame implements Constantes {
 		btnNuevo.setBackground(azul);
 		btnNuevo.setBounds(221, 370, 125, 27);
 		panel.add(btnNuevo);
+		
+		btnVolver = new JButton("Volver");
+		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnVolver.setBorderPainted(false);
+		btnVolver.setVerticalAlignment(SwingConstants.TOP);
+		btnVolver.setForeground(Color.WHITE);
+		btnVolver.setBounds(10, 369, 52, 35);		
+		Image volver = new ImageIcon(this.getClass().getResource("volver1.png")).getImage();
+		btnVolver.setIcon(new ImageIcon(volver));
+		btnVolver.setBackground(Color.WHITE);
+		btnVolver.setBorder(null);
+		btnVolver.setOpaque(false);
+		panel.add(btnVolver);
 		
 		btnModificar = new JButton("Modificar");
 		btnModificar.setBorderPainted(false);
@@ -202,7 +213,7 @@ public class ListadoEstacion extends JFrame implements Constantes {
 			EstacionBeanRemote estacionBean;
 			try {
 				estacionBean = (EstacionBeanRemote)
-						InitialContext.doLookup("IagroEJB/EstacionBean!com.servicios.EstacionBeanRemote");
+						InitialContext.doLookup(RUTA_EstacionBean);
 				map = new HashMap<>();
 				//ControllerEstacion.CompletarCombo();
 				List<Estacion> estacion = estacionBean.obtenerTodos();
@@ -228,4 +239,3 @@ public class ListadoEstacion extends JFrame implements Constantes {
 			
 	}
 }
-

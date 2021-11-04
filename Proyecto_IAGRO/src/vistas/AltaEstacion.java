@@ -2,6 +2,7 @@ package vistas;
 
 import javax.naming.NamingException;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
 import com.entities.Departamento;
@@ -17,6 +18,7 @@ import java.util.List;
 
 public class AltaEstacion extends JFrame {
 
+	private JPanel contentPane;
 	private JPanel panel;
 	public JLabel lblAltaEstacion;
 	private JPanel banner;
@@ -44,23 +46,30 @@ public class AltaEstacion extends JFrame {
 
 		Color azul=new Color (104,171,196); //color azul 104,171,196 / 68abc4
 		Color verde=new Color (166,187,95); //color verde 166,187,95 / a6bb5f 
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 806, 450);
+		setLocationRelativeTo(null);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
 		panel = new JPanel();
-		panel.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		panel.setForeground(new Color(154, 205, 50));
 		panel.setBackground(Color.WHITE);
-		getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setBounds(0, 0, 790, 426);
+		contentPane.add(panel);
 		panel.setLayout(null);
 
-		panel.setLayout(null);
 
 		banner = new JPanel();
-		banner.setBounds(0, 0, 656, 64);
+		banner.setBounds(0, 0, 790, 64);
 		panel.add(banner);
 		banner.setBackground(verde);
 		banner.setLayout(null);
 
 		textnombre = new JTextField();
-		textnombre.setBounds(100, 110, 116, 23);
+		textnombre.setBounds(170, 111, 116, 23);
 		textnombre.setBackground(Color.LIGHT_GRAY);
 		textnombre.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		textnombre.setOpaque(false); //Le quita la opacidad
@@ -79,49 +88,72 @@ public class AltaEstacion extends JFrame {
 		panel.add(lupe);
 
 		btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBounds(539, 347, 89, 23);
+		btnRegistrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnRegistrar.setBorderPainted(false);
+		btnRegistrar.setVerticalAlignment(SwingConstants.TOP);
+		btnRegistrar.setForeground(Color.WHITE);
+		btnRegistrar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) azul));
+		btnRegistrar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		btnRegistrar.setBackground(azul);
+		btnRegistrar.setBounds(343, 373, 125, 27);
 		panel.add(btnRegistrar);
 		
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(539, 347, 89, 23);
+		btnGuardar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnGuardar.setBorderPainted(false);
+		btnGuardar.setVerticalAlignment(SwingConstants.TOP);
+		btnGuardar.setForeground(Color.WHITE);
+		btnGuardar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) azul));
+		btnGuardar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		btnGuardar.setBackground(azul);
+		btnGuardar.setBounds(343, 373, 125, 27);
 		panel.add(btnGuardar);
 
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(48, 347, 89, 23);
+		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnVolver.setBorderPainted(false);
+		btnVolver.setVerticalAlignment(SwingConstants.TOP);
+		btnVolver.setForeground(Color.WHITE);
+		btnVolver.setBounds(10, 369, 52, 35);		
+		Image volver = new ImageIcon(this.getClass().getResource("volver1.png")).getImage();
+		btnVolver.setIcon(new ImageIcon(volver));
+		btnVolver.setBackground(Color.WHITE);
+		btnVolver.setBorder(null);
+		btnVolver.setOpaque(false);
 		panel.add(btnVolver);
 
 		lblNombre = new JLabel("Nombre");
 		lblNombre.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblNombre.setBounds(28, 110, 62, 23);
+		lblNombre.setBounds(74, 111, 62, 23);
 		panel.add(lblNombre);
 
 		JLabel lblDepartamento = new JLabel("Departamento");
 		lblDepartamento.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblDepartamento.setBounds(255, 110, 101, 23);
+		lblDepartamento.setBounds(386, 111, 101, 23);
 		panel.add(lblDepartamento);
 
 		comboDpto = new JComboBox();
-		comboDpto.setBounds(393, 110, 130, 23);
+		comboDpto.setBounds(533, 111, 130, 23);
 		panel.add(comboDpto);
 		
 		JLabel lblLatitud = new JLabel("Latitud");
 		lblLatitud.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblLatitud.setBounds(10, 180, 55, 23);
+		lblLatitud.setBounds(39, 202, 55, 23);
 		panel.add(lblLatitud);
 
 		JLabel lblLongitud = new JLabel("Longitud");
 		lblLongitud.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblLongitud.setBounds(209, 180, 62, 23);
+		lblLongitud.setBounds(257, 202, 62, 23);
 		panel.add(lblLongitud);
 
 		lblCalidadAgua = new JLabel("Calidad del Agua");
 		lblCalidadAgua.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblCalidadAgua.setBounds(28, 254, 122, 23);
+		lblCalidadAgua.setBounds(481, 202, 122, 23);
 		panel.add(lblCalidadAgua);
 
 		lblHumedadRelativa = new JLabel("Humedad Relativa");
 		lblHumedadRelativa.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblHumedadRelativa.setBounds(270, 254, 128, 23);
+		lblHumedadRelativa.setBounds(74, 292, 128, 23);
 		panel.add(lblHumedadRelativa);
 
 		textLatitud = new JTextField();
@@ -130,7 +162,7 @@ public class AltaEstacion extends JFrame {
 		textLatitud.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		textLatitud.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		textLatitud.setBackground(Color.LIGHT_GRAY);
-		textLatitud.setBounds(88, 180, 62, 23);
+		textLatitud.setBounds(118, 202, 62, 23);
 		panel.add(textLatitud);
 
 		textLongitud = new JTextField();
@@ -139,7 +171,7 @@ public class AltaEstacion extends JFrame {
 		textLongitud.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		textLongitud.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		textLongitud.setBackground(Color.LIGHT_GRAY);
-		textLongitud.setBounds(296, 180, 62, 23);
+		textLongitud.setBounds(343, 202, 62, 23);
 		panel.add(textLongitud);
 
 		textCalidadAgua = new JTextField();
@@ -148,7 +180,7 @@ public class AltaEstacion extends JFrame {
 		textCalidadAgua.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		textCalidadAgua.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		textCalidadAgua.setBackground(Color.LIGHT_GRAY);
-		textCalidadAgua.setBounds(177, 254, 62, 23);
+		textCalidadAgua.setBounds(624, 202, 62, 23);
 		panel.add(textCalidadAgua);
 
 		textHumedadRelativa = new JTextField();
@@ -157,22 +189,22 @@ public class AltaEstacion extends JFrame {
 		textHumedadRelativa.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		textHumedadRelativa.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		textHumedadRelativa.setBackground(Color.LIGHT_GRAY);
-		textHumedadRelativa.setBounds(425, 254, 62, 23);
+		textHumedadRelativa.setBounds(224, 292, 62, 23);
 		panel.add(textHumedadRelativa);
 
 		lblcreador = new JLabel("Usuario Creador");
 		lblcreador.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblcreador.setBounds(407, 180, 122, 23);
+		lblcreador.setBounds(386, 292, 122, 23);
 		panel.add(lblcreador);
 
 		lblNombreUser = new JLabel("");
 		lblNombreUser.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblNombreUser.setBounds(539, 180, 87, 23);
+		lblNombreUser.setBounds(541, 292, 87, 23);
 		panel.add(lblNombreUser);
 
 		lblAltaEstacion = new JLabel("ALTA DE ESTACIÓN");
 		lblAltaEstacion.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAltaEstacion.setBounds(179, 20, 328, 27);
+		lblAltaEstacion.setBounds(231, 17, 328, 27);
 		banner.add(lblAltaEstacion);
 		lblAltaEstacion.setForeground(Color.WHITE);
 		lblAltaEstacion.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 22));
