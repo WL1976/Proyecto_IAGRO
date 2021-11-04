@@ -8,6 +8,7 @@ import javax.naming.NamingException;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import com.entities.Usuario;
 import com.servicios.UsuarioBeanRemote;
@@ -24,6 +25,10 @@ import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class ListadoUsuarios extends JFrame implements Constantes{
 	
@@ -41,14 +46,17 @@ public class ListadoUsuarios extends JFrame implements Constantes{
 	private JTable table_2;
 	private JScrollPane scrollPane;
 	private JLabel lblNewLabel_1;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField filtroNombre;
+	private JTextField filtroApellido;
 	private JLabel lblNewLabel_1_1_1;
-	private JTextField textField_2;
+	private JTextField filtroUsuario;
 	public JButton btnVolver;
 	public JButton btnNuevo;
 	public JButton btnModificar;
 	public JButton btnEliminar;
+	
+	public TableRowSorter filtro;
+	
 	
 	public HashMap<Long,Usuario> map;
 	 
@@ -123,32 +131,35 @@ public class ListadoUsuarios extends JFrame implements Constantes{
 		lblNewLabel_1.setBounds(10, 99, 63, 14);
 		panel.add(lblNewLabel_1);
 		
-		textField = new JTextField();
-		textField.setBounds(64, 98, 123, 20);
-		panel.add(textField);
-		textField.setColumns(10);
+		filtroNombre = new JTextField();
+		
+		
+		filtroNombre.setBounds(64, 98, 123, 20);
+		panel.add(filtroNombre);
+		filtroNombre.setColumns(10);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Apellido");
 		lblNewLabel_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		lblNewLabel_1_1.setBounds(197, 96, 63, 20);
 		panel.add(lblNewLabel_1_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(252, 98, 135, 20);
-		panel.add(textField_1);
+		filtroApellido = new JTextField();
+		filtroApellido.setColumns(10);
+		filtroApellido.setBounds(252, 98, 135, 20);
+		panel.add(filtroApellido);
 		
 		lblNewLabel_1_1_1 = new JLabel("Usuario");
 		lblNewLabel_1_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		lblNewLabel_1_1_1.setBounds(397, 96, 63, 20);
 		panel.add(lblNewLabel_1_1_1);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(448, 98, 135, 20);
-		panel.add(textField_2);
+		filtroUsuario = new JTextField();
+		filtroUsuario.setColumns(10);
+		filtroUsuario.setBounds(448, 98, 135, 20);
+		panel.add(filtroUsuario);
 		
 		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Rol", "Administrador", "Investigador", "Aficionado"}));
 		comboBox.setBounds(604, 97, 135, 22);
 		panel.add(comboBox);
 		
@@ -244,6 +255,49 @@ public class ListadoUsuarios extends JFrame implements Constantes{
 	     		   fila[5]=u.getTipo();
 	     		   modelo.addRow(fila);
 	     	   }
+	     	   
+	 //////////////////****************************FILTROS********************************/////////////////7
+	     	filtro  = new TableRowSorter(modelo);
+	     	table.setRowSorter(filtro);
+	     	
+	     	filtroNombre.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					
+					filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 0));
+				}
+			});
+	     	
+	     	filtroApellido.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					
+					filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroApellido.getText(), 1));
+				}
+			});
+	     	
+	     	filtroUsuario.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					
+					filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroUsuario.getText(), 3));
+				}
+			});
+	     	
+	     	comboBox.addItemListener(new ItemListener() {
+				public void itemStateChanged(ItemEvent e) {
+					
+					String selected = comboBox.getSelectedItem().toString();
+					
+					if(selected != "Rol") {
+						filtro.setRowFilter(RowFilter.regexFilter(selected, 5));
+					}
+					else {
+						filtro.setRowFilter(null);
+					}
+					
+				}
+			});
 			
 			
 	}
