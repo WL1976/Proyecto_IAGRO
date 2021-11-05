@@ -4,12 +4,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.naming.InitialContext;
+import javax.naming.Name;
 import javax.naming.NamingException;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import com.entities.Estacion;
+import com.entities.Estado;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
 import com.servicios.EstacionBeanRemote;
@@ -19,6 +23,7 @@ import controladores.Constantes;
 import controladores.ControllerEstacion;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.List;
@@ -29,11 +34,10 @@ import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
 public class ListadoEstacion extends JFrame implements Constantes {
-	
+
 	private static final long serialVersionUID = 1L;
-	
-	
-	
+
+
 	public JPanel panel;
 	public JPanel contentPane;
 	public JPanel banner;
@@ -46,19 +50,20 @@ public class ListadoEstacion extends JFrame implements Constantes {
 	private JLabel lblNewLabel_1;
 	private JTextField textField;
 	public JComboBox comboDpto;
+	public JButton btnVolver;
 	public JButton btnNuevo;
 	public JButton btnModificar;
 	public JButton btnEliminar;
-	
+
 	public HashMap<Long,Estacion> map;
-	 
-	
+
+
 	public ListadoEstacion() throws ServiciosException  {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListadoEstacion.class.getResource("/vistas/Logo_original.png")));
-		
+
 		//Frame
 		//Estilos.Ventana(this, contentPane, panel);
-		
+
 		Color azul=new Color (104,171,196); //color azul 104,171,196 / 68abc4
 		Color verde=new Color (166,187,95); //color verde 166,187,95 / a6bb5f 
 		setResizable(false);
@@ -77,62 +82,62 @@ public class ListadoEstacion extends JFrame implements Constantes {
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(0, 0, 790, 426);
 		contentPane.add(panel);
-		
-		
+
+
 		//Estilos.PanelSuperior(banner,panel);
 		panel.setLayout(null);
-		
+
 		banner = new JPanel();
 		banner.setBounds(0, 0, 790, 64);
 		panel.add(banner);
 		banner.setBackground(verde);
 		banner.setLayout(null);
-		
+
 		lblNewLabel = new JLabel("LISTADO DE ESTACIONES");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setBounds(231, 20, 328, 27);
 		banner.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 25));
-		
-		
-		
+
+
+
 		// creamos el modelo de Tabla
 		modelo= new DefaultTableModel() {
-			 @Override
-			    public boolean isCellEditable(int row, int column) {
-			       //all cells false
-			       return false;
-			    }
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				//all cells false
+				return false;
+			}
 		};
-		
+
 
 		// se crea la Tabla con el modelo DefaultTableModel
 		table = new JTable(modelo);
 		table.setFont(new Font("Yu Gothic UI", Font.PLAIN, 13));
 		table.setBounds(41, 110, 714, 222);
-		
-		
+
+
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 135, 770, 213);
 		panel.add(scrollPane);
 		scrollPane.setViewportView(table);
-		
+
 		lblNewLabel_1 = new JLabel("Nombre");
 		lblNewLabel_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		lblNewLabel_1.setBounds(10, 99, 63, 14);
 		panel.add(lblNewLabel_1);
-		
+
 		textField = new JTextField();
 		textField.setBounds(74, 98, 123, 20);
 		panel.add(textField);
 		textField.setColumns(10);
-		
+
 		JLabel lblNewLabel_1_1 = new JLabel("Departamento");
 		lblNewLabel_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		lblNewLabel_1_1.setBounds(219, 96, 104, 20);
 		panel.add(lblNewLabel_1_1);
-		
+
 		JButton lupe = new JButton("");
 		lupe.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lupe.setBorderPainted(false);
@@ -142,12 +147,8 @@ public class ListadoEstacion extends JFrame implements Constantes {
 		lupe.setBounds(749, 97, 28, 23);
 		lupe.setOpaque(false);
 		panel.add(lupe);
-		
+
 		btnNuevo = new JButton("Nueva Estaci\u00F3n");
-		btnNuevo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnNuevo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNuevo.setBorderPainted(false);
 		btnNuevo.setVerticalAlignment(SwingConstants.TOP);
@@ -157,7 +158,20 @@ public class ListadoEstacion extends JFrame implements Constantes {
 		btnNuevo.setBackground(azul);
 		btnNuevo.setBounds(221, 370, 125, 27);
 		panel.add(btnNuevo);
-		
+
+		btnVolver = new JButton("Volver");
+		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnVolver.setBorderPainted(false);
+		btnVolver.setVerticalAlignment(SwingConstants.TOP);
+		btnVolver.setForeground(Color.WHITE);
+		btnVolver.setBounds(10, 369, 52, 35);		
+		Image volver = new ImageIcon(this.getClass().getResource("volver1.png")).getImage();
+		btnVolver.setIcon(new ImageIcon(volver));
+		btnVolver.setBackground(Color.WHITE);
+		btnVolver.setBorder(null);
+		btnVolver.setOpaque(false);
+		panel.add(btnVolver);
+
 		btnModificar = new JButton("Modificar");
 		btnModificar.setBorderPainted(false);
 		btnModificar.addActionListener(new ActionListener() {
@@ -172,8 +186,8 @@ public class ListadoEstacion extends JFrame implements Constantes {
 		btnModificar.setBackground(verde);
 		btnModificar.setBounds(356, 370, 90, 27);
 		panel.add(btnModificar);
-		
-		
+
+
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEliminar.setForeground(Color.WHITE);
@@ -182,11 +196,11 @@ public class ListadoEstacion extends JFrame implements Constantes {
 		btnEliminar.setBackground(verde);
 		btnEliminar.setBounds(456, 370, 90, 27);
 		panel.add(btnEliminar);
-		
+
 		comboDpto = new JComboBox();
 		comboDpto.setBounds(321, 98, 141, 20);
 		panel.add(comboDpto);
-		
+
 		//crea un array que contiene los nombre de las columnas
 		final String[] columnNames = {"Nombre","Departamento","Latitud", "Longitud", "Identificador"};
 		// insertamos las columnas
@@ -194,38 +208,40 @@ public class ListadoEstacion extends JFrame implements Constantes {
 			//agrega las columnas a la tabla
 			modelo.addColumn(columnNames[column]);
 		}
+		//ORDEN DE LA TABLA
+		TableRowSorter<TableModel> orden=new  TableRowSorter<>(modelo);
+		table.setRowSorter(orden);
+		// Se crea un array que será una de las filas de la tabla. 
+		Object [] fila = new Object[columnNames.length]; 
+		// Se carga cada posición del array con una de las columnas de la tabla en base de datos.
 
-			// Se crea un array que será una de las filas de la tabla. 
-			Object [] fila = new Object[columnNames.length]; 
-			// Se carga cada posición del array con una de las columnas de la tabla en base de datos.
-			
-			EstacionBeanRemote estacionBean;
-			try {
-				estacionBean = (EstacionBeanRemote)
-						InitialContext.doLookup("IagroEJB/EstacionBean!com.servicios.EstacionBeanRemote");
-				map = new HashMap<>();
-				//ControllerEstacion.CompletarCombo();
-				List<Estacion> estacion = estacionBean.obtenerTodos();
-				comboDpto.setModel(new DefaultComboBoxModel (ControllerEstacion.CompletarCombo()));
-		     	   for (Estacion u: estacion) {
-		     		 int dp=Math.toIntExact(u.getDepartamento());
-		     		  map.put(u.getIdEstacion(), u);
-		     		   
-		     		   fila[0]=u.getNombre();
-		     		   fila[1]=comboDpto.getItemAt(dp);
-		     		   fila[2]=u.getLatitud();
-		     		   fila[3]=u.getLongitud();
-		     		   fila[4]=u.getIdEstacion();
-		     		   modelo.addRow(fila);
-		     	   }
-				
-			} catch (NamingException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+		EstacionBeanRemote estacionBean;
+		try {
+			estacionBean = (EstacionBeanRemote)
+					InitialContext.doLookup(RUTA_EstacionBean);
+			map = new HashMap<>();
+			//ControllerEstacion.CompletarCombo();
+			List<Estacion> estacion = estacionBean.obtenerTodos();
+			comboDpto.setModel(new DefaultComboBoxModel (ControllerEstacion.CompletarCombo()));
+			for (Estacion e: estacion) {
+				int dp=Math.toIntExact(e.getDepartamento());
+				map.put(e.getIdEstacion(), e);
+
+				fila[0]=e.getNombre();
+				fila[1]=comboDpto.getItemAt(dp);
+				fila[2]=e.getLatitud();
+				fila[3]=e.getLongitud();
+				fila[4]=e.getIdEstacion();
+				if  (e.getEstado().equals(Estado.ACTIVO)) {
+					modelo.addRow(fila);
+				}
 			}
-			
-			
-			
+
+		} catch (NamingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
 	}
 }
 

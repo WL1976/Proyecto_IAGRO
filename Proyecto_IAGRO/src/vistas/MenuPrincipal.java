@@ -6,6 +6,9 @@ import java.awt.Image;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controladores.Main;
+
 import java.awt.Color;
 
 import java.awt.event.MouseAdapter;
@@ -63,7 +66,7 @@ public class MenuPrincipal extends JFrame {
 		Color verde=new Color (166,187,95); //color verde 166,187,95 / a6bb5f 
 		setResizable(false);
 		setTitle("Menu Principal");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 806, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -259,13 +262,7 @@ public class MenuPrincipal extends JFrame {
 
 		//icono Log Out
 		btnsalir = new JButton("");
-		btnsalir.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-
-				System.exit(0);
-			}
-		});
+			
 		btnsalir.setToolTipText("");
 		btnsalir.setFont(new Font("Voces", Font.BOLD, 14));
 		btnsalir.setForeground(new Color(255, 255, 255));
@@ -290,22 +287,28 @@ public class MenuPrincipal extends JFrame {
 
 	public void perfil (String tipo) {
 
-		if (tipo.equalsIgnoreCase("ADMINISTRADOR")) {
+		if (tipo.equalsIgnoreCase("Administrador")) {
 			panelAdministrador.setVisible(true);
 			panelInvestigador.setVisible(false);
 			panelAficionado.setVisible(false);
+
 			
-		}if (tipo.equalsIgnoreCase("INVESTIGADOR")) {
+		}if (tipo.equalsIgnoreCase("Investigador")) {
 			panelAdministrador.setVisible(false);
 			panelInvestigador.setVisible(true);
 			panelInvestigador.setBounds(0, 59, 158, 356);
 			panelAficionado.setVisible(false);
+	
 
-		}if (tipo.equalsIgnoreCase("AFICIONADO")) {
+		}if (tipo.equalsIgnoreCase("Aficionado")) {
 			panelAdministrador.setVisible(false);
 			panelInvestigador.setVisible(false);
 			panelAficionado.setVisible(true);
 			panelAficionado.setBounds(0, 59, 158, 356);
+			
+			
+			
 		}
+		
 	}
 }

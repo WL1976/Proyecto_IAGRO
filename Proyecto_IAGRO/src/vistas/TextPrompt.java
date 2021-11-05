@@ -63,6 +63,27 @@ implements FocusListener, DocumentListener
 		checkForPrompt();
 	}
 
+	public TextPrompt(String text, JLabel lblReqContraseña) {
+		
+		this.component = component;
+		setShow( show );
+		document = component.getDocument();
+
+		setText( text );
+		setFont( component.getFont() );
+		setForeground( component.getForeground() );
+		setBorder( new EmptyBorder(component.getInsets()) );
+		setHorizontalAlignment(SwingConstants.LEADING);
+
+		component.addFocusListener( this );
+		document.addDocumentListener( this );
+
+		component.setLayout( new BorderLayout() );
+		component.add( this );
+		checkForPrompt();
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 *  Convenience method to change the alpha value of the current foreground
 	 *  Color to the specific value.

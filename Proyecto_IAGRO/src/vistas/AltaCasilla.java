@@ -16,7 +16,7 @@ import java.util.*;
 //import org.jdatepicker.impl.DateComponentFormatter;
 import java.util.List;
 
-public class AltaEstacion extends JFrame {
+public class AltaCasilla extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel panel;
@@ -28,19 +28,13 @@ public class AltaEstacion extends JFrame {
 	public JButton btnRegistrar;
 	public JButton btnVolver;
 	private JLabel lblNewLabel;
-	private JLabel lblNombre;
-	private JLabel lblCalidadAgua;
-	private JLabel lblHumedadRelativa;
+	private JLabel lblParametro;
 	public  JComboBox comboDpto;
-	public JTextField textLatitud;
-	public JTextField textLongitud;
-	public JTextField textCalidadAgua;
-	public JTextField textHumedadRelativa;
-	private JLabel lblcreador;
+	private JLabel lblDescripcion;
 	public JLabel lblNombreUser;
 	public JButton btnGuardar;
 
-	public  AltaEstacion() {
+	public  AltaCasilla() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AltaEstacion.class.getResource("/vistas/Logo_original.png")));
 
 
@@ -69,7 +63,7 @@ public class AltaEstacion extends JFrame {
 		banner.setLayout(null);
 
 		textnombre = new JTextField();
-		textnombre.setBounds(170, 111, 116, 23);
+		textnombre.setBounds(208, 111, 116, 23);
 		textnombre.setBackground(Color.LIGHT_GRAY);
 		textnombre.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		textnombre.setOpaque(false); //Le quita la opacidad
@@ -78,16 +72,17 @@ public class AltaEstacion extends JFrame {
 		panel.add(textnombre);
 
 		lupe = new JButton("");
+		lupe.setBounds(599, 68, 29, 23);
 		lupe.setEnabled(false);
 		lupe.setBackground(Color.WHITE);
 		lupe.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
 		lupe.setIcon(new ImageIcon("C:\\Users\\Admin.DESKTOP-0Q23CA9\\Downloads\\lupa.png"));
-		lupe.setBounds(599, 68, 29, 23);
 		lupe.setOpaque(false);
 		lupe.setBorder(null);
 		panel.add(lupe);
 
-		btnRegistrar = new JButton("Registrar");
+		btnRegistrar = new JButton("Agregar Casilla");
+		btnRegistrar.setBounds(343, 373, 125, 27);
 		btnRegistrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRegistrar.setBorderPainted(false);
 		btnRegistrar.setVerticalAlignment(SwingConstants.TOP);
@@ -95,10 +90,10 @@ public class AltaEstacion extends JFrame {
 		btnRegistrar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) azul));
 		btnRegistrar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnRegistrar.setBackground(azul);
-		btnRegistrar.setBounds(343, 373, 125, 27);
 		panel.add(btnRegistrar);
 		
 		btnGuardar = new JButton("Guardar");
+		btnGuardar.setBounds(343, 373, 125, 27);
 		btnGuardar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnGuardar.setBorderPainted(false);
 		btnGuardar.setVerticalAlignment(SwingConstants.TOP);
@@ -106,15 +101,14 @@ public class AltaEstacion extends JFrame {
 		btnGuardar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) azul));
 		btnGuardar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnGuardar.setBackground(azul);
-		btnGuardar.setBounds(343, 373, 125, 27);
 		panel.add(btnGuardar);
 
 		btnVolver = new JButton("Volver");
+		btnVolver.setBounds(10, 369, 52, 35);
 		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVolver.setBorderPainted(false);
 		btnVolver.setVerticalAlignment(SwingConstants.TOP);
 		btnVolver.setForeground(Color.WHITE);
-		btnVolver.setBounds(10, 369, 52, 35);		
 		Image volver = new ImageIcon(this.getClass().getResource("volver1.png")).getImage();
 		btnVolver.setIcon(new ImageIcon(volver));
 		btnVolver.setBackground(Color.WHITE);
@@ -122,92 +116,61 @@ public class AltaEstacion extends JFrame {
 		btnVolver.setOpaque(false);
 		panel.add(btnVolver);
 
-		lblNombre = new JLabel("Nombre");
-		lblNombre.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblNombre.setBounds(74, 111, 62, 23);
-		panel.add(lblNombre);
+		lblParametro = new JLabel("Parametro");
+		lblParametro.setBounds(432, 109, 79, 23);
+		lblParametro.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
+		panel.add(lblParametro);
 
-		JLabel lblDepartamento = new JLabel("Departamento");
-		lblDepartamento.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblDepartamento.setBounds(386, 111, 101, 23);
-		panel.add(lblDepartamento);
+		JLabel lblUnidMedida = new JLabel("Unidad de Medida");
+		lblUnidMedida.setBounds(381, 200, 130, 23);
+		lblUnidMedida.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
+		panel.add(lblUnidMedida);
 
 		comboDpto = new JComboBox();
 		comboDpto.setBounds(533, 111, 130, 23);
 		panel.add(comboDpto);
-		
-		JLabel lblLatitud = new JLabel("Latitud");
-		lblLatitud.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblLatitud.setBounds(39, 202, 55, 23);
-		panel.add(lblLatitud);
 
-		JLabel lblLongitud = new JLabel("Longitud");
-		lblLongitud.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblLongitud.setBounds(257, 202, 62, 23);
-		panel.add(lblLongitud);
-
-		lblCalidadAgua = new JLabel("Calidad del Agua");
-		lblCalidadAgua.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblCalidadAgua.setBounds(481, 202, 122, 23);
-		panel.add(lblCalidadAgua);
-
-		lblHumedadRelativa = new JLabel("Humedad Relativa");
-		lblHumedadRelativa.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblHumedadRelativa.setBounds(74, 292, 128, 23);
-		panel.add(lblHumedadRelativa);
-
-		textLatitud = new JTextField();
-		textLatitud.setOpaque(false);
-		textLatitud.setForeground(Color.LIGHT_GRAY);
-		textLatitud.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		textLatitud.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
-		textLatitud.setBackground(Color.LIGHT_GRAY);
-		textLatitud.setBounds(118, 202, 62, 23);
-		panel.add(textLatitud);
-
-		textLongitud = new JTextField();
-		textLongitud.setOpaque(false);
-		textLongitud.setForeground(Color.LIGHT_GRAY);
-		textLongitud.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		textLongitud.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
-		textLongitud.setBackground(Color.LIGHT_GRAY);
-		textLongitud.setBounds(343, 202, 62, 23);
-		panel.add(textLongitud);
-
-		textCalidadAgua = new JTextField();
-		textCalidadAgua.setOpaque(false);
-		textCalidadAgua.setForeground(Color.LIGHT_GRAY);
-		textCalidadAgua.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		textCalidadAgua.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
-		textCalidadAgua.setBackground(Color.LIGHT_GRAY);
-		textCalidadAgua.setBounds(624, 202, 62, 23);
-		panel.add(textCalidadAgua);
-
-		textHumedadRelativa = new JTextField();
-		textHumedadRelativa.setOpaque(false);
-		textHumedadRelativa.setForeground(Color.LIGHT_GRAY);
-		textHumedadRelativa.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		textHumedadRelativa.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
-		textHumedadRelativa.setBackground(Color.LIGHT_GRAY);
-		textHumedadRelativa.setBounds(224, 292, 62, 23);
-		panel.add(textHumedadRelativa);
-
-		lblcreador = new JLabel("Usuario Creador");
-		lblcreador.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblcreador.setBounds(386, 292, 122, 23);
-		panel.add(lblcreador);
+		lblDescripcion = new JLabel("Descripci\u00F3n");
+		lblDescripcion.setBounds(29, 286, 107, 23);
+		lblDescripcion.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
+		panel.add(lblDescripcion);
 
 		lblNombreUser = new JLabel("");
-		lblNombreUser.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
 		lblNombreUser.setBounds(541, 292, 87, 23);
+		lblNombreUser.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
 		panel.add(lblNombreUser);
 
-		lblAltaEstacion = new JLabel("ALTA DE ESTACIÓN");
+		lblAltaEstacion = new JLabel("ALTA DE CASILLA");
 		lblAltaEstacion.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAltaEstacion.setBounds(231, 17, 328, 27);
 		banner.add(lblAltaEstacion);
 		lblAltaEstacion.setForeground(Color.WHITE);
 		lblAltaEstacion.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 22));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(140, 286, 521, 64);
+		panel.add(scrollPane);
+		
+		JTextPane textPane = new JTextPane();
+		scrollPane.setViewportView(textPane);
+		
+		JComboBox comboDpto_1 = new JComboBox();
+		comboDpto_1.setBounds(533, 200, 130, 23);
+		panel.add(comboDpto_1);
+		
+		JLabel lblNombre = new JLabel("Nombre Casilla");
+		lblNombre.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
+		lblNombre.setBounds(29, 116, 142, 23);
+		panel.add(lblNombre);
+		
+		JLabel lblTipoDeValor = new JLabel("Tipo de Valor");
+		lblTipoDeValor.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
+		lblTipoDeValor.setBounds(29, 200, 142, 23);
+		panel.add(lblTipoDeValor);
+		
+		JComboBox comboDpto_1_1 = new JComboBox();
+		comboDpto_1_1.setBounds(154, 203, 130, 23);
+		panel.add(comboDpto_1_1);
 		this.setVisible(true);
 
 
