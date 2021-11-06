@@ -30,6 +30,8 @@ import java.util.List;
 import javax.swing.border.MatteBorder;
 import java.awt.Cursor;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
@@ -49,7 +51,7 @@ public class ListadoFormulario extends JFrame implements Constantes{
 	private JTable table_2;
 	private JScrollPane scrollPane;
 	private JLabel lblNewLabel_1;
-	private JTextField textField;
+	private JTextField filtroNombre;
 	public JComboBox comboDpto;
 	public JButton btnVolver;
 	public JButton btnNuevo;
@@ -57,6 +59,7 @@ public class ListadoFormulario extends JFrame implements Constantes{
 	public JButton btnEliminar;
 
 	public HashMap<Long,Formulario> map;
+	private JTextField filtroUsuario;
 
 
 	public ListadoFormulario() throws ServiciosException  {
@@ -129,10 +132,15 @@ public class ListadoFormulario extends JFrame implements Constantes{
 		lblNewLabel_1.setBounds(10, 99, 63, 14);
 		panel.add(lblNewLabel_1);
 
-		textField = new JTextField();
-		textField.setBounds(74, 98, 123, 20);
-		panel.add(textField);
-		textField.setColumns(10);
+		filtroNombre = new JTextField();
+		filtroNombre.setBounds(74, 98, 123, 20);
+		panel.add(filtroNombre);
+		filtroNombre.setColumns(10);
+		
+		filtroUsuario = new JTextField();
+		filtroUsuario.setColumns(10);
+		filtroUsuario.setBounds(277, 98, 123, 20);
+		panel.add(filtroUsuario);
 
 
 
@@ -239,7 +247,25 @@ public class ListadoFormulario extends JFrame implements Constantes{
 			e1.printStackTrace();
 		}
 
+//////////////////****************************FILTROS********************************/////////////////7
+		
+	TableRowSorter<TableModel> filtro=new  TableRowSorter<>(modelo);
+	table.setRowSorter(filtro);
+	
+	JLabel lblNewLabel_1_1 = new JLabel("Usuario");
+	lblNewLabel_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+	lblNewLabel_1_1.setBounds(221, 99, 63, 14);
+	panel.add(lblNewLabel_1_1);
+	
 
+	
+	filtroNombre.addKeyListener(new KeyAdapter() {
+		@Override
+		public void keyReleased(KeyEvent e) {
+			filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 0));
+
+		}
+	});
 
 	}
 }

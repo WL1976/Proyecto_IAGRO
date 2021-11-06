@@ -222,9 +222,7 @@ public class ListadoUsuarios extends JFrame implements Constantes{
 		panel.add(btnEliminar);
 
 
-		//ORDEN DE LA TABLA
-		TableRowSorter<TableModel> orden=new  TableRowSorter<>(modelo);
-		table.setRowSorter(orden);
+		//filtro DE LA TABLA
 
 		//crea un array que contiene los nombre de las columnas
 		final String[] columnNames = {"Nombre","Apellido","Correo", "Usuario", "Identificador","Rol"};
@@ -255,20 +253,20 @@ public class ListadoUsuarios extends JFrame implements Constantes{
 			fila[3]=u.getNombreUsuario();
 			fila[4]=u.getIdUsuario();
 			fila[5]=u.getTipo();
-			if  (u.getEstado().equals(Estado.ACTIVO)) {
+			/*if  (u.getEstado().equals(Estado.ACTIVO)) {
 				modelo.addRow(fila);
 
-			}
+			}*/
 
 			//////////////////****************************FILTROS********************************/////////////////7
-			//filtro  = new TableRowSorter(modelo);
-
-			//orden.setRowFilter(RowFilter.regexFilter("^ACTIVO", 6));
+			
+			TableRowSorter<TableModel> filtro=new  TableRowSorter<>(modelo);
+			table.setRowSorter(filtro);
 
 			filtroNombre.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyReleased(KeyEvent e) {
-					orden.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 0));
+					filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 0));
 
 				}
 			});
@@ -276,14 +274,14 @@ public class ListadoUsuarios extends JFrame implements Constantes{
 			filtroApellido.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyReleased(KeyEvent e) {
-					orden.setRowFilter(RowFilter.regexFilter("(?i)"+filtroApellido.getText(), 1));
+					filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroApellido.getText(), 1));
 				}
 			});
 
 			filtroUsuario.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyReleased(KeyEvent e) {
-					orden.setRowFilter(RowFilter.regexFilter("(?i)"+filtroUsuario.getText(), 3));
+					filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroUsuario.getText(), 3));
 				}
 			});
 
@@ -292,10 +290,10 @@ public class ListadoUsuarios extends JFrame implements Constantes{
 
 					String selected = comboBox.getSelectedItem().toString();
 					if(selected != "Rol") {
-						orden.setRowFilter(RowFilter.regexFilter(selected, 5));
+						filtro.setRowFilter(RowFilter.regexFilter(selected, 5));
 					}
 					else {
-						orden.setRowFilter(null);
+						filtro.setRowFilter(null);
 					}
 
 				}

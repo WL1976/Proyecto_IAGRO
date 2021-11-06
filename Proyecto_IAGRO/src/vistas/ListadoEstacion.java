@@ -30,6 +30,10 @@ import java.util.List;
 import javax.swing.border.MatteBorder;
 import java.awt.Cursor;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
@@ -48,7 +52,7 @@ public class ListadoEstacion extends JFrame implements Constantes {
 	private JTable table_2;
 	private JScrollPane scrollPane;
 	private JLabel lblNewLabel_1;
-	private JTextField textField;
+	private JTextField filtroNombre;
 	public JComboBox comboDpto;
 	public JButton btnVolver;
 	public JButton btnNuevo;
@@ -128,10 +132,10 @@ public class ListadoEstacion extends JFrame implements Constantes {
 		lblNewLabel_1.setBounds(10, 99, 63, 14);
 		panel.add(lblNewLabel_1);
 
-		textField = new JTextField();
-		textField.setBounds(74, 98, 123, 20);
-		panel.add(textField);
-		textField.setColumns(10);
+		filtroNombre = new JTextField();
+		filtroNombre.setBounds(74, 98, 123, 20);
+		panel.add(filtroNombre);
+		filtroNombre.setColumns(10);
 
 		JLabel lblNewLabel_1_1 = new JLabel("Departamento");
 		lblNewLabel_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
@@ -241,6 +245,32 @@ public class ListadoEstacion extends JFrame implements Constantes {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+//////////////////****************************FILTROS********************************/////////////////7
+		TableRowSorter filtro  = new TableRowSorter(modelo);
+
+
+	filtroNombre.addKeyListener(new KeyAdapter() {
+		@Override
+		public void keyReleased(KeyEvent e) {
+			filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 0));
+
+		}
+	});
+	
+	comboDpto.addItemListener(new ItemListener() {
+		public void itemStateChanged(ItemEvent e) {
+
+			String selected = comboDpto.getSelectedItem().toString();
+			if(selected != "") {
+				filtro.setRowFilter(RowFilter.regexFilter(selected, 1));
+			}
+			else {
+				filtro.setRowFilter(null);
+			}
+
+		}
+	});
 
 	}
 }
