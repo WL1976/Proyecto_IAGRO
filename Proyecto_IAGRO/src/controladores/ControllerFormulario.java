@@ -204,10 +204,7 @@ public class ControllerFormulario implements Constantes {
 					altaF.textUbicacion.setText(fo.getUbicacion());
 					altaF.textResumen.setText(fo.getComentarios());
 					altaF.lblfechaHoy.setText(fech);
-					List<Casilla>casi=fo.getCasillas();
-					for(Casilla c: casi) {
-						altaF.map.put(c.getIdCasilla(), c);
-					}
+
 
 
 
@@ -349,7 +346,7 @@ public class ControllerFormulario implements Constantes {
 		altaF.btnRegistrar.setVisible(true);
 		altaF.btnGuardar.setVisible(false);
 		listF.setVisible(false);
-		altaF.cargarCasillas();
+
 		Main.menuP.setVisible(false);
 		//altaE.comboDpto.setModel(new DefaultComboBoxModel (CompletarCombo()));
 
