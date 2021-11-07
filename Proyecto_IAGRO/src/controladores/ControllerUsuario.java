@@ -96,6 +96,7 @@ public class ControllerUsuario implements Constantes{
 		altaU.nombreUsu.enable(false);
 		altaU.email.enable(false);
 		altaU.comboRol.enable(false);
+		altaU.setVisible(true);
 
 	}
 
@@ -277,6 +278,10 @@ public class ControllerUsuario implements Constantes{
 		listU.btnModificar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
+				int fila = listU.table.getSelectedRow();
+				
+				if(fila != (-1)) {
 				V_ModUsuario();	
 
 				//Cargar datos de usuario
@@ -368,7 +373,11 @@ public class ControllerUsuario implements Constantes{
 					}
 				});
 
+			}else {
+				JOptionPane.showMessageDialog(null, "Debe seleccionar un usuario", null, 1);
 			}
+				
+		}
 		});
 
 
