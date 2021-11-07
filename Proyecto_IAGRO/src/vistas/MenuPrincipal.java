@@ -51,7 +51,6 @@ public class MenuPrincipal extends JFrame {
 	private Image estaciones;
 	public static JButton btnUsuariosAdm;
 	private Image usuarios;
-	private JLabel Icon_menu;
 	private Image menu;
 	private JPanel panel_Superior;
 	private JPanel panel_inferior;
@@ -260,15 +259,9 @@ public class MenuPrincipal extends JFrame {
 		panel_inferior.setBounds(0, 395, 796, 20);
 		panel_inferior.setBackground(azul);
 		panel.add(panel_inferior);
-
-		//icono HOME
-		Icon_menu = new JLabel("");	
-		Icon_menu.setBounds(10, 0, 47, 71);
 		menu = new ImageIcon(this.getClass().getResource("menu.png")).getImage();
 		panel.setLayout(null);
 		panel_Superior.setLayout(null);
-		Icon_menu.setIcon(new ImageIcon(menu));
-		panel_Superior.add(Icon_menu);
 
 		//icono Log Out
 		btnsalir = new JButton("");

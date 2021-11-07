@@ -162,6 +162,7 @@ public class Main implements Constantes	{
 						"Exit Confirmation", JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige sí se borra la fila
 				if (JOptionPane.YES_OPTION== confirm) {
+					User = null;
 					menuP.dispose();
 					menuP.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 					try {
