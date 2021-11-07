@@ -9,7 +9,7 @@ public interface Constantes {
 	final String RUTA_DepartamentoBean="Proyecto/DepartamentoBean!com.servicios.DepartamentoBeanRemote";
 	final String RUTA_FormularioBean = "Proyecto/FormularioBean!com.servicios.FormularioBeanRemote";
 	final String RUTA_CasillaBean="Proyecto/CasillaBean!com.servicios.CasillaBeanRemote";
-	//Color azul=new Color (104,171,196); //color azul 104,171,196 / 68abc4
-	//Color verde=new Color (166,187,95);
+	Color azul=new Color (104,171,196); //color azul 104,171,196 / 68abc4
+	Color verde=new Color (166,187,95);
 	
 }

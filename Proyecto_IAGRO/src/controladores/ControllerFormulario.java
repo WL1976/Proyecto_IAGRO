@@ -107,9 +107,11 @@ public class ControllerFormulario implements Constantes {
 
 						String comentario = altaF.textResumen.getText();
 						//Guardar fecha y hora en BD
-						LocalDateTime fe=LocalDateTime.now();	
-						String nombre=altaF.nombre.getText();
+						DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd LLLL yyyy HH:mm:ss");
+						LocalDateTime fe=LocalDateTime.now();
+						fe.format(formato);
 						Timestamp fecha= Timestamp.valueOf(fe);
+						String nombre=altaF.nombre.getText();
 						String ubicacion=altaF.textUbicacion.getText();
 
 
@@ -168,9 +170,6 @@ public class ControllerFormulario implements Constantes {
 				LocalDateTime fecha = LocalDateTime.now();
 				DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd LLLL yyyy HH:mm:ss");
 
-				int hora=fecha.getHour();
-				int min=fecha.getMinute();
-				int sec= fecha.getSecond();
 				String fech=fecha.format(formato);
 				String usuario=Main.User.getNombre();
 				int row = listF.table.getSelectedRow();
@@ -204,10 +203,7 @@ public class ControllerFormulario implements Constantes {
 					altaF.textUbicacion.setText(fo.getUbicacion());
 					altaF.textResumen.setText(fo.getComentarios());
 					altaF.lblfechaHoy.setText(fech);
-					List<Casilla>casi=fo.getCasillas();
-					for(Casilla c: casi) {
-						altaF.map.put(c.getIdCasilla(), c);
-					}
+
 
 
 
@@ -305,7 +301,8 @@ public class ControllerFormulario implements Constantes {
 
 		CasillaBeanRemote CasillaBean = (CasillaBeanRemote)
 				InitialContext.doLookup(RUTA_CasillaBean);
-
+		
+		
 		Formulario form = new Formulario();
 		form=formBean.buscarForm(nombre);
 		form.setFechaHora(fecha);
@@ -349,7 +346,7 @@ public class ControllerFormulario implements Constantes {
 		altaF.btnRegistrar.setVisible(true);
 		altaF.btnGuardar.setVisible(false);
 		listF.setVisible(false);
-		altaF.cargarCasillas();
+
 		Main.menuP.setVisible(false);
 		//altaE.comboDpto.setModel(new DefaultComboBoxModel (CompletarCombo()));
 
@@ -373,7 +370,7 @@ public class ControllerFormulario implements Constantes {
 
 		Object [] fila = new Object[columnNames.length]; 
 		// Se carga cada posición del array con una de las columnas de la tabla en base de datos.
-
+	
 		List<Formulario> form = obtenerTodos();
 		for (Formulario f: form) {
 			//map.put(f.getIdFormulario(), f);
