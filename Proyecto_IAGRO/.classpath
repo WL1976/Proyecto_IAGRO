@@ -10,6 +10,6 @@
 	<classpathentry kind="lib" path="C:/wildfly-20.0.1.Final/modules/system/layers/base/org/hibernate/main/hibernate-core-5.3.17.Final.jar"/>
 	<classpathentry kind="lib" path="C:/wildfly-20.0.1.Final/modules/system/layers/base/org/jboss/ejb-client/main/jboss-ejb-client-4.0.33.Final.jar"/>
 	<classpathentry kind="lib" path="C:/wildfly-20.0.1.Final/modules/system/layers/base/org/hibernate/main/hibernate-envers-5.3.17.Final.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/IagroEJB"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Proyecto"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

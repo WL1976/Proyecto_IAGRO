@@ -24,6 +24,9 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
+import javax.swing.SwingConstants;
+import java.awt.Cursor;
+import java.awt.ComponentOrientation;
 
 public class MenuPrincipal extends JFrame {
 
@@ -83,7 +86,7 @@ public class MenuPrincipal extends JFrame {
 		//panel lateral Admin
 		panelAdministrador = new JPanel();
 		panelAdministrador.setToolTipText("Registros");
-		panelAdministrador.setBounds(0, 59, 158, 356);
+		panelAdministrador.setBounds(0, 59, 175, 356);
 		panelAdministrador.setBackground(azul);
 		panel.add(panelAdministrador);
 		panelAdministrador.setLayout(null);
@@ -99,7 +102,7 @@ public class MenuPrincipal extends JFrame {
 
 		//panel Aficionado
 		panelAficionado = new JPanel();
-		panelAficionado.setBounds(200, 59,158, 369);
+		panelAficionado.setBounds(200, 59,175, 369);
 		panelAficionado.setBackground(azul);
 		panel.add(panelAficionado);
 		panelAficionado.setLayout(null);
@@ -118,10 +121,11 @@ public class MenuPrincipal extends JFrame {
 
 		//Botón Aficionado Registro 
 		btnRegistroAfi = new JButton("Registros");
+		btnRegistroAfi.setHorizontalAlignment(SwingConstants.LEFT);
 		btnRegistroAfi.setToolTipText("Registros");
-		btnRegistroAfi.setFont(new Font("Voces", Font.BOLD, 14));
+		btnRegistroAfi.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
 		btnRegistroAfi.setForeground(new Color(255, 255, 255));
-		btnRegistroAfi.setBounds(0, 126, 148, 40);
+		btnRegistroAfi.setBounds(19, 140, 156, 40);
 		reg= new ImageIcon(this.getClass().getResource("Registros.png")).getImage();
 		btnRegistroAfi.setIcon(new ImageIcon(reg));
 		btnRegistroAfi.setBackground(Color.WHITE);
@@ -133,10 +137,11 @@ public class MenuPrincipal extends JFrame {
 		//botones Admin
 
 		btnFormularioAdm = new JButton("Formularios");
+		btnFormularioAdm.setHorizontalAlignment(SwingConstants.LEFT);
 		btnFormularioAdm.setToolTipText("Formularios");
-		btnFormularioAdm.setFont(new Font("Voces", Font.BOLD, 14));
+		btnFormularioAdm.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
 		btnFormularioAdm.setForeground(new Color(255, 255, 255));
-		btnFormularioAdm.setBounds(2, 39, 156, 40);
+		btnFormularioAdm.setBounds(19, 38, 156, 40);
 		Image form = new ImageIcon(this.getClass().getResource("formulario.png")).getImage();
 		btnFormularioAdm.setIcon(new ImageIcon(form));
 		btnFormularioAdm.setBackground(Color.WHITE);
@@ -145,10 +150,11 @@ public class MenuPrincipal extends JFrame {
 		panelAdministrador.add(btnFormularioAdm);
 
 		btnCasillasAdm = new JButton("Casillas");
+		btnCasillasAdm.setHorizontalAlignment(SwingConstants.LEFT);
 		btnCasillasAdm.setToolTipText("Casillas");
-		btnCasillasAdm.setFont(new Font("Voces", Font.BOLD, 14));
+		btnCasillasAdm.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
 		btnCasillasAdm.setForeground(new Color(255, 255, 255));
-		btnCasillasAdm.setBounds(2, 90, 127, 40);
+		btnCasillasAdm.setBounds(19, 89, 156, 40);
 		casilla= new ImageIcon(this.getClass().getResource("casilla.png")).getImage();
 		btnCasillasAdm.setIcon(new ImageIcon(casilla));
 		btnCasillasAdm.setBackground(Color.WHITE);
@@ -157,10 +163,11 @@ public class MenuPrincipal extends JFrame {
 		panelAdministrador.add(btnCasillasAdm);
 
 		btnRegistroAdm= new JButton("Registros");
+		btnRegistroAdm.setHorizontalAlignment(SwingConstants.LEFT);
 		btnRegistroAdm.setToolTipText("Registros");
-		btnRegistroAdm.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
+		btnRegistroAdm.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
 		btnRegistroAdm.setForeground(new Color(255, 255, 255));
-		btnRegistroAdm.setBounds(-8, 141, 156, 40);
+		btnRegistroAdm.setBounds(19, 140, 156, 40);
 		btnRegistroAdm.setIcon(new ImageIcon(reg));
 		btnRegistroAdm.setBackground(Color.WHITE);
 		btnRegistroAdm.setBorder(null);
@@ -168,10 +175,11 @@ public class MenuPrincipal extends JFrame {
 		panelAdministrador.add(btnRegistroAdm);
 
 		btnEstacionesAdm = new JButton("Estaciones");
+		btnEstacionesAdm.setHorizontalAlignment(SwingConstants.LEFT);
 		btnEstacionesAdm.setToolTipText("Estaciones");
-		btnEstacionesAdm.setFont(new Font("Voces", Font.BOLD, 14));
+		btnEstacionesAdm.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
 		btnEstacionesAdm.setForeground(new Color(255, 255, 255));
-		btnEstacionesAdm.setBounds(2, 200, 146, 40);
+		btnEstacionesAdm.setBounds(19, 199, 156, 40);
 		estaciones= new ImageIcon(this.getClass().getResource("estaciones.png")).getImage();
 		btnEstacionesAdm.setIcon(new ImageIcon(estaciones));
 		btnEstacionesAdm.setBackground(Color.WHITE);
@@ -180,10 +188,12 @@ public class MenuPrincipal extends JFrame {
 		panelAdministrador.add(btnEstacionesAdm);
 
 		btnUsuariosAdm = new JButton("Usuarios");
+		btnUsuariosAdm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnUsuariosAdm.setHorizontalAlignment(SwingConstants.LEFT);
 		btnUsuariosAdm.setToolTipText("Usuarios");
-		btnUsuariosAdm.setFont(new Font("Voces", Font.BOLD, 14));
+		btnUsuariosAdm.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
 		btnUsuariosAdm.setForeground(new Color(255, 255, 255));
-		btnUsuariosAdm.setBounds(2, 251, 146, 40);
+		btnUsuariosAdm.setBounds(19, 250, 156, 40);
 		usuarios= new ImageIcon(this.getClass().getResource("usuarios.png")).getImage();
 		btnUsuariosAdm.setIcon(new ImageIcon(usuarios));
 		btnUsuariosAdm.setBackground(Color.WHITE);
