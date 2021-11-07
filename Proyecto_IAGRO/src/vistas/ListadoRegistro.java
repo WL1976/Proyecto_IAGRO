@@ -35,7 +35,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
-public class ListadoFormulario extends JFrame implements Constantes{
+public class ListadoRegistro extends JFrame implements Constantes{
 
 	private static final long serialVersionUID = 1L;
 
@@ -62,7 +62,7 @@ public class ListadoFormulario extends JFrame implements Constantes{
 	private JTextField filtroUsuario;
 
 
-	public ListadoFormulario() throws ServiciosException  {
+	public ListadoRegistro() throws ServiciosException  {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListadoEstacion.class.getResource("/vistas/Logo_original.png")));
 
 		//Frame
