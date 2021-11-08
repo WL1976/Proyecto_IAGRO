@@ -2,6 +2,8 @@ package controladores;
 import java.awt.Font;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -57,7 +59,6 @@ public class ControllerUsuario implements Constantes{
 		altaU.btnRegistrar.setVisible(true);
 		altaU.btnGuardar.setVisible(false);
 		altaU.btnCambiarPass.setVisible(false);
-
 	}
 
 	//Ventana Modificar Usuario	
@@ -161,7 +162,7 @@ public class ControllerUsuario implements Constantes{
 		//ORDEN DE LA TABLA
 		TableRowSorter<TableModel> orden=new  TableRowSorter<>(modelo);
 		listU.table.setRowSorter(orden);
-		
+
 		for(int i = filas-1; i>=0; i--) {
 			modelo.removeRow(i);
 		}
@@ -219,9 +220,8 @@ public class ControllerUsuario implements Constantes{
 			@Override
 			public void mouseClicked(MouseEvent e){
 
-				//Guardar Cambios
 				V_AltaUsuario();
-
+				
 				altaU.btnRegistrar.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
@@ -233,6 +233,7 @@ public class ControllerUsuario implements Constantes{
 						String pass = String.valueOf(altaU.contrasena.getPassword());
 						String pass2 = String.valueOf(altaU.confcontrasena.getPassword());
 						String tipo = (String) altaU.comboRol.getSelectedItem();
+
 						String cedula = altaU.cedula.getText();
 
 						String ciudad = altaU.ciudad.getText();
@@ -382,23 +383,25 @@ public class ControllerUsuario implements Constantes{
 		boolean todoOK = camposVacios(ap, nom, mail, user, tipo, ciudad, documento, domicilio, telefono, ocupacion);
 		if (todoOK) {
 			todoOK = validarFormatos(mail, user);
-
-			if(todoOK) {
-				validarContraseña(pass);
-			}
-
-			if(todoOK && tipo.equalsIgnoreCase("ADMINISTRADOR") ) {
-				todoOK=ciValida(documento);
-			}
-			if(todoOK && tipo.equalsIgnoreCase("INVESTIGADOR")) {
-				todoOK=ciValida(documento);
-			}
-
 		}
+		if(todoOK) {
+			validarContraseña(pass);
+		}
+
+		if(todoOK && tipo.equalsIgnoreCase("ADMINISTRADOR") ) {
+			todoOK=ciValida(documento);
+		}
+		if(todoOK && tipo.equalsIgnoreCase("INVESTIGADOR")) {
+			todoOK=ciValida(documento);
+		}
+
+
+
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
 				InitialContext.doLookup(RUTA_UsuarioBean);
 
 		Usuario existeUser = usuarioBean.usuarioExistente(user);
+
 		if(existeUser != null) {
 			JOptionPane.showMessageDialog(null, "El nombre de usuario ingresado ya existe", null, 1);
 			todoOK = false;
@@ -434,6 +437,7 @@ public class ControllerUsuario implements Constantes{
 				admin.setDomicilio(domicilio);
 				admin.setTelefono(telefono);
 
+
 				try {
 
 					usuarioBean.crearAd(admin);
@@ -468,7 +472,7 @@ public class ControllerUsuario implements Constantes{
 				try {
 					usuarioBean.crearIn(invest);
 					invest=usuarioBean.buscarInv(invest.getNombreUsuario());
-					System.out.println("Se creó exitosamente el usuario Investigador");
+					//System.out.println("Se creó exitosamente el usuario Investigador");
 					JOptionPane.showMessageDialog(null,"Usuario creado correctamente");
 				} catch (ServiciosException e) {
 
