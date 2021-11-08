@@ -52,6 +52,7 @@ public class ListadoFormulario extends JFrame implements Constantes{
 	private JScrollPane scrollPane;
 	private JLabel lblNewLabel_1;
 	private JTextField filtroNombre;
+	private JTextField filtroUsuario;
 	public JComboBox comboDpto;
 	public JButton btnVolver;
 	public JButton btnNuevo;
@@ -59,7 +60,6 @@ public class ListadoFormulario extends JFrame implements Constantes{
 	public JButton btnEliminar;
 
 	public HashMap<Long,Formulario> map;
-	private JTextField filtroUsuario;
 
 
 	public ListadoFormulario() throws ServiciosException  {
@@ -141,7 +141,6 @@ public class ListadoFormulario extends JFrame implements Constantes{
 		filtroUsuario.setColumns(10);
 		filtroUsuario.setBounds(277, 98, 123, 20);
 		panel.add(filtroUsuario);
-
 
 
 		JButton lupe = new JButton("");
@@ -236,7 +235,7 @@ public class ListadoFormulario extends JFrame implements Constantes{
 				fila[5]=f.getIdUsuario();
 				fila[6]=f.getCasillas().size();
 				if  (f.getEstado().equals(Estado.ACTIVO)) {
-					
+
 					modelo.addRow(fila);
 
 				}
@@ -247,25 +246,25 @@ public class ListadoFormulario extends JFrame implements Constantes{
 			e1.printStackTrace();
 		}
 
-//////////////////****************************FILTROS********************************/////////////////7
-		
-	TableRowSorter<TableModel> filtro=new  TableRowSorter<>(modelo);
-	table.setRowSorter(filtro);
-	
-	JLabel lblNewLabel_1_1 = new JLabel("Usuario");
-	lblNewLabel_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-	lblNewLabel_1_1.setBounds(221, 99, 63, 14);
-	panel.add(lblNewLabel_1_1);
-	
+		//////////////////****************************FILTROS********************************/////////////////7
 
-	
-	filtroNombre.addKeyListener(new KeyAdapter() {
-		@Override
-		public void keyReleased(KeyEvent e) {
-			filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 0));
+		TableRowSorter<TableModel> filtro=new  TableRowSorter<>(modelo);
+		table.setRowSorter(filtro);
 
-		}
-	});
+		JLabel lblNewLabel_1_1 = new JLabel("Usuario");
+		lblNewLabel_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		lblNewLabel_1_1.setBounds(221, 99, 63, 14);
+		panel.add(lblNewLabel_1_1);
+
+
+
+		filtroNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 1));
+
+			}
+		});
 
 	}
 }
