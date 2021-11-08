@@ -59,6 +59,17 @@ public class ControllerUsuario implements Constantes{
 		altaU.btnRegistrar.setVisible(true);
 		altaU.btnGuardar.setVisible(false);
 		altaU.btnCambiarPass.setVisible(false);
+		ocultar("Administradors");
+		
+		altaU.comboRol.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+
+				String rol = altaU.comboRol.getSelectedItem().toString();
+				ocultar(rol);
+
+			}
+		});
+
 	}
 
 	//Ventana Modificar Usuario	
@@ -114,10 +125,10 @@ public class ControllerUsuario implements Constantes{
 			String userName=(String) listU.table.getValueAt(row, 3);
 			try {
 				int confirmado = JOptionPane.showOptionDialog(null,
-						"¿Desea dar de baja el usuario seleccionado?",
+						"ï¿½Desea dar de baja el usuario seleccionado?",
 						"Exit Confirmation", JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE,null, null, null);
-				//Si el usuario elige sí se borra la fila
+				//Si el usuario elige sï¿½ se borra la fila
 				if (JOptionPane.OK_OPTION == confirmado) {
 
 					Usuario user = new Usuario();
@@ -126,7 +137,7 @@ public class ControllerUsuario implements Constantes{
 					user.setEstado(user.getEstado().INACTIVO);
 					//usuarioBean.borrar(id);
 					usuarioBean.actualizar(user);
-					System.out.println("Se borró exitosamente el usuario");
+					System.out.println("Se borrï¿½ exitosamente el usuario");
 
 					actualizarListado(listU.modelo);
 				}
@@ -171,7 +182,7 @@ public class ControllerUsuario implements Constantes{
 
 
 		Object [] fila = new Object[columnNames.length]; 
-		// Se carga cada posición del array con una de las columnas de la tabla en base de datos.
+		// Se carga cada posiciï¿½n del array con una de las columnas de la tabla en base de datos.
 
 		List<Usuario> usuarios = ControllerUsuario.obtenerTodos();
 		for (Usuario u: usuarios) {
@@ -205,7 +216,7 @@ public class ControllerUsuario implements Constantes{
 			}
 		});
 
-		//Volver al Menú desde listado
+		//Volver al Menï¿½ desde listado
 		listU.btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -244,9 +255,9 @@ public class ControllerUsuario implements Constantes{
 
 						if (pass.equals(pass2)) {
 							int confirm = JOptionPane.showOptionDialog(null,
-									"¿Desea dar de alta el usuario?",
+									"ï¿½Desea dar de alta el usuario?",
 									"Exit Confirmation", JOptionPane.YES_NO_OPTION,
-									JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige sí se borra la fila
+									JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige sï¿½ se borra la fila
 							if (JOptionPane.YES_OPTION== confirm) {
 								//hacer para los otros atributos
 								try {
@@ -258,7 +269,7 @@ public class ControllerUsuario implements Constantes{
 								}
 							}
 						}else {
-							JOptionPane.showMessageDialog(null, "Las Contraseñas ingresadas no coinciden");
+							JOptionPane.showMessageDialog(null, "Las Contraseï¿½as ingresadas no coinciden");
 						}
 
 					}
@@ -287,7 +298,7 @@ public class ControllerUsuario implements Constantes{
 				listU.setVisible(false);
 
 
-				//Cambio de Contraseña - 
+				//Cambio de Contraseï¿½a - 
 				altaU.btnCambiarPass.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
@@ -296,12 +307,12 @@ public class ControllerUsuario implements Constantes{
 						JPasswordField cont = new JPasswordField();
 						JPasswordField confContr = new JPasswordField();
 						JPanel panel = new JPanel(new GridLayout(0, 1));
-						panel.add(new JLabel("Contraseña"));
+						panel.add(new JLabel("Contraseï¿½a"));
 						panel.add(cont);
-						panel.add(new JLabel("Confirmar Contraseña"));
+						panel.add(new JLabel("Confirmar Contraseï¿½a"));
 						panel.add(confContr);
 
-						int result = JOptionPane.showConfirmDialog(null, panel, "Cambio de Contraseña",
+						int result = JOptionPane.showConfirmDialog(null, panel, "Cambio de Contraseï¿½a",
 								JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 						if (result == JOptionPane.OK_OPTION ) {
 
@@ -316,7 +327,7 @@ public class ControllerUsuario implements Constantes{
 									e1.printStackTrace();
 								}
 							}else {
-								JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden");
+								JOptionPane.showMessageDialog(null, "Las contraseï¿½as no coinciden");
 							}
 
 						} else { 
@@ -352,9 +363,9 @@ public class ControllerUsuario implements Constantes{
 						String ocupacion = altaU.ocupacion.getText();
 
 						int confirm = JOptionPane.showOptionDialog(null,
-								"¿Desea modificar el usuario?",
+								"ï¿½Desea modificar el usuario?",
 								"Exit Confirmation", JOptionPane.YES_NO_OPTION,
-								JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige sí se borra la fila
+								JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige sï¿½ se borra la fila
 						if (JOptionPane.YES_OPTION== confirm) {
 
 
@@ -385,7 +396,7 @@ public class ControllerUsuario implements Constantes{
 			todoOK = validarFormatos(mail, user);
 		}
 		if(todoOK) {
-			validarContraseña(pass);
+			validarContraseï¿½a(pass);
 		}
 
 		if(todoOK && tipo.equalsIgnoreCase("ADMINISTRADOR") ) {
@@ -426,7 +437,7 @@ public class ControllerUsuario implements Constantes{
 				admin.setNombre(nom);
 				admin.setMail(mail);
 				admin.setNombreUsuario(user);
-				admin.setContraseña(pass);
+				admin.setContraseï¿½a(pass);
 				admin.setTipo(tipo);
 				admin.setEstado(admin.getEstado().ACTIVO);
 
@@ -445,7 +456,7 @@ public class ControllerUsuario implements Constantes{
 					//System.out.println(admin.getIdUsuario() + admin.getNombreUsuario());
 					JOptionPane.showMessageDialog(null,"Usuario creado correctamente");
 
-					System.out.println("Se creó exitosamente el usuario Administrador");
+					System.out.println("Se creï¿½ exitosamente el usuario Administrador");
 				} catch (ServiciosException e) {
 					System.out.println(e.getMessage());
 				}
@@ -459,7 +470,7 @@ public class ControllerUsuario implements Constantes{
 				invest.setNombre(nom);
 				invest.setMail(mail);
 				invest.setNombreUsuario(user);
-				invest.setContraseña(pass);
+				invest.setContraseï¿½a(pass);
 				invest.setTipo(tipo);
 				invest.setEstado(invest.getEstado().ACTIVO);
 
@@ -472,7 +483,7 @@ public class ControllerUsuario implements Constantes{
 				try {
 					usuarioBean.crearIn(invest);
 					invest=usuarioBean.buscarInv(invest.getNombreUsuario());
-					//System.out.println("Se creó exitosamente el usuario Investigador");
+					//System.out.println("Se creï¿½ exitosamente el usuario Investigador");
 					JOptionPane.showMessageDialog(null,"Usuario creado correctamente");
 				} catch (ServiciosException e) {
 
@@ -487,7 +498,7 @@ public class ControllerUsuario implements Constantes{
 				aficionado.setNombre(nom);
 				aficionado.setMail(mail);
 				aficionado.setNombreUsuario(user);
-				aficionado.setContraseña(pass);
+				aficionado.setContraseï¿½a(pass);
 				aficionado.setTipo(tipo);
 				aficionado.setOcupacion(ocupacion);
 				aficionado.setEstado(aficionado.getEstado().ACTIVO);
@@ -750,23 +761,23 @@ public class ControllerUsuario implements Constantes{
 
 
 	//metodo para actualizar PASSWORD
-	public static void actualizarPass(String nombreUsuario, String contraseña) throws NamingException {
+	public static void actualizarPass(String nombreUsuario, String contraseï¿½a) throws NamingException {
 
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
 				InitialContext.doLookup(RUTA_UsuarioBean);
 
-		boolean todoOK =validarContraseña(contraseña);
+		boolean todoOK =validarContraseï¿½a(contraseï¿½a);
 
 		if(todoOK) {
 			Usuario user=new Usuario();
 			user=usuarioBean.buscarUser(nombreUsuario);
 			System.out.println(nombreUsuario);
-			user.setContraseña(contraseña);
-			System.out.println(contraseña);
+			user.setContraseï¿½a(contraseï¿½a);
+			System.out.println(contraseï¿½a);
 
 			try {
 				usuarioBean.actualizar(user);
-				JOptionPane.showMessageDialog(null, "Contraseña actualizada correctamente");
+				JOptionPane.showMessageDialog(null, "Contraseï¿½a actualizada correctamente");
 			} catch (ServiciosException e) {
 
 				System.out.println(e.getMessage());
@@ -888,16 +899,16 @@ public class ControllerUsuario implements Constantes{
 			return false;
 		}
 
-		//Usuario sin números
+		//Usuario sin nï¿½meros
 		if(user.matches("[0-9]+")) {
-			JOptionPane.showMessageDialog(null, "El nombre de usuario no puede contener números", null, 1);
+			JOptionPane.showMessageDialog(null, "El nombre de usuario no puede contener nï¿½meros", null, 1);
 			return false;
 		}
 
 
 		//correo no valido
 		if(!mail.contains("@")) {
-			JOptionPane.showMessageDialog(null, "El correo ingresado no es válido", null, 1);
+			JOptionPane.showMessageDialog(null, "El correo ingresado no es vï¿½lido", null, 1);
 			return false;
 		}
 
@@ -906,30 +917,30 @@ public class ControllerUsuario implements Constantes{
 
 	}
 
-	public static boolean validarContraseña(String pass) {
+	public static boolean validarContraseï¿½a(String pass) {
 
 
 		boolean bandera = true;
 
 		//Minimo caracteres
 		if(pass.length() <8) {
-			JOptionPane.showMessageDialog(null, "La contraseña debe tener al menos 8 caracteres", null, 1);
+			JOptionPane.showMessageDialog(null, "La contraseï¿½a debe tener al menos 8 caracteres", null, 1);
 			return false;
 		}
 
-		//Contraseña con números y letras
+		//Contraseï¿½a con nï¿½meros y letras
 
 		String letras = pass.replaceAll("[*0-9]", "");
-		String numeros = pass.replaceAll("[*a-zA-ZÀ-ÿ\u00f1\u00d1]", "");
+		String numeros = pass.replaceAll("[*a-zA-Zï¿½-ï¿½\u00f1\u00d1]", "");
 
 
-		if(!numeros.matches("[0-9]+") || !letras.matches("[a-zA-ZÀ-ÿ\u00f1\u00d1]+")) {
-			JOptionPane.showMessageDialog(null, "La contraseña debe contener números y letras", null, 1);
+		if(!numeros.matches("[0-9]+") || !letras.matches("[a-zA-Zï¿½-ï¿½\u00f1\u00d1]+")) {
+			JOptionPane.showMessageDialog(null, "La contraseï¿½a debe contener nï¿½meros y letras", null, 1);
 			return false;
 		}
 
 		if(pass.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Debe completar el campo Contraseña", null, 1);
+			JOptionPane.showMessageDialog(null, "Debe completar el campo Contraseï¿½a", null, 1);
 			return false;
 		}
 
