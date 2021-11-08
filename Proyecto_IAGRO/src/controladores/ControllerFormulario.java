@@ -28,12 +28,12 @@ import javax.swing.table.TableRowSorter;
 import org.hibernate.type.LocalDateType;
 
 import com.entities.Casilla;
-import com.entities.Estacion;
+
 import com.entities.Estado;
 import com.entities.Formulario;
 import com.exception.ServiciosException;
 import com.servicios.CasillaBeanRemote;
-import com.servicios.EstacionBeanRemote;
+
 import com.servicios.FormularioBeanRemote;
 
 import vistas.AltaFormulario;
@@ -204,12 +204,16 @@ public class ControllerFormulario implements Constantes {
 					altaF.textResumen.setText(fo.getComentarios());
 					altaF.lblfechaHoy.setText(fech);
 
+					List<Casilla>casi=fo.getCasillas();
+					for(Casilla c: casi) {
+						altaF.map.put(c.getIdCasilla(), c);
+						
+					}
 
-
-
+					altaF.cargarCasillas();
 					//Guardar Cambios
 				}else {
-					JOptionPane.showMessageDialog(null, "Debe seleccionar una Estación", null, 1);
+					JOptionPane.showMessageDialog(null, "Debe seleccionar un Formulario", null, 1);
 				}
 
 				//Volver al listado
@@ -289,8 +293,6 @@ public class ControllerFormulario implements Constantes {
 		altaF.btnRegistrar.setVisible(false);
 		altaF.btnGuardar.setVisible(true);
 
-
-
 	}
 
 	//ACTUALIZAR FORMULARIO
@@ -333,7 +335,7 @@ public class ControllerFormulario implements Constantes {
 			System.out.println(e.getMessage());
 		}
 		actualizarListado(listF.modelo);
-		System.out.println("Se actualizó exitosamente la estación");
+		System.out.println("Se actualizó exitosamente el Formulario");
 
 	}
 
@@ -345,6 +347,7 @@ public class ControllerFormulario implements Constantes {
 		altaF.setVisible(true);
 		altaF.btnRegistrar.setVisible(true);
 		altaF.btnGuardar.setVisible(false);
+		altaF.cargarCasillas();
 		listF.setVisible(false);
 
 		Main.menuP.setVisible(false);

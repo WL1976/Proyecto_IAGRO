@@ -19,6 +19,7 @@ import com.entities.Usuario;
 import com.exception.ServiciosException;
 import com.servicios.UsuarioBeanRemote;
 
+import vistas.Importar;
 import vistas.Login;
 import vistas.MenuPrincipal;
 
@@ -29,6 +30,8 @@ public class Main implements Constantes	{
 	public static Usuario User;
 	public static MenuPrincipal menuP;
 	public static Login login;
+	public static ModelImpExp model;
+	public static Importar impExp;
 
 	public static void main(String[] args) throws NamingException, ServiciosException {
 
@@ -60,7 +63,7 @@ public class Main implements Constantes	{
 
 				String nombre=login.textNombreDeUsuario.getText();
 				String contras = String.valueOf(login.Passcontraseña.getPassword());
-				
+
 
 				try {
 					loginUsuario(nombre,contras);
@@ -187,7 +190,7 @@ public class Main implements Constantes	{
 				}
 			}
 		});
-	
+
 		menuP.btnFormularioInv.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {	
@@ -223,6 +226,20 @@ public class Main implements Constantes	{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+			}
+		});
+
+		menuP.btnImportExport.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {	
+				impExp=new Importar();
+				impExp.setVisible(true);
+				model=new ModelImpExp();
+				ControllerImpExp cont=new ControllerImpExp(impExp,model);
+
+
+				menuP.setVisible(false);
+
 			}
 		});
 	}
