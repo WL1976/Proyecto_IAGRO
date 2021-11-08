@@ -59,7 +59,7 @@ public class ControllerUsuario implements Constantes{
 		altaU.btnRegistrar.setVisible(true);
 		altaU.btnGuardar.setVisible(false);
 		altaU.btnCambiarPass.setVisible(false);
-		ocultar("Administradors");
+		ocultar("Administrador");
 		
 		altaU.comboRol.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
