@@ -187,7 +187,7 @@ public class ListadoCasilla extends JFrame implements Constantes{
 		btnModificar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnModificar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) verde));
 		btnModificar.setBackground(verde);
-		btnModificar.setBounds(356, 370, 90, 27);
+		btnModificar.setBounds(344, 370, 90, 27);
 		panel.add(btnModificar);
 
 
@@ -197,7 +197,7 @@ public class ListadoCasilla extends JFrame implements Constantes{
 		btnEliminar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnEliminar.setBorderPainted(false);
 		btnEliminar.setBackground(verde);
-		btnEliminar.setBounds(456, 370, 90, 27);
+		btnEliminar.setBounds(457, 369, 90, 27);
 		panel.add(btnEliminar);
 
 		comboTipoCasilla = new JComboBox();
