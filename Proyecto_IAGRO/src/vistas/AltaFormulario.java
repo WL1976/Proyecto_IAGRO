@@ -222,66 +222,50 @@ public class AltaFormulario extends JFrame implements Constantes{
 		////////////////////////////***************CASILLAS*****************/////////////////////////////////////
 
 
-	}
-
-	public void cargarCasillas() {
-
 		ArrayList<JCheckBox> casillas = new ArrayList<>();
 
-		
-		try {
-			CasillaBeanRemote casillaBean;
-			casillaBean = (CasillaBeanRemote)
-					InitialContext.doLookup(RUTA_CasillaBean);
-			
-			ArrayList<Casilla> allCasillas = (ArrayList<Casilla>) casillaBean.obtenerTodos();
-			
-			int y = 0;
+		CasillaBeanRemote casillaBean = (CasillaBeanRemote)
+				InitialContext.doLookup(RUTA_CasillaBean);
 
-			for(Casilla c: allCasillas){
-				chckbxNewCheckBox = new JCheckBox(c.getNombre());
-				chckbxNewCheckBox.setBounds(0, y, 160, 23);
-				chckbxNewCheckBox.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 13));
-				//Insertar casillas en panel
-				panel_1.add(chckbxNewCheckBox);
-				
-				//Marcar casillas ya existentes
-				if(map.containsKey(c.getIdCasilla())) {
-					chckbxNewCheckBox.doClick();
+		ArrayList<Casilla> allCasillas = (ArrayList<Casilla>) casillaBean.obtenerTodos();
+
+
+		int y = 0;
+
+		for(Casilla c: allCasillas){
+			chckbxNewCheckBox = new JCheckBox(c.getNombre());
+			chckbxNewCheckBox.setBounds(0, y, 160, 23);
+			chckbxNewCheckBox.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 13));
+			//Insertar casillas en panel
+			panel_1.add(chckbxNewCheckBox);
+
+			//Generar evento de chequear/deschequear por casilla
+			chckbxNewCheckBox.addItemListener(new ItemListener() {
+
+
+				@Override
+				public void itemStateChanged(ItemEvent e) {
+					// TODO Auto-generated method stub
+					if(e.getStateChange() == ItemEvent.SELECTED) {//agrega la casilla si se selecciona
+						map.put(c.getIdCasilla(), c);
+					} else {//quita la casilla si se deselecciona
+						map.remove(c.getIdCasilla());
+					};
+
+					System.out.println("Cambio");
+
+
 				}
-
-				//Generar evento de chequear/deschequear por casilla
-				chckbxNewCheckBox.addItemListener(new ItemListener() {
-
-
-					@Override
-					public void itemStateChanged(ItemEvent e) {
-						// TODO Auto-generated method stub
-						if(e.getStateChange() == ItemEvent.SELECTED) {//agrega la casilla si se selecciona
-							map.put(c.getIdCasilla(), c);
-						} else {//quita la casilla si se deselecciona
-							map.remove(c.getIdCasilla());
-						};
-
-						System.out.println("Cambio");
-
-
-					}
-				});
+			});
 
 
 
-				y += 30;
-			}
+			y += 30;
+		}
 
-			setVisible(true);
-			this.setMinimumSize(new Dimension(670, 420));
-			setLocationRelativeTo(null);
-		} catch (NamingException e1) {}
-
-		
-
-
-		
+		setVisible(true);
+		this.setMinimumSize(new Dimension(670, 420));
+		setLocationRelativeTo(null);
 	}
 }
+
